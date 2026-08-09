@@ -1,0 +1,19 @@
+a friend of mine told me his idea for his non-profit in a phone conversation.
+me, being the software architect that i am, went and did some technical feasibility assessment and systems architecture to see how we could achieve the capabiltiies.
+
+the basic requirements he gave over the phone was he wanted to provide a microlending service for impovershed people in hati.  specifically, those running smal businessl.  The basic outline he told me was a voice-activated multiu-lingual mobile app that would allow them to manage their smal business and bookeeping,  he also had a secondary goal of tracking financial outcomes of the microlending because the organization that issues the grants he depends on are looking to measure the outcome of the non-profit.  did the microloans lead to a material improvement in his target base's lives.
+
+when i did my technical feasibility, i needed to know some requirements and features of the app.
+So, I assumed some requirements - knowing i would later talk to him to get his real requirements.
+
+he has been working on this for 2 months and now has write-ups on his ideas, goals, and real requirements.
+
+First, I want to you read his write-ups to understand it.  And give me a summary of what you find.
+
+Then, i will ask you to read my research findings and technical archiecture and tell me where they differ and what needs
+ to be changed or if we need a whole new analysis
+
+but first understand his docs without seeing what i wrote.
+
+/Users/joerice/Library/CloudStorage/GoogleDrive-jizzoerice@gmail.com/My Drive/2026/projects/home-roots/mobie-bookkeeping/jpaul-documents/Reinvest to Grow Master Architecture Version 3.1 Final.docx
+/Users/joerice/Library/CloudStorage/GoogleDrive-jizzoerice@gmail.com/My Drive/2026/projects/home-roots/mobie-bookkeeping/jpaul-documents/Building the Enterprise Growth Platform, An Introduction for Software Engineers and Technical Partners, Software Engineer Brief v1.0.docx
