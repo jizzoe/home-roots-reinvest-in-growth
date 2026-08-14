@@ -1,0 +1,61 @@
+schema: spec-driven
+
+context: |
+  Product: Invest in Growth technology planning for Home Roots Foundation's
+  Reinvest-to-Grow enterprise-development methodology and eventual Enterprise
+  Growth Platform.
+
+  Repository boundary: this repository owns public product planning,
+  architecture, research, design briefs, cross-repository specifications, and
+  coordination evidence. It contains no application or infrastructure source
+  code. Mobile, backend, staff-web, worker, and infrastructure repositories own
+  their implementations, tests, builds, and local OpenSpec changes.
+
+  Supported assistants: Claude and Codex. The approved lifecycle is Explore,
+  Propose, Apply, Verify, Sync, and Archive.
+
+  Canonical locations: OpenSpec artifacts live under openspec/. Product and
+  architecture source material lives under ai-planning/research/,
+  ai-planning/design-briefs/, and
+  ai-planning/ai-planning/implementation-plans/. Repository governance lives in
+  AGENTS.md and docs/sdd-workflow.md.
+
+  Source of truth: accepted behavior lives in openspec/specs/. Proposed behavior
+  lives in openspec/changes/ until verified, synchronized, and archived. Existing
+  planning documents are evidence and decision context; do not silently promote
+  a hypothesis, roadmap item, or deferred feature into accepted behavior.
+
+  Quality and safety: keep artifacts proportional to risk and trace every
+  requirement to observable scenarios and validation evidence. Use synthetic
+  data only. Never store credentials, personal data, participant records, or
+  production financial data. AI proposes and people decide. Offline operation,
+  human confirmation, auditability, evidence-seeking claims, nonprofit
+  ownership, and explicit component boundaries are durable constraints where
+  the relevant product scope applies.
+
+rules:
+  proposal:
+    - State the outcome, motivation, affected repositories, scope, and explicit non-goals.
+    - Cite the relevant project source material and distinguish confirmed decisions from hypotheses.
+    - Identify external writes, sensitive-data use, cost, ownership, and material architecture decisions that require approval.
+  specs:
+    - Describe observable behavior rather than implementation details unless an implementation constraint is itself required behavior.
+    - Give each requirement concrete primary and meaningful failure or boundary scenarios.
+    - Identify the responsible repository for cross-component behavior and the evidence needed for system acceptance.
+  design:
+    - Record consequential decisions, alternatives, component boundaries, failure behavior, security and privacy implications, and recovery needs in proportion to risk.
+    - Link durable architecture decisions and existing research instead of duplicating them.
+  tasks:
+    - Keep tasks ordered, repository-specific, independently verifiable, and mapped to requirements or scenarios.
+    - Include applicable tests, validation commands, review evidence, recovery checks, and documentation updates.
+
+operations:
+  apply:
+    guidance:
+      - Apply only after explicit human approval of the change artifacts, mutation scope, and validation plan.
+      - Preserve unrelated user changes and keep work within the repository boundary recorded by the change.
+      - Record objective validation evidence and never treat task completion alone as proof of behavior.
+  archive:
+    guidance:
+      - Archive only after requirements, scenarios, tasks, and repository-specific quality checks have verified evidence.
+      - Require explicit human approval and preserve links to component changes and end-to-end evidence.
