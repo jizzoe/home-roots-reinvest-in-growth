@@ -301,7 +301,7 @@ Prove the riskiest V1 assumptions quickly with a small, working, non-throwaway p
 
 Outcome:
 
-A real mobile prototype demonstrates offline-first transaction capture, a confirmed speech proposal path, text-to-speech confirmation, and receipt capture with best-effort OCR. The prototype should be small enough to build quickly, but shaped so its domain model, local storage, and confirmation flow can evolve into V1 rather than being discarded.
+A real, versioned Android prototype can be installed and used by a non-developer on a physical device. It demonstrates offline-first transaction capture, a confirmed speech proposal path, text-to-speech confirmation, and receipt capture with best-effort OCR. The prototype should be small enough to build quickly, but shaped so its domain model, local storage, and confirmation flow can evolve into V1 rather than being discarded.
 
 Comparison to prior prototype recommendation:
 
@@ -360,6 +360,10 @@ Acceptance:
 - Text-to-speech can read a confirmation summary.
 - Receipt OCR produces reviewable text or fails gracefully.
 - Manual entry remains available if speech or OCR fails.
+- A versioned, signed Android APK is produced through a documented, repeatable build process and can be installed on a representative physical Android device without a developer workstation connection.
+- A tester can open the installed APK, enter a synthetic sale or expense while offline, force-close the app, reopen it, and find the confirmed record intact.
+- Camera, speech, and text-to-speech permission-denied or unavailable-device states preserve manual entry and fail safely.
+- The installed prototype contains only synthetic data and is distributed only to authorized prototype testers through a documented APK-installation or Google Play closed-test process.
 - The prototype demonstrates viability without adding admin portal, loans, full inventory, full AI Growth Coach, or production data.
 
 Blocking questions:
@@ -369,6 +373,90 @@ Blocking questions:
 - Which language should speech use for the first proof? Recommended answer: English first for speed, then French/Haitian Creole evaluation.
 - Is simple camera photo enough for phase 3, or is document edge detection required? Recommended answer: simple camera photo first.
 - Which OCR path is acceptable for the prototype: mocked, device/local best effort, or AWS Textract? Recommended answer: best-effort behind an interface; do not block on paid/cloud integration.
+
+### M1.2: Live Sync and Prototype API Proof
+
+Goal:
+
+Prove the narrowest end-to-end path from the installed M1 Android prototype to a Terraform-provisioned AWS development environment: one deployed Spring Boot REST API accepts and persists a confirmed synthetic transaction, and the app reports the server-confirmed sync result.
+
+Outcome:
+
+A signed M1 Android APK makes authenticated HTTPS calls to one AWS-deployed Spring Boot REST API and synchronizes a manually entered, confirmed synthetic sale or expense. The app remains local-first: a record is durable in SQLite before network activity, and the API integration exercises queued, synced, failed, and retryable states. The API is one Dockerized modular-monolith service, not a distributed microservice architecture.
+
+Minimum M1 capabilities carried into M1.2:
+
+- The signed Android APK and physical-device installation path.
+- One synthetic entrepreneur and one synthetic business.
+- Manual sale and expense entry, confirmation, SQLite persistence, and visible sync status.
+- A versioned transaction payload and durable local outbox item with an idempotency key.
+- A configurable sync-client interface so the M1 local stub can be replaced by a live development endpoint without changing the transaction model.
+
+Bare-minimum extraction from M2: Terraform Infrastructure Foundation:
+
+- Terraform repository, remote encrypted state, state-access roles, and a single isolated development environment.
+- A minimal development VPC and EKS runtime sufficient for one Spring Boot workload, with narrowly scoped IAM/OIDC workload roles.
+- An ECR repository for immutable API images.
+- Development PostgreSQL, networked only for the API workload, with credentials managed through Secrets Manager.
+- A development DNS name, TLS certificate, and public HTTPS ingress for the API; the root domain and hosted zone must be owned and approved before this is provisioned.
+- CloudWatch service logs and a small, explicit cost budget/alarm and shutdown rule for the development environment.
+
+Bare-minimum extraction from M3: Deployment and Environment Foundation:
+
+- A repeatable container build for the Spring Boot API, including its deterministic unit/API-contract checks.
+- A development-only Helm chart or equivalent Kubernetes workload package with image digest, environment configuration, health/readiness probes, and non-secret configuration separated from Secrets Manager values.
+- GitHub Actions pull-request checks plus a development deployment path that builds an immutable image, publishes it to ECR, and deploys that exact image digest to EKS through a narrowly scoped GitHub OIDC role.
+- A development smoke test for the deployed API, captured deployment metadata, and a documented rollback to the prior image digest.
+
+Minimum API and mobile-integration scope:
+
+- One Spring Boot modular-monolith service with `GET /health` and a versioned transaction-sync endpoint for confirmed manual sale and expense records.
+- Provisioned prototype access for named testers only; self-registration, staff roles, and full identity/profile workflows remain M4 work. The API must reject unauthenticated writes and the APK must not contain reusable AWS credentials.
+- Idempotent transaction creation backed by PostgreSQL, plus enough read-back evidence to confirm that an acknowledged transaction was durably accepted once.
+- Mobile configuration for the development API base URL and tester authentication, with no production endpoint or participant data path.
+
+Explicitly deferred from M1.2:
+
+- Speech, text-to-speech, receipt capture, and OCR integration.
+- Admin portal, reports, loans, inventory, and AI assistance.
+- Production data, pilot participant accounts, and production/pilot deployment.
+- Staging/production environments, environment promotion, GitOps/Argo CD, and multi-service decomposition.
+- Full registration, recovery, role management, and production identity flows.
+
+Candidate slices:
+
+- `prototype-android-release-delivery`
+- `prototype-sync-contract-and-outbox`
+- `prototype-development-terraform-bootstrap`
+- `prototype-development-eks-ecr-rds-and-ingress`
+- `prototype-spring-boot-api-and-synthetic-transaction-store`
+- `prototype-github-oidc-build-publish-and-helm-deploy`
+- `prototype-tester-authentication`
+- `prototype-device-live-sync-proof`
+
+Dependencies:
+
+- M0 guardrails, repository strategy, and API-contract conventions.
+- M1 phase 1 manual offline-first transaction slice and Android release delivery.
+- Explicit approval of the AWS account, owned domain/hosted-zone approach, development region, spending limits, Terraform state ownership, component repositories, GitHub organization/repositories, and authorized tester group before external resources, credentials, or tester authentication are created.
+
+Acceptance:
+
+- An authorized tester installs the signed M1 APK on a physical Android device and signs in through the approved prototype authentication path.
+- While offline, the tester confirms a synthetic sale or expense; it remains locally durable after app restart and visibly queues for synchronization.
+- When connectivity returns, the app makes an authenticated TLS API call to the Terraform-provisioned EKS-hosted Spring Boot API, receives a successful acknowledgement, and changes the item to `synced` only after PostgreSQL durably accepts it.
+- Retrying the same queued operation does not create a duplicate server record.
+- A controlled API or deployment failure leaves the local record intact, reports a comprehensible retryable/failed state, and succeeds when the service is restored.
+- The deployed service is reachable only through its intended development HTTPS endpoint, uses no long-lived AWS credentials in the app or repository, and stores only synthetic prototype data.
+- Terraform reproduces the approved development foundation. GitHub Actions records the commit SHA, image digest, Helm configuration version, deployment result, smoke-test evidence, and rollback target.
+
+Blocking questions:
+
+- Is EKS confirmed as the required development runtime for this proof, accepting its baseline cost and operational overhead? Recommended answer: confirm before provisioning; M1.2 assumes EKS only when that decision is accepted.
+- What owned root domain, Route 53 hosted-zone approach, development API subdomain, and TLS certificate ownership are approved?
+- What approved named-tester authentication approach will be used for synthetic prototype access?
+- Which development region, budget alarm threshold, automatic shutdown rule, Terraform state owners, and GitHub deployment approvers are approved?
+- Is the Android distribution path direct signed APK installation for a tightly controlled group, or Google Play closed testing for a broader tester group?
 
 ### M2: Terraform Infrastructure Foundation
 
@@ -400,6 +488,7 @@ Dependencies:
 
 - M0 product/repository strategy.
 - M1 prototype lessons if they affect runtime/library/deployment requirements.
+- M1.2 live-sync lessons, if that proof is completed before the full foundation.
 
 Acceptance:
 

@@ -15,6 +15,7 @@ This prototype should not be a throwaway demo. It should be intentionally small,
 
 A synthetic entrepreneur can use a mobile app to:
 
+- install and open a versioned Android prototype on a representative physical device;
 - record a sale or expense manually;
 - save it offline to local SQLite;
 - see it in recent activity after app restart;
@@ -51,7 +52,7 @@ Constraints:
 - Local prototype first.
 - No production participant data.
 - No automated financial finalization from speech, OCR, or AI.
-- No external send, deployment, or production release without separate approval.
+- No live backend sync, external send, deployment, or production release without separate approval.
 - Paid/cloud providers are optional behind interfaces; use mocks or local/device best effort where that speeds learning.
 
 ## Prototype Scope
@@ -62,6 +63,7 @@ Constraints:
 - One synthetic business.
 - One combined Home/Record screen.
 - One transaction review/detail state.
+- Versioned Android APK or development build that can be installed on a representative physical device.
 - Sale and expense entry.
 - Local SQLite persistence.
 - Recent transaction list.
@@ -74,6 +76,7 @@ Constraints:
 - Text-to-speech confirmation example.
 - Receipt image capture and local file metadata.
 - Best-effort OCR text extraction or mocked OCR result if real OCR integration would slow the prototype.
+- Sync-shaped outbox item, idempotency key, and configurable sync-client interface so M1.2 can replace the local/stub sync path without changing the transaction model.
 
 ### Excluded
 
@@ -87,6 +90,8 @@ Constraints:
 - Automated credit scoring.
 - Automated loan approval.
 - Production backend deployment.
+- Live REST API synchronization.
+- AWS, domain, TLS, Terraform, GitHub OIDC, or tester-authentication setup.
 - Production data migration.
 - Full document scanning with edge detection/cropping.
 - Full accounting ledger.
@@ -165,20 +170,24 @@ Build:
 
 - Expo React Native + TypeScript prototype.
 - SQLite local schema.
+- Versioned Android installable build path.
 - Home/Record screen.
 - Review/Confirm state.
 - Manual sale and expense entry.
 - Local transaction table.
+- Local outbox table or equivalent queued sync record with an idempotency key.
 - Local recent activity.
 - Local weekly totals.
-- Sync-shaped status fields, even if no backend exists yet.
+- Sync-shaped status fields and sync-client stub, with no live backend dependency.
 
 Acceptance:
 
+- A versioned Android build can be installed and opened on a representative physical Android device without a developer workstation connection.
 - A sale can be recorded offline and appears immediately in recent activity.
 - An expense can be recorded offline and appears immediately in recent activity.
 - A saved transaction remains visible after app restart.
 - The UI displays a user-understandable status.
+- A confirmed local transaction has a queued outbox/sync record with an idempotency key.
 - Totals update from local data.
 - No network is required to complete the flow.
 
@@ -255,6 +264,7 @@ Acceptance:
 `local_transactions`
 
 - `local_id`
+- `client_idempotency_key`
 - `business_id`
 - `type`: sale or expense
 - `amount_minor_units`
@@ -265,6 +275,19 @@ Acceptance:
 - `source_type`: manual, speech_transcript, receipt_ocr
 - `confirmation_status`: draft, confirmed, cancelled
 - `sync_status`: local, queued, syncing, synced, failed, needs_review
+- `created_at`
+- `updated_at`
+
+`sync_outbox`
+
+- `id`
+- `transaction_local_id`
+- `client_idempotency_key`
+- `operation_type`: create_transaction
+- `payload_json`
+- `status`: queued, syncing, synced, failed, needs_review
+- `attempt_count`
+- `last_error_message`
 - `created_at`
 - `updated_at`
 
@@ -294,12 +317,13 @@ Acceptance:
 - Store image files in app-controlled durable local storage; SQLite stores metadata and file URI.
 - Keep raw input/proposals separate from confirmed transaction fields.
 - Use local IDs from the start.
-- Include sync-shaped status now even if backend sync is stubbed.
+- Include sync-shaped status and an outbox item now even if backend sync is stubbed.
+- Put any sync call behind a configurable client interface; M1.2 replaces the stub with a development REST API endpoint without changing the confirmed transaction model.
 - Avoid a full ledger model in the prototype.
 
 ## API / Backend Impact
 
-Phase 1 may be local-only.
+Phase 1 is local-first and may be local-only. M1 must not require a live backend to complete or validate the core Business Journal workflow.
 
 If a backend stub is added, keep it narrow:
 
@@ -307,7 +331,7 @@ If a backend stub is added, keep it narrow:
 - accepts local transaction ID, idempotency key, business ID, transaction fields, source metadata summary, and client timestamp;
 - returns server ID, server revision, and accepted status.
 
-Do not build production authentication, loan APIs, admin APIs, or receipt upload APIs in M1 unless a separate SDD change approves them.
+Do not build a live REST API, production authentication, loan APIs, admin APIs, receipt upload APIs, AWS infrastructure, domain/TLS, GitHub OIDC deployment, or tester authentication in M1 unless a separate SDD/OpenSpec change approves them. The live mobile-to-REST-API proof belongs to M1.2.
 
 ## Technical Decisions
 
@@ -320,7 +344,8 @@ Do not build production authentication, loan APIs, admin APIs, or receipt upload
 | OCR | Best-effort local/device, fixture, or provider adapter. Do not block on AWS Textract. |
 | Speech | Mocked or provider-backed transcript path is acceptable; use the same proposal/review model either way. |
 | TTS | Use the fastest available prototype path, behind an adapter if practical. |
-| Backend | Stub or defer during phase 1; do not let backend scope block the local prototype. |
+| Android delivery | Produce a versioned installable Android build for representative physical-device testing. |
+| Backend | Stub or defer during M1; do not let backend scope block the local prototype. M1.2 owns the live REST API proof. |
 
 ## Product Decisions
 
@@ -332,6 +357,7 @@ Do not build production authentication, loan APIs, admin APIs, or receipt upload
 - Keep the prototype to sale and expense only unless cash movement is needed to test a specific JLP assumption.
 - Default to one business and one entrepreneur.
 - Use synthetic HTG examples unless another prototype currency is chosen.
+- Preserve a stable local transaction and outbox shape so M1.2 can prove live sync without redesigning M1 data capture.
 
 ## Open Questions
 
@@ -342,6 +368,7 @@ Do not build production authentication, loan APIs, admin APIs, or receipt upload
 - Should the prototype default to HTG and English, or include French/Haitian Creole strings in phase 1?
 - Should implementation live in this repo or a separate mobile prototype repo?
 - Should the backend be absent/stubbed in phase 1? Recommended answer: yes, unless backend scaffolding already exists.
+- What Android distribution path is acceptable for M1 testing: direct signed APK installation or Google Play closed testing?
 
 ### Phase-Specific
 
@@ -360,6 +387,7 @@ Do not build production authentication, loan APIs, admin APIs, or receipt upload
 | Offline behavior gets faked | Require SQLite persistence and app-restart test in phase 1. |
 | Prototype scope expands into full V1 | Exclude admin, loans, inventory, full AI coach, and production backend. |
 | OCR or speech seems authoritative | Label all outputs as suggestions and require confirmation. |
+| M1.2 pressure pulls live API work into M1 | Keep M1 local/stubbed; use outbox and sync-client boundaries so the live REST API proof happens in a separate approved M1.2 change. |
 
 ## Proposed SDD/OpenSpec Changes
 
@@ -368,6 +396,8 @@ Create three slice-level changes from this brief:
 1. `prototype-manual-offline-transaction`
 2. `prototype-speech-proposal-confirmation`
 3. `prototype-receipt-capture-ocr-review`
+
+M1.2 follow-on changes are described separately in `m1.2-live-sync-rest-api-proof.md`.
 
 Each change should include:
 
@@ -413,6 +443,8 @@ And the receipt image remains attached locally when available
 
 - Screenshot or screen recording of phase 1 manual offline flow.
 - Evidence that a saved transaction survives app restart.
+- Evidence that the Android build can be installed and opened on a representative physical device.
+- Evidence that confirmed transactions create stable local outbox/sync records with idempotency keys.
 - Screenshot or screen recording of speech proposal and confirmation.
 - Screenshot or screen recording of text-to-speech confirmation.
 - Screenshot or screen recording of receipt capture and OCR/review flow.
@@ -421,4 +453,4 @@ And the receipt image remains attached locally when available
 
 ## Next Action
 
-Run SDD/OpenSpec Propose for `prototype-manual-offline-transaction` using this milestone brief as the source. Keep the proposed change narrow: manual sale/expense entry, local SQLite persistence, recent activity, simple totals, and sync-shaped status only.
+Run SDD/OpenSpec Propose for `prototype-manual-offline-transaction` using this milestone brief as the source. Keep the proposed change narrow: manual sale/expense entry, installable Android prototype, local SQLite persistence, recent activity, simple totals, sync-shaped status, and an outbox/sync-client stub only.
