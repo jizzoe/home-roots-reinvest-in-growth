@@ -70,6 +70,10 @@ Until an approved OpenSpec Store or equivalent reference model exists, central a
 
 The pinned commit is the handoff artifact. It is what makes "which revision of the contract did mobile build against?" answerable later.
 
+The pin must be **pushed, not merely committed locally**. A component repository is a different clone, so a local-only commit is not a citable revision. Approving Gate 1 therefore carries a mechanical consequence: commit the central change package to its branch, push it, capture the revision, and emit one handoff record per participating component repository. That push is authorized by the Gate 1 approval itself, not by a separate prompt.
+
+Note which path is pinned. During delivery the approved behavior lives in the change's delta (`openspec/changes/<change-id>/specs/…`); it reaches `openspec/specs/` only at central Sync, which happens after components are done. The durable post-archive reference is a different path.
+
 Approval of Gate 1 on the central change is what authorizes component repositories to open their local changes at all. A central proposal is not that authorization; the approval of it is.
 
 ## Mapping Onto The Milestone/Slice Cadence
@@ -95,9 +99,21 @@ Central Verify therefore:
 3. confirms no approved requirement is left uncovered; and
 4. records residual gaps and any divergence between proposed and delivered behavior.
 
+## Evidence That Crosses The Boundary
+
+Two practices make the flow above work in practice. Both are defined in the cadence brief and both land inside this repository.
+
+**The linkage ledger.** Handoff records are not conversational artifacts. Both directions — each outbound record at Gate 1, each return record as it arrives — plus the end-to-end evidence reference are written into a ledger inside the central change package (for example `openspec/changes/<change-id>/linkage.md`) and committed. It records the contract pin and its amendment history, a dispatch entry per component repository, a return entry per component, the end-to-end verification assignment and result, and any residual gaps. It references requirements by identifier and points at evidence rather than restating either.
+
+The ledger is what lets this repository pick a slice back up. A central session opening months later, with no memory of the dispatch, reconstructs the slice's whole state by reading it: which components were dispatched, which returned, against which revision, and what remains outstanding. Anything known only to a session that has ended is lost.
+
+**End-to-end verification is assigned, not assumed.** Because this repository owns no code, it cannot execute the assembled system. Every cross-repository slice must therefore name three things before its plan gate is approved: the **executor** (a named person doing scripted manual QA, a component repository hosting the suite, or a dedicated environment), the **environment** (what is actually assembled, and what is stubbed — a run against a mock of the other half proves nothing), and the **evidence location**. A slice with no assigned end-to-end owner has no path to verification, and that is cheaper to discover at proposal time than after both components have archived.
+
+Where an end-to-end run is genuinely impossible, central verification records an explicit residual gap. It never substitutes the union of component evidence for system acceptance.
+
 ## Known Gaps
 
-- The reusable milestone/slice delivery cadence brief (`sdd-milestone-slice-delivery-skill.md`, maintained in the separate `joericearchitect-ai-skills` repository) currently assumes a single target repository. Its Required Inputs name a singular "target repository/workspace and its configured integration path," and its close-out step describes one branch and one worktree. A cross-repository slice has N+1 branches and N+1 archives. That brief needs cross-repository vocabulary before the cadence can be applied to a slice of this shape without improvisation.
+- No official OpenSpec mechanism exists for cross-change linkage or evidence return. OpenSpec Stores (beta) provide a standalone planning repository that code repositories can reference read-only, and OpenSpec's own guidance for work spanning repositories is to link branches in pull-request descriptions — a convention, not a structure. Adopting a Store later would replace only the outbound half of this flow, and only partly: references index accepted specs, while an in-flight contract lives in the change delta until Sync. The return-evidence half remains ours regardless, so a future Store change should be scoped accordingly rather than as a wholesale replacement for linkage.
 - M1 as scoped in `m1-rapid-thin-slice-prototype.md` is mobile-only and explicitly excludes live backend sync. The first genuinely cross-repository slice is **M1.2**, which `cross-repository-architecture` scopes to proving exactly one Android-prototype-to-Spring-Boot-REST-API synthetic transaction sync path.
 
 ## Related Documents
@@ -106,3 +122,4 @@ Central Verify therefore:
 - [`../AGENTS.md`](../AGENTS.md) — repository boundary and safety boundaries
 - [`../openspec/specs/cross-repository-architecture/spec.md`](../openspec/specs/cross-repository-architecture/spec.md) — accepted repository roles and linkage requirements
 - [`../openspec/specs/api-contract-conventions/spec.md`](../openspec/specs/api-contract-conventions/spec.md) — the contract conventions a central change pins
+- `sdd-milestone-slice-delivery-skill.md` in the separate `joericearchitect-ai-skills` repository — the reusable cadence brief this flow is drawn from, covering the central-coordinator and component-implementer roles, the session-entry and resume paths, handoff-record payloads and transports, the linkage-ledger format, and the amendment/re-pin rules
