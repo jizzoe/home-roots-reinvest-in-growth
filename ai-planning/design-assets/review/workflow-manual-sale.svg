@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680" role="img" aria-labelledby="title desc">
+  <title id="title">Manual sale workflow</title><desc id="desc">Home to choose action, sale entry, review, local save, and return Home, with validation and abandon-entry alternatives.</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8Z" fill="#16265D"/></marker></defs>
+  <rect width="1440" height="680" fill="#FFFEFB"/><text x="56" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#16265D">Manual sale: happy path and entry alternatives</text>
+  <g font-family="Arial, sans-serif" text-anchor="middle"><g fill="none" stroke="#16265D" stroke-width="3" marker-end="url(#a)"><path d="M267 206H325"/><path d="M527 206H585"/><path d="M787 206H845"/><path d="M1047 206H1105"/><path d="M685 274V395H585V442" stroke-dasharray="8 8"/><path d="M425 274V395H245V442" stroke-dasharray="8 8"/><path d="M425 548H585" stroke-dasharray="8 8"/></g>
+  <g font-size="22" font-weight="700" fill="#16265D"><rect x="65" y="145" width="202" height="126" rx="10" fill="#F2F6F0" stroke="#2D7A3D"/><text x="166" y="195">Home</text><text x="166" y="228" font-size="17" font-weight="400">Tap Record sale</text>
+  <rect x="325" y="145" width="202" height="126" rx="10" fill="#F2F6F0" stroke="#2D7A3D"/><text x="426" y="195">Choose action</text><text x="426" y="228" font-size="17" font-weight="400">Tap Record a sale</text>
+  <rect x="585" y="145" width="202" height="126" rx="10" fill="#F2F6F0" stroke="#2D7A3D"/><text x="686" y="195">Record a sale</text><text x="686" y="228" font-size="17" font-weight="400">Enter amount and item</text>
+  <rect x="845" y="145" width="202" height="126" rx="10" fill="#F2F6F0" stroke="#2D7A3D"/><text x="946" y="195">Review sale</text><text x="946" y="228" font-size="17" font-weight="400">Tap Confirm sale</text>
+  <rect x="1105" y="145" width="270" height="126" rx="10" fill="#2D7A3D"/><text x="1240" y="195" fill="#FFF">Sale saved locally</text><text x="1240" y="228" font-size="17" font-weight="400" fill="#FFF">Route back to updated Home</text>
+  <rect x="145" y="442" width="202" height="106" rx="10" fill="#FFF7F5" stroke="#C83E35"/><text x="246" y="482">Leave sale?</text><text x="246" y="514" font-size="17" font-weight="400">Keep or discard unsaved details</text>
+  <rect x="485" y="442" width="202" height="106" rx="10" fill="#FFF7F5" stroke="#C83E35"/><text x="586" y="482">Missing amount</text><text x="586" y="514" font-size="17" font-weight="400">Enter amount to continue</text></g>
+  <g font-size="16" fill="#4A5560"><text x="490" y="190">trigger</text><text x="750" y="190">trigger</text><text x="1010" y="190">trigger</text><text x="680" y="360">Review sale while amount is empty</text><text x="290" y="360">Tap Back before confirmation</text></g></g>
+</svg>
