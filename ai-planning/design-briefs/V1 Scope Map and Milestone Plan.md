@@ -1,6 +1,6 @@
 # Enterprise Growth App V1 Scope Map and Milestone Plan
 
-Status: Working planning artifact  
+Status: Working planning artifact — M0 complete; M1 not started
 Purpose: Control Version 1 scope before creating slice-level SDD/OpenSpec changes.  
 Primary source: `Enterprise Growth App PRD v1.0/Enterprise Growth Platform, Enterprise Growth App, Entrepreneur Application.docx`  
 Engineer quick reference: `Enterprise Growth App PRD v1.0/Features Reference Sheet, Appendix D.docx`
@@ -265,6 +265,8 @@ These are upfront blockers because they affect environment setup, repository cre
 
 ### M0: SDD and Product Foundation
 
+Status: Complete — see [M0 foundation closure audit](../evidence/m0-foundation-closure-audit.md).
+
 Goal:
 
 Create the planning, architecture, and repository foundations required to run slice-level SDD without ambiguity.
@@ -289,11 +291,13 @@ Acceptance:
 
 Blocking questions:
 
-- Which OpenSpec/SDD store is authoritative for product-level changes?
-- Are implementation repos separate from this planning repo?
-- What exact source documents are allowed to override this scope map?
+- **Resolved:** this repository's local OpenSpec root is authoritative for product-level changes; a shared Store remains deferred.
+- **Resolved:** implementation repositories are separate from this planning repository; component-local changes own code, builds, tests, and implementation evidence.
+- **Resolved:** repository governance and accepted specifications control, followed by approved change artifacts and designated control briefs; older source material is subordinate.
 
 ### M1: Rapid Thin-Slice Prototype
+
+Status: Not started. The intended mobile-repository base path is `/Users/joerice/git/joericearchitect/hrf-reinvest-in-growth`, designated by the owner on 2026-08-16; it was not present when M0 closed. M1 begins only after that component repository is resolvable and the first central/component slice contract is proposed and approved.
 
 Goal:
 

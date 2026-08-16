@@ -1,9 +1,9 @@
 # M0 SDD and Product Foundation Design Brief
 
-Status: Draft for review
+Status: Complete — closure evidence recorded in [`m0-foundation-closure-audit.md`](../evidence/m0-foundation-closure-audit.md)
 Milestone: M0 SDD and Product Foundation
 Purpose: Establish the product-planning, repository, and specification boundaries that make later slice-level proposals unambiguous.
-Implementation authorization: None. This brief defines a proposed foundation; it does not create repositories, accounts, cloud resources, or application code.
+Implementation authorization: M0 is a planning foundation only. Its completion does not itself create repositories, accounts, cloud resources, or application code.
 
 ## Decision Summary
 
@@ -60,7 +60,7 @@ The 2026-08-08 multi-repository plan is a draft and contains an earlier end-to-e
 | Repository / boundary | Responsibility | Creation trigger | Status now |
 | --- | --- | --- | --- |
 | `home-roots-reinvest-in-growth` (existing planning root) | Product planning, research, design briefs, architecture decisions, accepted cross-repository behavior, central change packages, coordination and system-acceptance evidence | Already exists | Active; the authoritative product-planning root |
-| Mobile application repository | Expo React Native and TypeScript source, mobile-local OpenSpec changes, SQLite/local-file behavior, device tests, build configuration | Before M1 manual-offline slice is **applied** | Required next; exact nonprofit-owned name and location must be approved |
+| Mobile application repository | Expo React Native and TypeScript source, mobile-local OpenSpec changes, SQLite/local-file behavior, device tests, build configuration | Before M1 manual-offline slice is **applied** | Intended base path designated by the owner: `/Users/joerice/git/joericearchitect/hrf-reinvest-in-growth`; not present when M0 closure was verified |
 | Backend service repository | Spring Boot modular monolith, published OpenAPI, migrations, service tests, container build, backend-local OpenSpec changes | Before a backend, sync, or M1.2 REST API proof slice is applied | Deferred unless M1.2 is approved |
 | Infrastructure repository | Terraform, environment definitions, deployment permissions/workflows, infrastructure verification, infrastructure-local OpenSpec changes | Before M2 infrastructure work or an approved M1.2 Terraform/AWS development proof is applied | Deferred unless M1.2 is approved |
 | Staff web repository | React/Vite/TypeScript staff experience, staff-local OpenSpec changes, web tests/builds | Before M10 staff-web work is applied | Deferred |
@@ -169,4 +169,4 @@ M1.2 may extract the bare minimum from M2/M3 for the live proof, but it must not
 
 ## Next Action
 
-Use this brief as the primary source for an OpenSpec proposal named `define-v1-product-guardrails`, followed by `define-cross-repository-architecture`. Those are planning-only changes in this repository. Do not create mobile, backend, or infrastructure repositories; configure AWS, domains, GitHub OIDC, Terraform state, or tester authentication; or start M1/M1.2 implementation until the relevant proposal is accepted and the separate repository/resource authorization is given.
+M0 is complete. Start M1 only through its slice-level central/component cadence: resolve the designated mobile repository, create and approve the central proposal for `prototype-manual-offline-transaction`, pin and dispatch its component handoff, then obtain component-local and Joe Rice's end-to-end verification evidence. M0 closure does not claim that any M1 implementation, external resource, or participant-data action is complete.
