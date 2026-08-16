@@ -23,7 +23,7 @@ Have these open in separate windows:
 
 - [M1 Mobile UI Design Brief and Screen Inventory](../../design-briefs/m1-mobile-ui-design-brief-and-screen-inventory.md)
 - [Figma Handoff and Prototype Implementation Guide](figma-handoff-and-prototype-implementation-guide.md)
-- The current PNG concept from `ai-planning/design-assets/`
+- The current PNG concept from `ai-planning/design-assets/M1/`
 
 Use one HRF-owned Figma Design file named `Enterprise Growth App V1`. Do not start a separate file for every screen.
 
@@ -45,7 +45,7 @@ These resources are useful because Auto Layout is intended to arrange content by
 ## One-Time File Setup
 
 1. Create the file and add six pages: `00 Foundations`, `01 Components`, `02 M1 Manual Flow`, `03 Speech and Receipt Variants`, `04 Visual References`, and `05 Build Notes`.
-2. On `04 Visual References`, drag in the Home, Record sale, and Review sale PNGs from `ai-planning/design-assets/`.
+2. On `04 Visual References`, drag in the Home, Record sale, and Review sale PNGs from `ai-planning/design-assets/M1/`.
 3. Rename each image to match its filename, put each one in its own labeled frame, and lock it. Do not build production screens by placing buttons or text on top of a flattened screenshot.
 4. On `00 Foundations`, add text notes for the M1 visual rules: warm near-white surface, deep navy headings, green primary action, darkened coral expense/error emphasis, 4 dp spacing scale, 16 px minimum body text, and 48 dp minimum touch targets.
 5. Add the actual Home Roots Foundation logo file to `00 Foundations`. Use that source asset in real headers, not a logo copied from a generated PNG.

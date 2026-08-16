@@ -1,12 +1,12 @@
 # M1 Mobile UI Design Brief and Screen Inventory
 
-Status: Draft for review
+Status: Propose-ready draft; visual control for the M1 implementation proposal
 Scope: M1 Rapid Thin-Slice Prototype
-Companion: [M1 Rapid Thin-Slice Prototype Brief](m1-rapid-thin-slice-prototype.md) and [JLP UX Synthesis and V1 Design Decisions](JLP%20UX%20Synthesis%20and%20V1%20Design%20Decisions.md)
+Companion: [M1 Rapid Thin-Slice Prototype Brief](m1-rapid-thin-slice-prototype.md), [M1 Mobile Prototype Workflows](m1-mobile-prototype-workflows.md), and [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md)
 
 ## Purpose
 
-Create a small, coherent set of Android-first mobile screens that make the prototype feel like a trusted Business Journal, not accounting software. This is the Figma-ready design control for the first prototype; it does not authorize implementation, cloud services, or participant-data use.
+Create a small, coherent set of Android-first mobile screens that make the prototype feel like a trusted Business Journal, not accounting software. The shared Expo implementation supports Android and iOS; Android remains the primary constrained-device design target. This is the visual control for the first prototype; it does not authorize implementation, cloud services, account configuration, or participant-data use.
 
 ## User and Job
 
@@ -20,7 +20,7 @@ The daily job is simple: understand how the business is doing, then quickly reco
 - Make sale and expense entry visible and reachable in one tap from Home.
 - Manual, button-led entry is always complete. Speech and receipt extraction may assist but only create editable proposals.
 - Treat confirmation as the moment a record is created. Clearly label what was entered, what was suggested, and what is saved.
-- Make offline normal. Quietly say `Saved on this phone`, `Waiting to sync`, `Synced`, or `Needs attention` only when it helps the user act.
+- Make offline normal. Quietly say `Saved on this phone`, `Waiting to sync`, or `Needs attention` only when it helps the user act. M1 never claims that a remote system received the record.
 - Design for dignity: large labels and touch targets, short sentences, readable contrast, and icons paired with text for financial actions.
 - Use synthetic business data only in all mockups and prototype screens.
 
@@ -32,7 +32,7 @@ The daily job is simple: understand how the business is doing, then quickly reco
 
 **Color roles:** choose accessible, non-brand-specific tokens for a light surface, dark readable text, one primary action color, a distinct success color, a caution color, and an error color. Never use color alone to communicate a financial or sync state. Final values and all interactive-state contrast must be checked against WCAG AA.
 
-**Typography:** use an Android-friendly sans serif with 16 px minimum body text, strong readable numerical amounts, short labels, and no compressed/negative letter spacing. Keep monetary figures prominent but not hero-sized.
+**Typography:** use a mobile-friendly sans serif with 16 px minimum body text, strong readable numerical amounts, short labels, and no compressed/negative letter spacing. Keep monetary figures prominent but not hero-sized.
 
 **Controls:** minimum 48 x 48 dp touch targets; full-width primary action buttons where the choice is consequential; labeled icon-and-text quick actions; native numeric keypad for amount entry; familiar date picker; fixed bottom action bar on the review screen.
 
@@ -40,17 +40,17 @@ The daily job is simple: understand how the business is doing, then quickly reco
 
 The following Home-screen concept is the selected visual pattern for the M1 prototype. It is a design reference, not a pixel-for-pixel implementation specification; recreate it in Figma with the original Home Roots Foundation logo asset rather than extracting the generated logo treatment from this PNG.
 
-![Selected Home Roots mobile Home-screen visual template](../design-assets/home-roots-mobile-home-screen-concept-v1.png)
+![Selected Home Roots mobile Home-screen visual template](../design-assets/M1/home-roots-mobile-home-screen-concept-v1.png)
 
 ### Review Package
 
-The complete, copy-safe visual review set is in [design-assets/review](../design-assets/review/). Use these companion artifacts when reviewing or recreating the screens in Figma:
+The complete, copy-safe M1 visual package is in [design-assets/M1](../design-assets/M1/). Use these companion artifacts when reviewing or recreating the screens in Figma:
 
-- [Screen and state map](../design-assets/review/screen-state-map.md) - every current PNG, grouped by screen with its state and decision status.
-- [Mobile prototype workflows](../design-assets/review/mobile-prototype-workflows.md) - happy, alternate, and error paths with action triggers, status messages, end states, and five embedded workflow diagrams.
-- [Selected speech re-record state](../design-assets/review/home-roots-mobile-review-speech-rerecord-concept-v5.png) - the accepted green concentric-microphone `Record again` visual. Earlier red variants are exploration only.
+- [Screen and state map](../design-assets/M1/screen-state-map.md) - every M1 PNG, grouped by screen with its state and decision status.
+- [Mobile prototype workflows](m1-mobile-prototype-workflows.md) - happy, alternate, and error paths with action triggers, status messages, end states, and five embedded workflow diagrams.
+- [Selected speech re-record state](../design-assets/M1/home-roots-mobile-review-speech-rerecord-concept-v5.png) - the accepted green concentric-microphone `Record again` visual. Earlier red variants are exploration only.
 
-All generated mockups use an approximate logo treatment. Replace it with the original Home Roots Foundation logo in Figma and implementation work.
+All generated mockups use an approximate logo treatment. Replace it with the original Home Roots Foundation logo in Figma and implementation work. The `review` folder contains a later-V1 transaction-detail exploration; it is excluded from M1 and is cataloged in [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md).
 
 ### Template Rules
 
@@ -69,7 +69,7 @@ These values capture the selected concept's color stream and should be checked i
 | Role | Provisional value | Use |
 | --- | --- | --- |
 | Page surface | `#FFFEFB` | Primary screen background |
-| Primary green | `#2D7A3D` | Primary actions, positive values, saved/synced icon |
+| Primary green | `#2D7A3D` | Primary actions, positive values, saved-local icon |
 | Deep navy | `#16265D` | Headings, default amounts, key information |
 | Coral red | `#C83E35` | Expense icon/value and error emphasis; pair with text/status |
 | Main text | `#1B2430` | Body, labels, and secondary values |
@@ -80,15 +80,15 @@ Typography uses a high-legibility Android sans serif with 16 px minimum body cop
 
 ### Current Drawing Set
 
-The selected Home template is now applied across the review set. Reuse its header, type, colors, action styling, dividers, and status pattern; do not redesign the visual language per screen.
+The selected Home template is now applied across the M1 asset package. Reuse its header, type, colors, action styling, dividers, and status pattern; do not redesign the visual language per screen.
 
 | Area | Visual states now represented | Review entry point |
 | --- | --- | --- |
-| Core manual flow | Home populated and empty, action choice, sale and expense entry, review, local-save confirmation, recent activity | [Manual screen map](../design-assets/review/screen-state-map.md#home-and-activity) |
-| Entry resilience | Numeric-keyboard-visible sale entry, missing-amount validation, leave-unsaved-entry confirmation, large-text review | [Manual sale states](../design-assets/review/screen-state-map.md#manual-sale-entry) |
-| Speech assist | Listening/transcript, editable suggested review, selected re-record action, unavailable-speech fallback | [Speech states](../design-assets/review/screen-state-map.md#speech-assisted-recording) |
-| Receipt assist | Camera-access preparation, capture/photo choice, reading/progress, editable proposal, extraction failure | [Receipt states](../design-assets/review/screen-state-map.md#receipt-assisted-expense-recording) |
-| Connectivity attention | Non-blocking needs-attention and retry state | [Connectivity state](../design-assets/review/screen-state-map.md#connectivity-attention) |
+| Core manual flow | Home populated and empty, action choice, sale and expense entry, review, local-save confirmation, recent activity | [Manual screen map](../design-assets/M1/screen-state-map.md#home-and-activity) |
+| Entry resilience | Numeric-keyboard-visible sale entry, missing-amount validation, leave-unsaved-entry confirmation, large-text review | [Manual sale states](../design-assets/M1/screen-state-map.md#manual-sale-entry) |
+| Speech assist | Listening/transcript, editable suggested review, selected re-record action, unavailable-speech fallback | [Speech states](../design-assets/M1/screen-state-map.md#speech-assisted-recording) |
+| Receipt assist | Camera-access preparation, capture/photo choice, reading/progress, editable proposal, extraction failure | [Receipt states](../design-assets/M1/screen-state-map.md#receipt-assisted-expense-recording) |
+| Connectivity attention | Non-blocking needs-attention and retry state | [Connectivity state](../design-assets/M1/screen-state-map.md#connectivity-attention) |
 
 ## Information Architecture
 
@@ -111,7 +111,7 @@ Speech and receipt capture use the same downstream review-and-confirm surface as
 | Delayed sync | `Waiting to sync` | Queued / synchronization pending |
 | AI/OCR/speech result | `Suggested from ...` | Auto-filled / AI result |
 
-Use a configured prototype currency and locale consistently. The initial Figma file should use synthetic HTG examples and short, localizable English strings; language selection is not part of M1 unless separately chosen.
+Use the Haitian gourde (`HTG`) consistently for synthetic prototype amounts. M1 ships English and French keyed UI resources, uses the device/app locale as the initial setting, and falls back to English. Format amounts and dates for the active locale while storing `HTG` and minor units independently of display text. A profile/settings language picker and Haitian Creole are deferred; see [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md).
 
 ## Reusable Components
 
@@ -125,7 +125,7 @@ Define these components before drawing screen variants:
 | `MoneyInput` | empty, focused, valid, validation error |
 | `CategoryPicker` | common choices, other, selected value |
 | `SourceLabel` | entered by you, suggested from speech, suggested from receipt |
-| `SyncStatus` | saved on this phone, waiting to sync, synced, needs attention |
+| `SyncStatus` | saved on this phone, waiting to sync, simulated needs attention; no live network send in M1 |
 | `TransactionListItem` | sale, expense, pending sync, receipt attached |
 | `ConfirmationSheet` | manual, speech proposal, receipt proposal; edit, confirm, cancel |
 | `PlainLanguageMessage` | no activity, validation error, capture/OCR failure, saved confirmation |
@@ -150,27 +150,27 @@ Define these components before drawing screen variants:
 
 Review the major paths with their visual diagrams before implementation work begins:
 
-1. [Manual sale workflow](../design-assets/review/mobile-prototype-workflows.md#1-record-a-sale-manually) - includes amount validation, the keyboard-visible entry state, and abandoning an unsaved entry.
-2. [Manual expense workflow](../design-assets/review/mobile-prototype-workflows.md#2-record-an-expense-manually) - records money spent with the same review-before-save guardrail.
-3. [Speech-assisted sale workflow](../design-assets/review/mobile-prototype-workflows.md#3-record-a-sale-with-speech) - includes editable suggestions, re-recording, and manual fallback.
-4. [Receipt-assisted expense workflow](../design-assets/review/mobile-prototype-workflows.md#4-record-an-expense-with-a-receipt) - includes permission choice, image processing, proposal review, and extraction failure.
-5. [Delayed-sync attention workflow](../design-assets/review/mobile-prototype-workflows.md#5-attend-to-delayed-sync) - preserves the local record and makes retry optional.
+1. [Manual sale workflow](m1-mobile-prototype-workflows.md#1-record-a-sale-manually) - includes amount validation, the keyboard-visible entry state, and abandoning an unsaved entry.
+2. [Manual expense workflow](m1-mobile-prototype-workflows.md#2-record-an-expense-manually) - records money spent with the same review-before-save guardrail.
+3. [Speech-assisted sale workflow](m1-mobile-prototype-workflows.md#3-record-a-sale-with-speech) - includes editable suggestions, re-recording, and manual fallback.
+4. [Receipt-assisted expense workflow](m1-mobile-prototype-workflows.md#4-record-an-expense-with-a-receipt) - includes permission choice, image processing, proposal review, and extraction failure.
+5. [Delayed-sync attention workflow](m1-mobile-prototype-workflows.md#5-attend-to-delayed-sync) - preserves the local record and makes retry optional.
 
 ## M1 Screen Inventory
 
 | ID | Screen or state | Priority | Purpose and required content |
 | --- | --- | --- | --- |
 | M01 | Home / daily check-in | Must | Business name; `This week` period; money earned, money spent, estimated profit; quiet sync state; four quick actions; recent activity. |
-| M02 | Choose business moment | Must | Sale and expense choices. Speech and receipt may appear when their prototype phases are enabled. This can be an action sheet rather than a standalone route. |
+| M02 | Choose business moment | Must | Sale, expense, speech, and receipt choices. This can be an action sheet rather than a standalone route. |
 | M03 | Manual entry | Must | Type, amount, date, purpose/category, optional note, validation, and `Review` action. Create sale and expense variants from one template; include keyboard-visible and leave-unsaved states. |
 | M04 | Review and confirm | Must | Source label; editable values; plain-language summary; raw input/receipt reference when available; `Edit`, `Confirm`, and `Cancel`; include a text-scaled variant with the confirm action reachable. |
 | M05 | Saved confirmation | Must | Brief success state: `Saved on this phone`; link or automatic return to updated Home; no technical sync detail. |
 | M06 | Recent activity | Must | A compact Home list with date, purpose, signed amount, and status. Design at least five synthetic records plus an empty state. |
-| M07 | Speech proposal | Should | Listening/transcript state, editable proposal, and fallback to manual entry. This is an M1 phase-2 variant of M04, not a new record model. |
-| M08 | Receipt capture and proposal | Should | Camera-permission preparation, camera/image-picker entry, receipt thumbnail, extraction progress/result/failure, editable proposal, and manual fallback. This is an M1 phase-3 variant of M04. |
-| M09 | Needs-attention sync state | Should | Non-blocking explanation and a retry action only when user action is meaningful; never say data is lost without evidence. |
-| M10 | Journal/history and transaction detail | Later V1 | Search/filter, prior record detail, source/receipt, and permitted correction. Exclude from the M1 drawing set unless needed to validate a prototype assumption. |
-| M11 | Reports, settings, onboarding, loan visibility, AI coach | Later/conditional | Explicitly outside the M1 design set. Do not spend prototype design time on these until the core record flow validates. |
+| M07 | Speech proposal | Must | Listening/transcript state, editable proposal, selected green re-record action, and fallback to manual entry. This is an M1 phase-2 variant of M04, not a new record model. |
+| M08 | Receipt capture and proposal | Must | Camera-permission preparation, camera/image-picker entry, receipt thumbnail, extraction progress/result/failure, editable proposal, and manual fallback. This is an M1 phase-3 variant of M04. |
+| M09 | Needs-attention sync state | Must | Non-blocking local/stubbed-sync explanation and retry simulation only when user action is meaningful; never say data is lost without evidence. |
+
+Deferred transaction detail, reports, settings, onboarding, loans, and general AI work are intentionally outside this table and live in [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md).
 
 ## Figma File Structure
 
@@ -179,25 +179,24 @@ Create one `Enterprise Growth App V1` Figma Design file with these pages:
 1. `00 Foundations` - colors, type, spacing, icons, elevation, and accessibility notes.
 2. `01 Components` - the reusable components and their required states.
 3. `02 M1 Manual Flow` - M01 through M06 with prototype links.
-4. `03 Speech and Receipt Variants` - M07 through M09, added when those phases start.
+4. `03 Speech and Receipt Variants` - M07 through M09 with prototype links.
 5. `04 Review and Feedback` - annotated alternate ideas and stakeholder comments; keep unfinished exploration out of the primary flow.
 
-Use a representative small Android artboard, then check the primary flow at a larger Android width. Design the keyboard-visible amount-entry state and a text-scaled state for M03 and M04 before sign-off.
+Use a representative small Android artboard, then check the same layouts on an iPhone artboard for safe-area, wrapping, and touch-target regressions. Design the keyboard-visible amount-entry state and a text-scaled state for M03 and M04 before sign-off. Review English and French copy for overflow; implementation automation must target stable `testID` values rather than translated visible text.
 
 ## Completion Criteria for the First Mockup Set
 
 - A reviewer can tap through manual sale and expense entry without interpreting accounting language.
 - The review screen visibly distinguishes a suggestion from a confirmed record.
-- All primary actions are labeled, reachable, and usable on a small Android screen.
+- All primary actions are labeled, reachable, and usable on a small Android screen and a representative iPhone viewport.
 - Home, entry, review, saved, and failure/empty states are represented before visual polish expands.
 - The review package contains a state map and workflow diagrams that account for every primary action, confirmation, alternate route, and error/fallback condition in the prototype.
 - Keyboard-visible and text-scaled states prove the entry and confirmation controls remain usable on a small Android viewport.
 - The design uses only synthetic names, business data, receipts, and transaction examples.
 - Screens identify the intended source of truth for implementation: project-owned components on top of the selected React Native UI foundation.
 
-## Open Decisions
+## Remaining Decisions
 
-- Confirm prototype runtime: Android only or Android and iOS through Expo.
-- Confirm initial currency and language set beyond synthetic HTG/English mockups.
-- Decide whether cash movement is needed in M1; otherwise retain sale and expense only.
-- Validate visual tokens and meaningful copy with representative entrepreneurs before treating the look and feel as final.
+- Confirm the nonprofit-owned Apple Developer/App Store Connect owner and the named iPhone TestFlight testers before iOS distribution work begins.
+- Confirm direct Android preview APK installation or Google Play closed testing for Android testers.
+- Validate French strings, visual tokens, and meaningful copy with representative entrepreneurs before treating the look and feel as final.
