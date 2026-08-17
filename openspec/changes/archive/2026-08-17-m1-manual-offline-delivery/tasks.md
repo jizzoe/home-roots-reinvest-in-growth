@@ -20,14 +20,22 @@
 
 ## 3. Component Delivery and Evidence Return
 
-- [ ] 3.1 In the mobile repository, propose one component-local change for the manual sale/expense, SQLite durability, local activity/totals, sync-shaped outbox, localization, and device/build evidence required by the accepted contract.
-- [ ] 3.2 Complete the component Apply and Verify lifecycle with its ordered local tasks, deterministic checks, exact-head CI when configured, and synthetic-only evidence.
-- [ ] 3.3 After the component Gate 2 approval, Sync, Archive, integrate to local and remote `main`, clean up its feature branch/worktree, and return the required archive commit, change identifier, validation evidence, central pin, and divergence statement.
-- [ ] 3.4 Append the component return record to the central linkage ledger and request a central amendment/re-pin if the component reports contract divergence.
+- [x] 3.1 In the mobile repository, propose one component-local change for the manual sale/expense, SQLite durability, local activity/totals, sync-shaped outbox, localization, and device/build evidence required by the accepted contract.
+  - Evidence: component change `m1-manual-offline-mobile` was proposed at `0ae274a` and linked to central pin `bd55571688818a47746dae673c35d7f2a125b77e`.
+- [x] 3.2 Complete the component Apply and Verify lifecycle with its ordered local tasks, deterministic checks, exact-head CI when configured, and synthetic-only evidence.
+  - Evidence: the archived component verification report records 15/15 tasks, 7/7 requirements, and 15/15 scenarios covered with no critical finding.
+- [x] 3.3 After the component Gate 2 approval, Sync, Archive, integrate to local and remote `main`, clean up its feature branch/worktree, and return the required archive commit, change identifier, validation evidence, central pin, and divergence statement.
+  - Evidence: the owner approved close-out after passed device acceptance; component archive revision `9f8295bdae2bccd4bc0a76256a5b80681b13198f` and merge commit `8ac303e93f47baa52d27f0a4114d17fa8309cfaa` are durable. The remote feature branch was deleted on PR merge.
+- [x] 3.4 Append the component return record to the central linkage ledger and request a central amendment/re-pin if the component reports contract divergence.
+  - Evidence: `linkage.md` records the complete return; no central amendment/re-pin was required.
 
 ## 4. System Acceptance and Central Close-Out
 
-- [ ] 4.1 Have Joe Rice execute the assigned development-environment acceptance run on the named physical devices, recording offline manual sale/expense, app-restart persistence, local outbox identity, plain-language status, and required fallback behavior in `ai-planning/evidence/m1-manual-offline-e2e.md`.
-- [ ] 4.2 Central Verify maps every approved requirement and scenario to the returned component evidence and end-to-end record, documents skipped checks and residual gaps, and confirms the central ledger is complete.
-- [ ] 4.3 Present central verification for Gate 2 approval.
-- [ ] 4.4 After Gate 2 approval, Sync the verified delta, Archive the central envelope, integrate it to local and remote `main`, and clean up any central change-owned feature branch or worktree.
+- [x] 4.1 Have Joe Rice execute the assigned development-environment acceptance run on the named physical devices, recording offline manual sale/expense, app-restart persistence, local outbox identity, plain-language status, and required fallback behavior in `ai-planning/evidence/m1-manual-offline-e2e.md`.
+  - Evidence: the completed synthetic Android 15 run is recorded in `ai-planning/evidence/m1-manual-offline-e2e.md`; deterministic component tests cover cancellation, required-field validation, duplicate prevention, and local outbox identity.
+- [x] 4.2 Central Verify maps every approved requirement and scenario to the returned component evidence and end-to-end record, documents skipped checks and residual gaps, and confirms the central ledger is complete.
+  - Evidence: `ai-planning/evidence/m1-manual-offline-central-verification.md` maps the accepted contract to component lifecycle, deterministic, build, and system-acceptance evidence with no critical gap.
+- [x] 4.3 Present central verification for Gate 2 approval.
+  - Evidence: after the owner reported all assigned phone tests passed, the owner explicitly approved M1 close-out on 2026-08-17.
+- [x] 4.4 After Gate 2 approval, Sync the verified delta, Archive the central envelope, integrate it to local and remote `main`, and clean up any central change-owned feature branch or worktree.
+  - Evidence: approved for the final Sync, Archive, merge, and cleanup sequence; archive and integration revisions are recorded with the final close-out commit.
