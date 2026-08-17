@@ -4,7 +4,8 @@
   - Evidence: `evidence/gate-1-approval.md` records Joe Rice's explicit 2026-08-17 approval, the exact approved scope, the bounded controller, and the retained separate EAS vendor-write gate.
 - [x] 1.2 Record a current central planning review covering scope and non-goals, requirements mapping, dependency order, security/privacy, dependency and supply-chain posture, attribution, portability, recovery, stable task IDs, component ownership, and the absence or exact identity of any linked issue/Project record.
   - Evidence: `evidence/planning-review.md` and the schema-valid `evidence/local-planning-review.json` record the corrected review, complete coverage map, current validation, absent GitHub tracking target, and remaining human Gate 1 gap.
-- [ ] 1.3 Commit and push the approved central plan, initialize `linkage.md` with Contract Pin, Dispatch, Returns, End-to-End Verification, and Residual Gaps sections, and emit `handoffs/mobile-dispatch.md` with the exact central revision, delta path, component repository/change target, profile, non-goals, validation expectations, and recovery reference.
+- [x] 1.3 Commit and push the approved central plan, initialize `linkage.md` with Contract Pin, Dispatch, Returns, End-to-End Verification, and Residual Gaps sections, and emit `handoffs/mobile-dispatch.md` with the exact central revision, delta path, component repository/change target, profile, non-goals, validation expectations, and recovery reference.
+  - Evidence: approved contract pin `48cb1ad511a3d578c347889e5c78e8a967c16dab` and pushed dispatch revision `6c7bf96472618300b93be4b8093f59a9b2611a4e`; `linkage.md` and `handoffs/mobile-dispatch.md` record the exact central and mobile targets, validation contract, retained EAS gate, and recovery path.
 
 ## 2. Mobile Component Delivery
 

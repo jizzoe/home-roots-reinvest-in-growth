@@ -7,13 +7,14 @@
 - Central change: `prototype-speech-proposal-confirmation`
 - Approved delta: `openspec/changes/prototype-speech-proposal-confirmation/specs/prototype-speech-proposal-confirmation/spec.md`
 - Pinned approved revision: `48cb1ad511a3d578c347889e5c78e8a967c16dab`
-- Pin status: committed and pushed after Gate 1 approval.
+- Pin status: committed and pushed after Gate 1 approval; the dispatch record
+  was then pushed in revision `6c7bf96472618300b93be4b8093f59a9b2611a4e`.
 
 ## Dispatch
 
 | Date | Component repository | Component base | Component branch and change | Handoff record | Status |
 | --- | --- | --- | --- | --- | --- |
-| 2026-08-17 | `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app` | `main` at `8ac303e93f47baa52d27f0a4114d17fa8309cfaa` | `feat/m1-speech-proposal-confirmation`; `m1-speech-proposal-mobile` | `handoffs/mobile-dispatch.md` | Gate 1 approved the component's full local OpenSpec lifecycle for the pinned contract. Dispatch is being committed and pushed before component branch creation. |
+| 2026-08-17 | `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app` | `main` at `8ac303e93f47baa52d27f0a4114d17fa8309cfaa` | `feat/m1-speech-proposal-confirmation`; `m1-speech-proposal-mobile` | `handoffs/mobile-dispatch.md` at `6c7bf96472618300b93be4b8093f59a9b2611a4e` | Gate 1 approved the component's full local OpenSpec lifecycle for the pinned contract; the dispatch is committed and pushed. |
 
 ## Returns
 
