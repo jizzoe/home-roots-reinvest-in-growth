@@ -6,13 +6,13 @@
 - Central change: `m1-manual-offline-delivery`
 - Accepted contract: `openspec/specs/prototype-manual-offline-transaction/spec.md`
 - Pinned central envelope revision: `bd55571688818a47746dae673c35d7f2a125b77e`
-- Pin status: committed on `chore/m1-manual-offline-delivery`; push evidence is recorded with the Gate-1 dispatch update.
+- Pin status: committed on `chore/m1-manual-offline-delivery` and dispatched in pushed revision `e57e95da98423d571c5bf762f81c1c838d740a5c`.
 
 ## Dispatch
 
 | Date | Component repository | Component branch | Handoff record | Status |
 | --- | --- | --- | --- | --- |
-| 2026-08-16 | `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app` | `feat/m1-manual-offline-delivery` | `handoffs/mobile-dispatch.md` | Approved for one component-local OpenSpec proposal; implementation follows that component proposal and its Apply authorization. |
+| 2026-08-16 | `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app` | `feat/m1-manual-offline-delivery` | `handoffs/mobile-dispatch.md` at `e57e95da98423d571c5bf762f81c1c838d740a5c` | Approved for one component-local OpenSpec proposal; implementation follows that component proposal and its Apply authorization. |
 
 ## Returns
 

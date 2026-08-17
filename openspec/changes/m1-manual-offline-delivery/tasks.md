@@ -13,8 +13,10 @@
 
 - [x] 2.1 Present the central proposal, delta, design, repository split, delivery profile, validation plan, and unresolved Gate 1 inputs for explicit plan approval.
   - Evidence: on 2026-08-16, the owner explicitly approved the Phase-1-only target, `chore/m1-manual-offline-delivery` and `feat/m1-manual-offline-delivery` branches, temporary public `jizzoe/hrf-reinvest-to-grow-mobile-app` repository and exact checkout, EAS project/build scope, Android-only acceptance environment, EAS-managed signing, direct private-link APK distribution, synthetic-only boundaries, no AWS/other cloud, and `prototype-rapid` with `strict-first-degraded`. The GitHub remote/checkout and authenticated EAS CLI path are resolved; component-local proposal and implementation remain the next authorized lifecycle action.
-- [ ] 2.2 After Gate 1 approval, commit and push the central envelope, capture the pushed revision, and initialize `linkage.md` with the required sections, initial pin, dispatch entry, end-to-end assignment, and residual gaps.
-- [ ] 2.3 Emit one outbound handoff record for the mobile repository with the central repository/revision/change, relevant delta path, requirements/scenarios, non-goals, and `prototype-rapid` profile.
+- [x] 2.2 After Gate 1 approval, commit and push the central envelope, capture the pushed revision, and initialize `linkage.md` with the required sections, initial pin, dispatch entry, end-to-end assignment, and residual gaps.
+  - Evidence: central envelope pin `bd55571688818a47746dae673c35d7f2a125b77e` and Gate-1 ledger/dispatch revision `e57e95da98423d571c5bf762f81c1c838d740a5c` are pushed to `origin/chore/m1-manual-offline-delivery`; `linkage.md` contains Contract Pin, Dispatch, Returns, End-to-End Verification, and Residual Gaps sections.
+- [x] 2.3 Emit one outbound handoff record for the mobile repository with the central repository/revision/change, relevant delta path, requirements/scenarios, non-goals, and `prototype-rapid` profile.
+  - Evidence: `handoffs/mobile-dispatch.md` is committed and pushed at `e57e95da98423d571c5bf762f81c1c838d740a5c`; it dispatches exactly one component-local proposal to `feat/m1-manual-offline-delivery` with the contract pin, delta, requirements, profile, non-goals, and return requirements.
 
 ## 3. Component Delivery and Evidence Return
 
