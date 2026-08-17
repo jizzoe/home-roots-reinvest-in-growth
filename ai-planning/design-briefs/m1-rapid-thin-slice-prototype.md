@@ -1,6 +1,6 @@
 # M1 Rapid Thin-Slice Prototype Brief
 
-Status: Propose-ready draft; no repository creation or implementation is authorized by this document
+Status: Approved M1 control brief; implementation remains governed by the central/component OpenSpec lifecycle
 
 Milestone: M1 Rapid Thin-Slice Prototype
 
@@ -53,6 +53,16 @@ Recommended profile:
 
 `prototype-rapid`
 
+### Approved Phase-1 Delivery Decisions
+
+The following decisions supersede conflicting earlier M1 wording only for the current Android-first delivery:
+
+- The temporary public mobile repository is `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app`; it must transfer to HRF before participant, production, or pilot use.
+- Android physical-device acceptance uses the representative U656AC on Android 15. iOS/TestFlight work is deferred behind a separately approved later gate and is not required for M1 completion.
+- EAS manages the Android signing key and creates an internal-distribution signed APK. The artifact link is shared only with authorized prototype testers.
+- Speech-to-text and OCR use deterministic mocked fixtures behind replaceable adapters. Text-to-speech uses the device path, and receipt capture uses real local camera/image-picker behavior. No AWS or other cloud provider is part of M1.
+- The autonomous controller records `strict-first-degraded` as its preset policy; `prototype-rapid` does not require isolated independent review.
+
 Constraints:
 
 - Synthetic data only.
@@ -70,7 +80,7 @@ Constraints:
 - One synthetic entrepreneur.
 - One synthetic business.
 - One Home/dashboard, action-choice, entry, review-and-confirm, saved, activity, and failure-state flow, as defined by the companion workflow document.
-- Versioned Android preview build for physical-device acceptance and iOS TestFlight test build for a representative iPhone after the nonprofit-owned Apple Developer and App Store Connect resources are approved.
+- Versioned Android preview build for physical-device acceptance.
 - Sale and expense entry.
 - Local SQLite persistence.
 - Recent transaction list.
@@ -125,9 +135,9 @@ Prove that a small mobile Business Journal can record useful business activity o
 Build:
 
 - Expo React Native + TypeScript prototype.
-- One universal Expo application configured for Android and iOS, with platform-specific layout and permission checks.
+- One Expo application configured and verified for Android.
 - SQLite local schema.
-- Versioned Android preview build path and iOS TestFlight test-build path.
+- Versioned Android preview build path.
 - Home, action choice, entry, review/confirm, saved, activity, and failure states from the companion workflows.
 - Manual sale and expense entry.
 - Local transaction table.
@@ -139,7 +149,6 @@ Build:
 Acceptance:
 
 - A versioned Android build can be installed and opened on a representative physical Android device without a developer workstation connection.
-- A versioned iOS TestFlight test build can be installed and opened on an approved representative iPhone after nonprofit-owned Apple Developer and App Store Connect resources are approved.
 - A sale can be recorded offline and appears immediately in recent activity.
 - An expense can be recorded offline and appears immediately in recent activity.
 - A saved transaction remains visible after app restart.
@@ -301,9 +310,9 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 | Decision | Recommendation |
 | --- | --- |
 | Mobile framework | Expo React Native + TypeScript. |
-| Repository | Nonprofit-owned `hrf-reinvest-to-grow-mobile-app`; this planning repository remains contract and evidence owner only. |
-| Platform posture | One Expo codebase for Android and iOS. Android is the required offline physical-device acceptance target; iOS is distributed through TestFlight and smoke-tested on an approved iPhone after Apple resources are approved. |
-| Runtime | Expo development build for development; EAS Android preview builds and EAS App Store-signed iOS TestFlight test builds for device testing. Expo Go is not the acceptance target when SQLite/camera dependencies require native configuration. |
+| Repository | Initially public under `jizzoe/hrf-reinvest-to-grow-mobile-app`, then transferred to HRF before participant, production, or pilot use; this planning repository remains contract and evidence owner only. |
+| Platform posture | Android is the required offline physical-device acceptance target. iOS/TestFlight is deferred to a later approved gate. |
+| Runtime | Expo development build for development and EAS Android preview APK builds for device testing. Expo Go is not the acceptance target when SQLite/camera dependencies require native configuration. |
 | Local persistence | SQLite in phase 1. Do not defer offline persistence. |
 | Localization | Ship English and French keyed resources now using `expo-localization` plus an i18n library. Declare both supported locales to iOS and Android; use English fallback. Do not build a user profile language selector in M1. |
 | Currency and formatting | Use the Haitian gourde (`HTG`) for synthetic data. Store minor units and ISO currency code; format numbers and dates for the active locale. |
@@ -312,7 +321,7 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 | Speech | Mocked or provider-backed transcript path is acceptable; use the same proposal/review model either way. |
 | TTS | Use the fastest available prototype path, behind an adapter if practical. |
 | Android delivery | Produce a versioned installable Android preview build for representative physical-device testing. |
-| iPhone delivery | Use TestFlight for named prototype testers. Ad hoc iOS links require every tester device UDID and rebuild/re-signing, so they are not the default distribution path. |
+| iPhone delivery | Deferred to a later approved gate. |
 | Automated testing | Use React Native Testing Library for component and state behavior; use Maestro YAML flows with stable `testID` selectors for cross-platform end-to-end manual sale/expense, validation, speech/receipt fallback, and locale smoke tests. |
 | Backend | Stub or defer during M1; do not let backend scope block the local prototype. M1.2 owns the live REST API proof. |
 
@@ -332,7 +341,6 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 
 ### Upfront
 
-- Which nonprofit-owned Apple Developer and App Store Connect account will own the iOS identifier and TestFlight testers, and who approves its use?
 - Will Android testers install a direct preview APK or use Google Play closed testing?
 - Who reviews the M1 French strings for participant-facing clarity before testing?
 
@@ -410,7 +418,6 @@ And the receipt image remains attached locally when available
 - Screenshot or screen recording of phase 1 manual offline flow.
 - Evidence that a saved transaction survives app restart.
 - Evidence that the Android build can be installed and opened on a representative physical device.
-- Evidence that the iOS TestFlight test build can be installed and opened on an approved representative iPhone.
 - Evidence that confirmed transactions create stable local outbox/sync records with idempotency keys.
 - Screenshot or screen recording of speech proposal and confirmation.
 - Screenshot or screen recording of text-to-speech confirmation.
@@ -421,4 +428,4 @@ And the receipt image remains attached locally when available
 
 ## Next Action
 
-After the nonprofit approves the mobile repository location and Apple/TestFlight ownership, create the component-local OpenSpec proposal for `prototype-manual-offline-transaction` in `hrf-reinvest-to-grow-mobile-app`. Keep it narrow: dual-platform Expo foundation, English/French resources, manual sale/expense entry, local SQLite persistence, recent activity, simple totals, sync-shaped status, outbox/sync-client stub, and Android/iPhone preview-build evidence only.
+After the mobile repository is created and the central Gate 1 pin is recorded, create the component-local OpenSpec proposal for `prototype-manual-offline-transaction` in `hrf-reinvest-to-grow-mobile-app`. Keep it narrow: Android Expo foundation, English/French resources, manual sale/expense entry, local SQLite persistence, recent activity, simple totals, sync-shaped status, outbox/sync-client stub, and Android preview-build evidence only.

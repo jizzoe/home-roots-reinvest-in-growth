@@ -297,7 +297,15 @@ Blocking questions:
 
 ### M1: Rapid Thin-Slice Prototype
 
-Status: Not started. The intended mobile-repository base path is `/Users/joerice/git/joericearchitect/hrf-reinvest-in-growth`, designated by the owner on 2026-08-16; it was not present when M0 closed. M1 begins only after that component repository is resolvable and the first central/component slice contract is proposed and approved.
+Status: In progress — `prototype-manual-offline-transaction` remains the archived planning contract, and `m1-manual-offline-delivery` is the approved central implementation envelope for Phase 1. The initial mobile repository is being created under the owner's personal GitHub account as a temporary public home and must transfer to HRF before any participant, production, or pilot use.
+
+Current delivery decisions for Phase 1:
+
+- Use `prototype-rapid`; the selected autonomous controller records `strict-first-degraded`, but this profile does not require isolated independent review.
+- Use the public mobile repository `jizzoe/hrf-reinvest-to-grow-mobile-app` and its checkout at `/Users/joerice/git/joericearchitect/hrf-reinvest-in-growth/hrf-reinvest-to-grow-mobile-app`.
+- Require physical Android acceptance only on the representative U656AC running Android 15. iOS/TestFlight is a separate later gate, not an M1 exit condition.
+- Use an EAS-managed Android signing key, an internal-distribution signed APK, and an artifact link shared only with authorized prototype testers.
+- Use synthetic HTG examples with English and French resources, mocked speech-transcript and OCR fixtures, device text-to-speech, and real local photo/image-picker capture. AWS and all other cloud provider integrations remain outside M1.
 
 Goal:
 

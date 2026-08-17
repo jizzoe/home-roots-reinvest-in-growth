@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "authorizationDigest": "f0bf72bc340e1c0406de57dffc6add40b3a5e19a555e712bcdd09274a3f3eb69",
+  "selectedEntry": "m1-manual-offline-delivery",
+  "queueEntries": [
+    "m1-manual-offline-delivery"
+  ],
+  "queueIndex": 0,
+  "repository": "/Users/joerice/git/joericearchitect/home-roots-reinvest-in-growth",
+  "expiresAt": "2026-08-17T03:13:56.000Z",
+  "allowedLifecycleChain": [
+    "propose",
+    "planning-review",
+    "apply",
+    "verify",
+    "delivery",
+    "sync",
+    "archive",
+    "cleanup"
+  ],
+  "checkpointPath": "openspec/changes/m1-manual-offline-delivery/evidence/autonomous-sdd-controller.json",
+  "currentPhase": "apply",
+  "steps": [
+    {
+      "id": "propose",
+      "status": "complete",
+      "evidence": {
+        "current": true,
+        "recordedAt": "2026-08-16T23:17:13.039Z",
+        "evidence": [
+          "openspec/changes/m1-manual-offline-delivery/proposal.md",
+          "openspec/changes/m1-manual-offline-delivery/specs/prototype-manual-offline-transaction/spec.md",
+          "openspec/changes/m1-manual-offline-delivery/design.md",
+          "openspec/changes/m1-manual-offline-delivery/tasks.md",
+          "openspec validate m1-manual-offline-delivery --strict --no-interactive"
+        ]
+      }
+    },
+    {
+      "id": "planning-review",
+      "status": "complete",
+      "evidence": {
+        "current": true,
+        "recordedAt": "2026-08-16T23:18:11.804Z",
+        "evidence": [
+          "openspec/changes/m1-manual-offline-delivery/evidence/planning-review.md",
+          "openspec validate m1-manual-offline-delivery --strict --no-interactive",
+          "git diff --check"
+        ]
+      }
+    },
+    {
+      "id": "apply",
+      "status": "pending"
+    },
+    {
+      "id": "verify",
+      "status": "pending"
+    },
+    {
+      "id": "delivery",
+      "status": "pending"
+    },
+    {
+      "id": "sync",
+      "status": "pending"
+    },
+    {
+      "id": "archive",
+      "status": "pending"
+    },
+    {
+      "id": "cleanup",
+      "status": "pending"
+    }
+  ]
+}
