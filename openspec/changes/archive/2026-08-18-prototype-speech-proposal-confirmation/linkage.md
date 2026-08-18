@@ -60,3 +60,7 @@
   fallback remained reachable at Font size 200% and Display size Largest.
 - The temporary mobile repository and any EAS project must transfer to Home
   Roots Foundation before participant, pilot, or production use.
+- The mobile component's registered-workspace cleanup remains ineligible: the
+  installed cleanup skill is missing its required script asset. The component
+  archive, integrated revision, deterministic validation, and Android system
+  acceptance remain durable and unaffected; no substitute cleanup was claimed.
