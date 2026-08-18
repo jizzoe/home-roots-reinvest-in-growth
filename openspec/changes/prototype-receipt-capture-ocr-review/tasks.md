@@ -10,7 +10,7 @@
   native dependency and supply-chain posture, attribution, portability,
   recovery, stable task IDs, component ownership, and no unauthorized external
   target. [Requirements: all]
-- [ ] 1.3 Commit/push the approved central change, initialize a linkage ledger,
+- [x] 1.3 Commit/push the approved central change, initialize a linkage ledger,
   and issue one pinned component handoff identifying the contract revision,
   component repository/change, exact non-goals, required return evidence, and
   recovery reference. [Requirement: central planning]
