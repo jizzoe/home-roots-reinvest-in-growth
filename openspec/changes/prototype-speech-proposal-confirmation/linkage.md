@@ -32,7 +32,7 @@
 
 | Date | Component change and archived revision | Integrated component revision | Validation and acceptance evidence | Contract relationship |
 | --- | --- | --- | --- | --- |
-| Pending | `m1-speech-proposal-mobile` | Pending | Pending component Verify, Android build evidence, and return record | Must cite pin `48cb1ad511a3d578c347889e5c78e8a967c16dab`; any divergence requires a reviewed central amendment and new pin. |
+| 2026-08-18 | `m1-speech-proposal-mobile` archived at `openspec/changes/archive/2026-08-18-m1-speech-proposal-mobile/` in `5f3a352d7cdfc5234b803d4609c74265d48583fd`, delivered by component PR [#4](https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app/pull/4) merge `6dfc4ad79af8310dcc36d3617578878275215a68` | Application implementation delivered by component PR [#2](https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app/pull/2) merge `b41812f4b4aead7f26c03323392f8df00b84380c`; living-spec Sync delivered by PR [#3](https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app/pull/3) merge `fe727d70c37549aa7833fc67eae701c4dfd6688f` | Formal Verify at `9aa9d783d8fd033b629ef6588c29761618b22c77`: `npm run check` passed (6 suites, 23 tests); Android config and selected/all strict OpenSpec passed; `expo-speech@57.0.1` MIT; 37 inherited no-fix audit advisories (0 critical); no EAS, APK, install, device-TTS, or enlarged-text acceptance claim | Built against pin `48cb1ad511a3d578c347889e5c78e8a967c16dab`; no approved-contract divergence. Real build/device acceptance remains central tasks 3.1-3.2; registered component cleanup remains pending eligibility review. |
 
 ## End-to-End Verification
 
@@ -43,8 +43,8 @@
   offline for the no-provider path, and no live backend or speech provider.
 - EAS boundary: any new build or artifact operation requires the separate
   just-in-time approval in task 3.1; this dispatch does not authorize it.
-- Status: pending component return, authorized build availability, and assigned
-  device execution.
+- Status: component return received. Awaiting the separate EAS build gate,
+  then assigned device execution.
 
 ## Residual Gaps
 
