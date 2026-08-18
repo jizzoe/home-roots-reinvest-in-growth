@@ -1,5 +1,17 @@
 # M1 Speech Proposal Confirmation Linkage Ledger
 
+## Collaboration Profile
+
+- Profile: `solo`.
+- Owner: Joe Rice, selected 2026-08-17 before resuming the component lifecycle.
+- Operating rule: Joe may operate the central-coordinator and mobile
+  component-implementer roles, but each role retains its own change, controller
+  state, evidence, and lifecycle gates. The component role consumes this
+  durable dispatch; it does not inherit a blanket component mutation grant from
+  the central role.
+- Contract impact: coordination-only; this profile record changes no approved
+  behavioral delta, component requirement, or contract pin.
+
 ## Contract Pin
 
 - Central repository: `https://github.com/jizzoe/home-roots-reinvest-in-growth`
