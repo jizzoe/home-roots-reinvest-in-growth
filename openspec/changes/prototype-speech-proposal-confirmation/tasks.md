@@ -21,7 +21,8 @@
 
 ## 3. Android System Acceptance
 
-- [ ] 3.1 Before any new EAS build or artifact operation, verify its exact project, source revision, build profile, distribution boundary, current runtime permission, and just-in-time owner approval; if unavailable, retain device acceptance as pending without weakening the gate.
+- [x] 3.1 Before any new EAS build or artifact operation, verify its exact project, source revision, build profile, distribution boundary, current runtime permission, and just-in-time owner approval; if unavailable, retain device acceptance as pending without weakening the gate.
+  - Evidence: `ai-planning/evidence/m1-speech-proposal-eas-build-gate.md` records Joe Rice's just-in-time approval, EAS project `85d7d86a-ee85-4b82-85ef-8a6b7e26eb48`, component `main` revision `6dfc4ad79af8310dcc36d3617578878275215a68`, `preview` internal-APK profile, authenticated owner access, frozen-credential boundary, and submitted build `6dd64511-469e-4cca-b1a0-0aa4e11d8b0d`.
 - [ ] 3.2 Have Joe Rice run the returned installable build on the representative Android 15 device with synthetic data and record truthful prototype-sample disclosure, proposal-before-save, visible transcript/source, edit or record-again, explicit confirmation, audible device TTS or its documented non-blocking limitation, speech failure/manual fallback, restart persistence, French copy, labeled controls and enlarged-text reachability, and offline/no-provider behavior in `ai-planning/evidence/m1-speech-proposal-e2e.md`.
 
 ## 4. Central Verification and Close-Out
