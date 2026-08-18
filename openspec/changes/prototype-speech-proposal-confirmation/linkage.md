@@ -43,8 +43,10 @@
   offline for the no-provider path, and no live backend or speech provider.
 - EAS boundary: any new build or artifact operation requires the separate
   just-in-time approval in task 3.1; this dispatch does not authorize it.
-- Status: component return received. Awaiting the separate EAS build gate,
-  then assigned device execution.
+- Status: passed 2026-08-18. Joe Rice installed and tested the returned APK
+  from EAS build `6dd64511-469e-4cca-b1a0-0aa4e11d8b0d` on the representative
+  Android 15 device using synthetic data. The result is recorded at
+  `ai-planning/evidence/m1-speech-proposal-e2e.md`.
 
 ## Residual Gaps
 
@@ -53,7 +55,8 @@
   deployment, and production or pilot use remain outside this slice.
 - The deterministic English transcript tests the proposal interaction, not
   recognition or Haitian Creole language quality.
-- Device TTS and enlarged-text reachability require returned Android evidence;
-  deterministic component tests alone cannot close those scenarios.
+- Device TTS and enlarged-text reachability are closed by the returned Android
+  evidence: live device TTS was audible, and the speech flow plus its failure
+  fallback remained reachable at Font size 200% and Display size Largest.
 - The temporary mobile repository and any EAS project must transfer to Home
   Roots Foundation before participant, pilot, or production use.
