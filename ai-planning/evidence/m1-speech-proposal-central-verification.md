@@ -92,3 +92,9 @@ approval authorizes central Sync, Archive, integration, and eligible cleanup
 for this verified change. The non-behavioral component workspace-cleanup
 limitation and prototype-only boundaries remain recorded; neither is a claim
 that those deferred product capabilities were delivered.
+
+Central Sync completed through PR #2, merged to `main` at
+`59432c5769e1f595e431cee55a83f63b17d246b2`, after the exact
+delta-to-living-spec comparison and strict validation recorded above. No
+GitHub issue or Project record is configured for this slice, so there is no
+tracking state to reconcile.
