@@ -10,6 +10,7 @@ Companion UX control: [M1 Mobile UI Design Brief and Screen Inventory](m1-mobile
 
 Companion workflows: [M1 Mobile Prototype Workflows](m1-mobile-prototype-workflows.md)
 Deferred scope: [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md)
+Real-speech follow-on: [M1.1 Offline Multilingual Speech](m1.1-offline-multilingual-speech.md)
 
 ## Purpose
 
@@ -22,14 +23,14 @@ This prototype should not be a throwaway demo. It should be intentionally small,
 A synthetic entrepreneur can use a mobile app to:
 
 - install and open a versioned Android prototype on a representative physical device;
-- use the same Expo codebase on iOS and install a TestFlight test build on an approved representative iPhone;
+- defer iOS/TestFlight acceptance from M1; M1.1 will add the approved representative iPhone speech-device evaluation;
 - record a sale or expense manually;
 - save it offline to local SQLite;
 - see it in recent activity after app restart;
-- review and confirm a speech-derived transaction proposal;
-- hear a text-to-speech confirmation example;
+- review and confirm a deterministic mocked speech-derived transaction proposal;
+- hear a device text-to-speech confirmation example;
 - capture a receipt image;
-- review best-effort OCR text or suggested fields;
+- review real on-device Android OCR text and receipt-parser suggested fields;
 - manually correct and confirm before anything becomes a durable financial record.
 
 The prototype proves whether the product can feel like a trusted Business Journal rather than accounting software.
@@ -46,6 +47,7 @@ The prototype proves whether the product can feel like a trusted Business Journa
 | `phase-02-offline-first-sqlite-sync-architecture.md` | Local SQLite should be the mobile UI source of truth; sync queue/status should be explicit. |
 | `phase-05-receipt-capture-mobile-document-scanning.md` | Start with simple receipt photo capture; full document scanning is not required for first proof. |
 | `phase-06-speech-multilingual-ai-proposal-workflow.md` | Speech/AI produces proposals only; user confirmation creates the transaction. |
+| [Google ML Kit Text Recognition for Android](https://developers.google.com/ml-kit/vision/text-recognition/v2/android) | Confirms the bundled on-device text-recognition path selected for M1 Android receipt OCR. |
 
 ## Execution Mode
 
@@ -60,7 +62,7 @@ The following decisions supersede conflicting earlier M1 wording only for the cu
 - The temporary public mobile repository is `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app`; it must transfer to HRF before participant, production, or pilot use.
 - Android physical-device acceptance uses the representative U656AC on Android 15. iOS/TestFlight work is deferred behind a separately approved later gate and is not required for M1 completion.
 - EAS manages the Android signing key and creates an internal-distribution signed APK. The artifact link is shared only with authorized prototype testers.
-- Speech-to-text and OCR use deterministic mocked fixtures behind replaceable adapters. Text-to-speech uses the device path, and receipt capture uses real local camera/image-picker behavior. No AWS or other cloud provider is part of M1.
+- Speech-to-text uses deterministic mocked fixtures behind a replaceable adapter. Receipt capture uses real local camera/image-picker behavior, and Android receipt OCR uses a bundled Google ML Kit Text Recognition model against the local image. Text-to-speech uses the device path. No AWS, Google cloud OCR, or other cloud provider is part of M1.
 - The autonomous controller records `strict-first-degraded` as its preset policy; `prototype-rapid` does not require isolated independent review.
 
 Constraints:
@@ -92,7 +94,8 @@ Constraints:
 - Review/edit/confirm workflow for every source.
 - Text-to-speech confirmation example.
 - Receipt image capture and local file metadata.
-- Best-effort OCR text extraction or mocked OCR result if real OCR integration would slow the prototype.
+- Real on-device OCR of the locally captured or selected receipt image on Android, using bundled Google ML Kit Text Recognition; no first-use model download is permitted for the M1 Android path.
+- A deterministic receipt parser that turns OCR text and available line/layout evidence into an editable, non-authoritative receipt proposal.
 - Sync-shaped outbox item, idempotency key, and configurable sync-client interface so M1.2 can replace the local/stub sync path without changing the transaction model.
 - English and French user-interface resource bundles, selected from the device/app locale with English fallback.
 - HTG (`Haitian gourde`, ISO 4217 `HTG`) as the fixed synthetic prototype currency; store currency code and minor units, then format values for the active display locale.
@@ -162,11 +165,11 @@ Acceptance:
 
 Goal:
 
-Prove the proposal/confirmation pattern for speech without making speech a dependency for completing a transaction.
+Prove the proposal/confirmation interaction for speech without making real speech recognition or speech assistance a dependency for completing a transaction. Real offline multilingual STT/TTS is deferred to M1.1.
 
 Build:
 
-- Speech input example or mocked speech transcript entry.
+- Deterministic mocked speech transcript entry behind a replaceable adapter; no live microphone or real STT engine.
 - Deterministic proposal creation from one or more known example phrases.
 - Review/Confirm state populated from the proposal.
 - Text-to-speech confirmation example.
@@ -186,25 +189,28 @@ Expected proposal:
 
 Acceptance:
 
-- Speech/transcript creates a proposal, not a saved transaction.
+- The mocked speech transcript creates a proposal, not a saved transaction.
 - User can edit the proposal before confirming.
 - User confirmation saves a normal local transaction.
 - Text-to-speech can read the confirmation summary.
 - Manual entry remains available if speech fails.
 
-### Phase 3: Receipt Capture and Best-Effort OCR Review
+### Phase 3: Receipt Capture, On-Device OCR, and Receipt-Parser Review
 
 Goal:
 
-Prove receipt capture and OCR review without requiring full scanning, perfect extraction, or cloud OCR.
+Prove receipt capture, real local Android OCR, and structured-field review without requiring full scanning, perfect extraction, or cloud OCR.
 
 Build:
 
+- Use [Scan a receipt](../design-assets/M1/home-roots-mobile-scan-receipt-concept-v1.png) as the capture-screen visual source and [Review receipt](../design-assets/M1/home-roots-mobile-review-receipt-concept-v1.png) as the captured-receipt/proposal visual source. The existing [extraction-failure state](../design-assets/M1/home-roots-mobile-receipt-extraction-failure-concept-v1.png) supplies the OCR/parser fallback screen.
 - Receipt photo capture or image picker.
 - Durable local file copy/reference.
 - Receipt metadata table.
-- Best-effort OCR text extraction or mocked OCR fixture.
-- Suggested transaction fields from OCR text when feasible.
+- Android-only M1 acceptance path: bundle Google ML Kit Text Recognition in the APK and run it against the local receipt image. Do not use the Play-services-delivered/unbundled model, a network request, or a cloud OCR service.
+- Preserve raw OCR text and, where the recognizer supplies it, line/block position evidence separately from the proposal and confirmed transaction.
+- Run a deterministic local receipt parser over that OCR result. The parser may propose a merchant, occurrence date, total amount, fixed `HTG` currency, and a short description; it must leave a field blank when it cannot identify it confidently. Category and item-level interpretation remain manual in M1.
+- Include parser evidence and a confidence/uncertainty indicator with each proposed field so the review screen can distinguish a suggested value from a confirmed fact.
 - Review/Confirm state populated from OCR suggestion.
 - Manual fallback when OCR is missing or wrong.
 
@@ -212,10 +218,11 @@ Acceptance:
 
 - User can attach a receipt image to a transaction flow.
 - Receipt metadata persists locally.
-- OCR text or OCR fixture is shown separately from confirmed transaction fields.
-- User can correct OCR-derived values.
+- Android OCR operates on the local image after installation with the device offline; the test evidence identifies the bundled ML Kit dependency rather than an unbundled/downloaded model.
+- Raw OCR text and parser-proposed fields are shown separately from confirmed transaction fields.
+- User can correct or clear every OCR/parser-derived value before confirmation.
 - User confirmation saves the transaction.
-- OCR failure does not block manual completion.
+- OCR or parser failure does not block manual completion, and the local receipt image remains available for review.
 
 ## Data Design
 
@@ -288,6 +295,8 @@ The selected PNGs in [the M1 asset package](../design-assets/M1/), together with
 The images establish the visual pattern; the companion briefs establish the routes, alternate states, accessibility, persistence, and truthfulness requirements. Generated code must implement both sources and must not infer a live backend, participant data, or a remotely synced state from the mockups.
 
 - Store image files in app-controlled durable local storage; SQLite stores metadata and file URI.
+- Keep the Android OCR boundary replaceable. M1 selects bundled Google ML Kit Text Recognition only for the Android implementation and physical-device acceptance path; iPhone receipt-OCR implementation and acceptance are deferred with iOS/TestFlight work.
+- Keep receipt parsing deterministic and local. Its input is OCR text plus available layout evidence; its output is an editable proposal with field-level source/confidence metadata, never an authoritative financial write.
 - Keep raw input/proposals separate from confirmed transaction fields.
 - Use local IDs from the start.
 - Resolve the active language from the device/app locale and fall back to English. Do not add a profile, settings screen, or in-app language selector in M1.
@@ -317,11 +326,12 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 | Localization | Ship English and French keyed resources now using `expo-localization` plus an i18n library. Declare both supported locales to iOS and Android; use English fallback. Do not build a user profile language selector in M1. |
 | Currency and formatting | Use the Haitian gourde (`HTG`) for synthetic data. Store minor units and ISO currency code; format numbers and dates for the active locale. |
 | Receipt capture | Simple photo/image picker first; defer full document scanning. |
-| OCR | Best-effort local/device, fixture, or provider adapter. Do not block on AWS Textract. |
-| Speech | Mocked or provider-backed transcript path is acceptable; use the same proposal/review model either way. |
-| TTS | Use the fastest available prototype path, behind an adapter if practical. |
+| OCR | Android M1 uses a bundled Google ML Kit Text Recognition model against local receipt images; no mocked OCR fixture, cloud provider, or first-use model download. Keep the OCR adapter replaceable. |
+| Receipt parser | Deterministic local rules parse OCR text/layout into optional merchant, date, amount, fixed HTG currency, and description proposals. Preserve raw OCR and field-level uncertainty; leave category and items for manual entry. |
+| Speech | Use deterministic mocked transcripts behind the existing adapter boundary. M1.1 owns real offline STT and must expose it through one replaceable `SpeechToTextAdapter`. |
+| TTS | Use installed-device TTS for the M1 interaction proof. M1.1 owns three-language offline TTS evaluation and its replaceable engine boundary. |
 | Android delivery | Produce a versioned installable Android preview build for representative physical-device testing. |
-| iPhone delivery | Deferred to a later approved gate. |
+| iPhone delivery | Deferred from M1. M1.1 includes approved iPhone physical-device speech evaluation; any TestFlight distribution remains a separate approval gate. |
 | Automated testing | Use React Native Testing Library for component and state behavior; use Maestro YAML flows with stable `testID` selectors for cross-platform end-to-end manual sale/expense, validation, speech/receipt fallback, and locale smoke tests. |
 | Backend | Stub or defer during M1; do not let backend scope block the local prototype. M1.2 owns the live REST API proof. |
 
@@ -330,6 +340,7 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 - Manual input is the baseline completion path.
 - Speech and OCR create proposals only.
 - Every proposal must be reviewed and confirmed.
+- Receipt OCR and parser output are suggestions: they may prepopulate a field but cannot create, change, or confirm a financial record.
 - Use plain business language.
 - Show estimated totals as estimated when appropriate.
 - Keep the prototype to sale and expense only. Cash movement is deferred work.
@@ -346,9 +357,7 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 
 ### Phase-Specific
 
-- Which speech-to-text path is fastest in the chosen runtime: mocked transcript, device speech, or cloud adapter?
-- Which text-to-speech path is fastest and good enough for the prototype?
-- Which OCR path is fastest and good enough: mocked fixture, device/local OCR, or cloud adapter?
+- **Resolved for M1:** use deterministic mocked STT and installed-device TTS; evaluate real offline English, French, and Haitian Creole speech in M1.1.
 - Is simple image picker acceptable for receipt capture, or does JLP expect an in-app camera surface?
 
 ## Risks
@@ -356,7 +365,7 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 | Risk | Mitigation |
 | --- | --- |
 | Prototype becomes throwaway | Use V1-shaped local IDs, source metadata, confirmation states, and sync statuses. |
-| Speech/OCR integration slows learning | Start with fixtures or adapters; prove review/confirmation before provider quality. |
+| Receipt OCR/parser is inaccurate on varied receipts | Bundle the on-device Android OCR model, test against synthetic receipt images, retain raw text and field-level uncertainty, and leave uncertain fields blank with manual correction always available. |
 | UI slips back into bookkeeping language | Use UX control language: money earned, money spent, estimated profit, saved on this phone. |
 | Offline behavior gets faked | Require SQLite persistence and app-restart test in phase 1. |
 | Prototype scope expands into full V1 | Exclude admin, loans, inventory, full AI coach, and production backend. |
@@ -371,7 +380,7 @@ Create three slice-level changes from this brief:
 2. `prototype-speech-proposal-confirmation`
 3. `prototype-receipt-capture-ocr-review`
 
-M1.2 follow-on changes are described separately in `m1.2-live-sync-rest-api-proof.md`.
+The real-speech follow-on is described in `m1.1-offline-multilingual-speech.md`. The later live-sync work remains M1.2 and is described separately in `m1.2-live-sync-rest-api-proof.md`.
 
 Each change should include:
 
