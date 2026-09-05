@@ -51,3 +51,13 @@ central-pin relationship, divergence statement, and residual gaps.
   schema-validated local-review result is claimed.
 - Backend sync, cloud OCR, authentication, iOS/TestFlight, deployment, and
   participant/pilot/production use remain outside this slice.
+- Android build `50639a3f-8077-43c3-8a17-865e7e567077` was produced 2026-08-19
+  from commit `3f1efb93` ("docs: record receipt OCR local validation") with a
+  clean working tree. That commit lived only in a self-contained clone under
+  `/private/tmp`, was never pushed, and is unrecoverable. Confirmed 2026-09-04
+  against the component repository's full object store (no garbage collection
+  had run), GitHub, all clones on the delivery machine, the Trash, IDE local
+  history, and EAS artifact storage (artifact deleted).
+- No device-acceptance evidence was recorded from that build and no completion
+  claim depends on it. The receipt slice will be rebuilt from the approved
+  plan; contract pin `77884c2` remains valid and unchanged.
