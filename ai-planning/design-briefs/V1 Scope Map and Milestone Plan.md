@@ -530,7 +530,7 @@ Resolved 2026-09-06 by owner decision, following the `jra-sonarqube` pattern: th
 
 Also resolved 2026-09-06:
 
-- **One repository**, holding the API, its Terraform, its scripts, and its runbooks together. M1.2 therefore has two components, mobile and backend, not three. To be reconsidered when a second codebase appears.
+- **One repository**, holding the API, its Terraform, its scripts, and its runbooks together, with Terraform segregated under an `iac/` directory rather than at the repository root. M1.2 therefore has two components, mobile and backend, not three. To be reconsidered when a second codebase appears.
 - **Thin end to end first.** A health-check-only API is deployed and reached from a real device over HTTPS before the sync endpoint exists; the API and contract are developed in parallel against a local PostgreSQL container.
 - **Terraform state in its own bucket and lock table**, separate from the reference project's.
 - **Two budgets** — $15/month for this project, $33/month account-wide as the real guardrail, since both projects share one account and one credit.
