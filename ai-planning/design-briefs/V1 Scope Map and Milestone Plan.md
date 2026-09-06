@@ -430,7 +430,9 @@ Design brief:
 
 ### M1.2: Live Sync and Prototype API Proof
 
-Status: **Active next milestone**, selected 2026-09-06. M1.1 and M1.3 are both blocked on human data collection that cannot be parallelized by the delivery team; M1.2 is blocked only on decisions the owner can make, so it proceeds while the two corpora are assembled. Its four blocking questions below must be answered before Propose.
+Status: **Active next milestone**, selected 2026-09-06. M1.1 and M1.3 are both blocked on human data collection that cannot be parallelized by the delivery team; M1.2 is blocked only on decisions the owner can make, so it proceeds while the two corpora are assembled.
+
+**Platform decisions recorded 2026-09-06.** M1.2 adopts the cold-off ECS deployment pattern already proven in the `jra-sonarqube` repository: the same AWS account and region, the same Route 53 registered domain with a new subdomain, Terraform-owned infrastructure, ECS on EC2 instead of EKS for cost, PostgreSQL as a container instead of RDS, cost alarms plus spin-up/spin-down scripts as the primary cost control, and deployment through scripts. EKS remains the long-term target, so migration enablement is a design constraint on this milestone. The full inheritance table, the cross-project constraints it creates, and the remaining open questions are in the [M1.2 design brief](m1.2-live-sync-rest-api-proof.md).
 
 Goal:
 
@@ -450,19 +452,20 @@ Minimum M1 capabilities carried into M1.2:
 
 Bare-minimum extraction from M2: Terraform Infrastructure Foundation:
 
-- Terraform repository, remote encrypted state, state-access roles, and a single isolated development environment.
-- A minimal development VPC and EKS runtime sufficient for one Spring Boot workload, with narrowly scoped IAM/OIDC workload roles.
-- An ECR repository for immutable API images.
-- Development PostgreSQL, networked only for the API workload, with credentials managed through Secrets Manager.
-- A development DNS name, TLS certificate, and public HTTPS ingress for the API; the root domain and hosted zone must be owned and approved before this is provisioned.
-- CloudWatch service logs and a small, explicit cost budget/alarm and shutdown rule for the development environment.
+- Terraform configuration, remote encrypted S3 state with a lock table, state-access roles, and a single isolated development environment. State is separate from the existing project's state in the shared account.
+- A minimal development VPC and **ECS** runtime sufficient for one Spring Boot workload, with narrowly scoped IAM workload roles. The `jra-mobile-backend-deploy` and `jra-mobile-backend-task` role names are already reserved for this workload.
+- An ECR repository for immutable API images, deployed by digest.
+- Development **PostgreSQL as a container in the same ECS task**, not RDS, reachable only by the API, with credentials in Secrets Manager and durable state kept as verified, checksummed S3 dumps.
+- A development DNS name, TLS certificate, and public HTTPS ingress for the API through an on-demand Elastic IP and a host-local TLS proxy, not an ALB. The existing hosted zone is consumed through a Terraform data source, never redeclared.
+- CloudWatch service logs, a monthly budget alarm, and cold-off spin-up/spin-down scripts as the primary cost control.
 
 Bare-minimum extraction from M3: Deployment and Environment Foundation:
 
 - A repeatable container build for the Spring Boot API, including its deterministic unit/API-contract checks.
-- A development-only Helm chart or equivalent Kubernetes workload package with image digest, environment configuration, health/readiness probes, and non-secret configuration separated from Secrets Manager values.
-- GitHub Actions pull-request checks plus a development deployment path that builds an immutable image, publishes it to ECR, and deploys that exact image digest to EKS through a narrowly scoped GitHub OIDC role.
-- A development smoke test for the deployed API, captured deployment metadata, and a documented rollback to the prior image digest.
+- A development ECS task definition with the image digest, environment configuration, health/readiness checks, and non-secret configuration separated from Secrets Manager values. Resource, environment, secret, port, and probe settings live in Terraform variables so an EKS Deployment can later consume the same content.
+- Idempotent `start`, `deploy`, `cold-stop`, `status`, and `health` orchestration scripts behind a `Makefile`, plus cost and start/stop/recover runbooks.
+- A written assessment of what a GitHub Actions build-and-deploy path would require, without committing to build it in this milestone.
+- A development smoke test for the deployed API, captured deployment metadata, and a documented rollback to the prior image digest and task-definition revision.
 
 Minimum API and mobile-integration scope:
 
@@ -484,11 +487,14 @@ Candidate slices:
 - `prototype-android-release-delivery`
 - `prototype-sync-contract-and-outbox`
 - `prototype-development-terraform-bootstrap`
-- `prototype-development-eks-ecr-rds-and-ingress`
+- `prototype-development-ecs-cluster-and-container-postgres`
+- `prototype-development-ingress-dns-and-tls`
 - `prototype-spring-boot-api-and-synthetic-transaction-store`
-- `prototype-github-oidc-build-publish-and-helm-deploy`
+- `prototype-image-publish-and-lifecycle-scripts`
 - `prototype-tester-authentication`
 - `prototype-device-live-sync-proof`
+
+The earlier `prototype-development-eks-ecr-rds-and-ingress` and `prototype-github-oidc-build-publish-and-helm-deploy` names are retired: EKS, RDS, and Helm are out of scope, and ingress carries enough session-lifecycle behavior to stand alone.
 
 Dependencies:
 
@@ -501,19 +507,32 @@ Acceptance:
 
 - An authorized tester installs the signed M1 APK on a physical Android device and signs in through the approved prototype authentication path.
 - While offline, the tester confirms a synthetic sale or expense; it remains locally durable after app restart and visibly queues for synchronization.
-- When connectivity returns, the app makes an authenticated TLS API call to the Terraform-provisioned EKS-hosted Spring Boot API, receives a successful acknowledgement, and changes the item to `synced` only after PostgreSQL durably accepts it.
+- When connectivity returns, the app makes an authenticated TLS API call to the Terraform-provisioned ECS-hosted Spring Boot API, receives a successful acknowledgement, and changes the item to `synced` only after PostgreSQL durably accepts it.
 - Retrying the same queued operation does not create a duplicate server record.
-- A controlled API or deployment failure leaves the local record intact, reports a comprehensible retryable/failed state, and succeeds when the service is restored.
+- A controlled API or deployment failure leaves the local record intact, reports a comprehensible retryable/failed state, and succeeds when the service is restored. A `cold-stop` is a sufficient controlled outage and a `start` is the recovery.
+- The synchronized transaction survives a full `cold-stop` and `start` cycle, proving the verified dump-and-restore path rather than only in-session persistence.
 - The deployed service is reachable only through its intended development HTTPS endpoint, uses no long-lived AWS credentials in the app or repository, and stores only synthetic prototype data.
-- Terraform reproduces the approved development foundation. GitHub Actions records the commit SHA, image digest, Helm configuration version, deployment result, smoke-test evidence, and rollback target.
+- Terraform reproduces the approved development foundation. The deployment path records the commit SHA, image digest, task-definition revision, deployment result, smoke-test evidence, rollback target, and measured cold-start duration.
 
 Blocking questions:
 
-- Is EKS confirmed as the required development runtime for this proof, accepting its baseline cost and operational overhead? Recommended answer: confirm before provisioning; M1.2 assumes EKS only when that decision is accepted. **Note recorded 2026-09-06:** this is the expensive question. EKS carries a meaningful monthly floor even when idle, and lighter runtimes would prove the same single-Dockerized-service path. Weigh the cost against what the proof actually requires before committing.
-- What owned root domain, Route 53 hosted-zone approach, development API subdomain, and TLS certificate ownership are approved?
-- What approved named-tester authentication approach will be used for synthetic prototype access?
-- Which development region, budget alarm threshold, automatic shutdown rule, Terraform state owners, and GitHub deployment approvers are approved?
-- Is the Android distribution path direct signed APK installation for a tightly controlled group, or Google Play closed testing for a broader tester group?
+Resolved 2026-09-06 by owner decision, following the `jra-sonarqube` pattern: the runtime is ECS on EC2 rather than EKS or Fargate, on cost and on reuse of a proven start/stop path; the AWS account and `us-east-1` region are the existing shared ones; DNS is the existing Route 53 registered domain with a new development subdomain; the database is a container rather than RDS; infrastructure is Terraform; cost control is a budget alarm plus cold-off spin-up/spin-down scripts; and deployment is through scripts, with GitHub Actions explored rather than adopted.
+
+Also resolved 2026-09-06:
+
+- **One repository**, holding the API, its Terraform, its scripts, and its runbooks together. M1.2 therefore has two components, mobile and backend, not three. To be reconsidered when a second codebase appears.
+- **Thin end to end first.** A health-check-only API is deployed and reached from a real device over HTTPS before the sync endpoint exists; the API and contract are developed in parallel against a local PostgreSQL container.
+- **Terraform state in its own bucket and lock table**, separate from the reference project's.
+- **Two budgets** — $15/month for this project, $33/month account-wide as the real guardrail, since both projects share one account and one credit.
+- **Joe Rice executes the final end-to-end device test**, against a written step-by-step script with evidence captured per step.
+- **Automated tests only** on pull requests. No AWS connection, no deployment automation. Image publishing added later; environment convergence stays in scripts.
+
+- **Development API hostname — `api-dev.joericearchitect.com`**, leaving `api.` free for the eventual production backend. The personally owned apex is accepted for synthetic prototype use, with the move to a Home Roots–owned domain recorded as an obligation alongside the mobile-repository transfer.
+- **Android distribution unchanged** — signed APK through EAS internal distribution on the `preview` profile, as M1 already does. Live sync changes nothing about how the APK is built, signed, or installed. The mobile slice owns four device-side changes: verifying the `INTERNET` permission, HTTPS-only with no certificate pinning, getting the API address and tester credential into the app without baking the credential into the build, and identifying the installed build version for evidence.
+
+- **Named-tester authentication — a per-tester bearer token**, issued out of band, entered once at first launch, stored in the Android keystore, revocable per person, and expiring on a fixed date. It is not an identity system; it substitutes for the login flow that does not exist yet. A two-legged OAuth client-credentials grant was considered and rejected because a native app is a public client: a secret compiled into an Expo build ships to every device and is readable as plain text in the JavaScript bundle, and the grant needs a token endpoint, expiry, refresh, and a token store for weaker assurance here. Published consumer apps authenticate the user rather than the app, using Authorization Code with PKCE per RFC 8252. The chosen token is on that path — runtime acquisition, keystore storage, bearer transmission, server-side validation, and per-person revocation all survive into M4 `entrepreneur-registration-login`; only the acquisition step changes.
+
+**No blocking questions remain for M1.2 as of 2026-09-06.** The next step is the first slice proposal: the development Terraform bootstrap with a health-check-only API, making `api-dev.joericearchitect.com` answer over HTTPS from a real device before any sync code exists.
 
 ### M1.3: Receipt Capture, Extraction Evaluation, and Reviewed Haitian Creole
 
@@ -598,6 +617,8 @@ Terraform defines the AWS account/environment boundary, network, container regis
 Source decision:
 
 Use Terraform for infrastructure buildout. Follow `ai-planning/research/eks-cicd-and-environment-strategy.md` for EKS, ECR, GitHub Actions, GitHub Environments, IAM OIDC, Helm, and later AWS-managed Argo CD.
+
+**Relationship to M1.2, recorded 2026-09-06:** M1.2 deliberately provisions ECS with a containerized PostgreSQL rather than EKS with RDS, on cost, and treats migration enablement as a design constraint. M2 remains the EKS target. M2 therefore inherits from M1.2 a proven Terraform state layout, account and network boundary, ECR repository, IAM role model, and cost-control discipline, and replaces only the runtime and database layers. The migration trigger is a threshold rather than a date: sustained multi-service need, a second team, an availability requirement a singleton cannot meet, or EKS becoming a funded learning objective.
 
 Candidate slices:
 
