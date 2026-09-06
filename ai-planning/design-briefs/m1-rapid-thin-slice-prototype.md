@@ -1,6 +1,6 @@
 # M1 Rapid Thin-Slice Prototype Brief
 
-Status: Approved M1 control brief; implementation remains governed by the central/component OpenSpec lifecycle
+Status: Delivered M1 control brief. Phases 1 and 2 are archived, synced, and accepted on the representative physical Android device; phase 3 moved in full to M1.3 on 2026-09-06. M1 is complete pending closure approval, evidenced in the [M1 Prototype Closure Audit](../evidence/m1-prototype-closure-audit.md).
 
 Milestone: M1 Rapid Thin-Slice Prototype
 
@@ -29,10 +29,9 @@ A synthetic entrepreneur can use a mobile app to:
 - see it in recent activity after app restart;
 - review and confirm a deterministic mocked speech-derived transaction proposal;
 - hear a device text-to-speech confirmation example;
-- capture a receipt image and keep it attached to a manually entered expense;
 - manually correct and confirm before anything becomes a durable financial record.
 
-On-device receipt text recognition and parser suggestions moved to [M1.3 Receipt Extraction Evaluation](m1-receipt-extraction-acceptance-and-eval-rules.md) on 2026-09-06.
+All receipt behavior, including image capture and storage, moved to [M1.3 Receipt Capture and Extraction Evaluation](m1-receipt-extraction-acceptance-and-eval-rules.md) on 2026-09-06. M1 ships no receipt capability.
 
 The prototype proves whether the product can feel like a trusted Business Journal rather than accounting software.
 
@@ -63,7 +62,7 @@ The following decisions supersede conflicting earlier M1 wording only for the cu
 - The temporary public mobile repository is `https://github.com/jizzoe/hrf-reinvest-to-grow-mobile-app`; it must transfer to HRF before participant, production, or pilot use.
 - Android physical-device acceptance uses the representative U656AC on Android 15. iOS/TestFlight work is deferred behind a separately approved later gate and is not required for M1 completion.
 - EAS manages the Android signing key and creates an internal-distribution signed APK. The artifact link is shared only with authorized prototype testers.
-- Speech-to-text uses deterministic mocked fixtures behind a replaceable adapter. Receipt capture uses real local camera/image-picker behavior with durable app-controlled storage; no text recognition runs in M1. Text-to-speech uses the device path. No AWS, Google cloud OCR, or other cloud provider is part of M1.
+- Speech-to-text uses deterministic mocked fixtures behind a replaceable adapter. Text-to-speech uses the device path. No receipt capture, text recognition, AWS, Google cloud OCR, or other cloud provider is part of M1.
 - The autonomous controller records `strict-first-degraded` as its preset policy; `prototype-rapid` does not require isolated independent review.
 
 Constraints:
@@ -91,11 +90,8 @@ Constraints:
 - Status display: saved on this phone, waiting to sync, and simulated needs attention. M1 never represents a record as remotely synced.
 - Manual transaction source.
 - Speech transcript/proposal source.
-- Receipt image source.
 - Review/edit/confirm workflow for every source.
 - Text-to-speech confirmation example.
-- Receipt image capture, durable app-controlled file storage, and local receipt metadata.
-- A receipt record shaped so a later extraction result attaches without a migration: `extraction_status` defaulting to `not_attempted`, plus nullable `provider`, `extracted_at`, and `raw_text`.
 - Sync-shaped outbox item, idempotency key, and configurable sync-client interface so M1.2 can replace the local/stub sync path without changing the transaction model.
 - English and French user-interface resource bundles, selected from the device/app locale with English fallback.
 - HTG (`Haitian gourde`, ISO 4217 `HTG`) as the fixed synthetic prototype currency; store currency code and minor units, then format values for the active display locale.
@@ -125,7 +121,7 @@ Constraints:
 
 The controlling M1 routes, action triggers, alternate paths, and status copy are in [M1 Mobile Prototype Workflows](m1-mobile-prototype-workflows.md). The visual inventory and component states are in [M1 Mobile UI Design Brief and Screen Inventory](m1-mobile-ui-design-brief-and-screen-inventory.md).
 
-M1 includes Home, action choice, manual sale/expense entry, review-and-confirm, saved-local confirmation, recent activity, speech proposal, receipt proposal, validation/fallback, and delayed-sync attention. A proposal is never a record; confirmation creates the local transaction.
+M1 includes Home, action choice, manual sale/expense entry, review-and-confirm, saved-local confirmation, recent activity, speech proposal, validation/fallback, and delayed-sync attention. The receipt screens are M1.3. A proposal is never a record; confirmation creates the local transaction.
 
 ## Prototype Phases
 
@@ -195,38 +191,15 @@ Acceptance:
 - Text-to-speech can read the confirmation summary.
 - Manual entry remains available if speech fails.
 
-### Phase 3: Receipt Image Capture and Storage
+### Phase 3: Deferred in full to M1.3
 
-Goal:
+Receipt image capture, durable storage, on-device text recognition, and parser
+suggestions all moved to M1.3 on 2026-09-06. M1 delivers no receipt behavior,
+and PRD REC-001 through REC-004 are recorded as owed at V1.
 
-Prove that a receipt photograph can be captured, stored durably, and kept
-attached to a confirmed expense on a real device, without any extraction.
-
-Build:
-
-- Use [Scan a receipt](../design-assets/M1/home-roots-mobile-scan-receipt-concept-v1.png) as the capture-screen visual source and [Review receipt](../design-assets/M1/home-roots-mobile-review-receipt-concept-v1.png) as the captured-receipt visual source, with its suggested-field areas left unpopulated in M1.
-- Receipt photo capture or local image picker, with an image-picker fallback when camera permission is denied and manual entry when neither is available.
-- Durable app-controlled file copy and reference; the image survives force-close and reopen.
-- Receipt metadata table, retained separately from the unconfirmed and the confirmed expense.
-- Attachment through the existing manual expense confirmation path. Attaching an image never creates, changes, or confirms a record on its own.
-- Forward-compatible receipt fields so M1.3 can attach an extraction result without a migration: `extraction_status` defaulting to `not_attempted`, plus nullable `provider`, `extracted_at`, and `raw_text`.
-
-Acceptance:
-
-- User can attach a receipt image to an expense the user entered manually.
-- The image and its metadata persist locally and survive force-close and reopen.
-- The receipt remains visible on the expense it was attached to.
-- Camera-permission denial falls back to local image selection, and both failing still allows manual completion.
-- No text recognition, parser suggestion, or network request occurs in M1.
-
-Deferred to M1.3:
-
-On-device text recognition, deterministic parser suggestions, the
-[extraction-failure state](../design-assets/M1/home-roots-mobile-receipt-extraction-failure-concept-v1.png),
-field-level uncertainty rendering, and the review-screen population from
-suggested values. The bundled Google ML Kit path, the parser field set, and the
-constraint that uncertain fields stay blank all remain the accepted direction;
-they are governed by
+The capture and attachment design, the M08 screen, the receipt workflow, and the
+OCR direction retained elsewhere in this brief remain the accepted approach for
+M1.3. They are governed by
 [M1 Receipt Extraction Acceptance, Evaluation, and Localization Rules](m1-receipt-extraction-acceptance-and-eval-rules.md)
 and gated on a photographed evaluation corpus.
 
@@ -252,7 +225,7 @@ and gated on a photographed evaluation corpus.
 - `occurred_on`
 - `category_label`
 - `note`
-- `source_type`: manual, speech_transcript, receipt
+- `source_type`: manual, speech_transcript (the `receipt` source arrives with M1.3)
 - `confirmation_status`: draft, confirmed, cancelled
 - `sync_status`: local, queued, syncing, synced, failed, needs_review. M1 uses only `local`, `queued`, and `needs_review`; the remaining values reserve the later live-sync shape.
 - `created_at`
@@ -281,15 +254,17 @@ and gated on a photographed evaluation corpus.
 - `confidence`
 - `created_at`
 
-`receipt_files`
+`receipt_files` — **M1.3 table, not created in M1**
 
 - `id`
 - `transaction_local_id`
 - `local_file_uri`
 - `mime_type`
 - `file_size`
-- `ocr_text`
-- `ocr_status`: not_started, extracted, failed, skipped
+- `raw_text`
+- `extraction_status`: not_attempted, extracted, failed, skipped
+- `provider`
+- `extracted_at`
 - `created_at`
 
 ### Design Notes
@@ -381,13 +356,12 @@ Do not build a live REST API, production authentication, loan APIs, admin APIs, 
 
 ## Proposed SDD/OpenSpec Changes
 
-Create three slice-level changes from this brief:
+Create two slice-level changes from this brief:
 
 1. `prototype-manual-offline-transaction`
 2. `prototype-speech-proposal-confirmation`
-3. `prototype-receipt-image-capture`
 
-The receipt extraction follow-on is `prototype-receipt-extraction-evaluation` under M1.3, governed by `m1-receipt-extraction-acceptance-and-eval-rules.md`. The real-speech follow-on is described in `m1.1-offline-multilingual-speech.md`. The later live-sync work remains M1.2 and is described separately in `m1.2-live-sync-rest-api-proof.md`.
+The receipt follow-ons are `prototype-receipt-image-capture` and `prototype-receipt-extraction-evaluation` under M1.3, governed by `m1-receipt-extraction-acceptance-and-eval-rules.md`. The real-speech follow-on is described in `m1.1-offline-multilingual-speech.md`. The later live-sync work remains M1.2 and is described separately in `m1.2-live-sync-rest-api-proof.md`.
 
 Each change should include:
 
@@ -415,26 +389,6 @@ When the prototype processes the phrase
 Then it shows a reviewable sale proposal  
 And the proposal is not saved as a transaction until the user confirms it
 
-### Scenario: Receipt image is attached to a manual expense
-
-Given the user captures or selects a receipt image  
-When the user enters the expense values manually and confirms  
-Then one expense is saved with the receipt attached  
-And the image and its metadata survive force-close and reopen
-
-### Scenario: Attaching an image creates no record
-
-Given the user captures or selects a receipt image  
-When the user cancels before confirming  
-Then no expense, total change, or outbox entry is created  
-
-### Scenario: Camera permission denial does not block entry
-
-Given camera permission is denied or unavailable  
-When the user continues  
-Then local image selection remains available  
-And the user can still enter and confirm the expense with no image
-
 ## Evidence Required Before Closing M1
 
 - Screenshot or screen recording of phase 1 manual offline flow.
@@ -443,11 +397,16 @@ And the user can still enter and confirm the expense with no image
 - Evidence that confirmed transactions create stable local outbox/sync records with idempotency keys.
 - Screenshot or screen recording of speech proposal and confirmation.
 - Screenshot or screen recording of text-to-speech confirmation.
-- Screenshot or screen recording of receipt capture, attachment, and restart durability.
 - Notes on any provider/library limitations discovered.
 - Automated test evidence from React Native Testing Library and Maestro, including an English and French locale smoke test.
 - Decision log for what should be reused, hardened, or discarded before formal V1 implementation.
 
 ## Next Action
 
-After the mobile repository is created and the central Gate 1 pin is recorded, create the component-local OpenSpec proposal for `prototype-manual-offline-transaction` in `hrf-reinvest-to-grow-mobile-app`. Keep it narrow: Android Expo foundation, English/French resources, manual sale/expense entry, local SQLite persistence, recent activity, simple totals, sync-shaped status, outbox/sync-client stub, and Android preview-build evidence only.
+M1 is complete pending closure approval. The next milestone to propose is M1.1
+Offline Multilingual Speech, described in `m1.1-offline-multilingual-speech.md`.
+
+Receipt work is carried by M1.3 and does not open until Joe Rice delivers the
+photographed evaluation corpus. Closure of M1 authorizes no implementation,
+external resource, participant data, or repository transfer; each later milestone
+retains its own approval gate.

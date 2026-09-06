@@ -1,6 +1,6 @@
 # M1 Receipt Extraction — Acceptance, Evaluation, and Localization Rules
 
-Status: Approved by the owner on 2026-09-06. Controls the M1.3 Receipt Extraction Evaluation milestone; feeds OpenSpec Propose once the evaluation corpus exists.
+Status: Approved by the owner on 2026-09-06. Controls the M1.3 Receipt Capture and Extraction Evaluation milestone; feeds OpenSpec Propose once the evaluation corpus exists.
 Date: 2026-09-05, decisions recorded 2026-09-06
 Companion control brief: [M1 Rapid Thin-Slice Prototype](m1-rapid-thin-slice-prototype.md)
 Deferred scope: [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md)
@@ -22,13 +22,19 @@ judgment.
 Nothing here changes what the prototype is trying to prove. It changes only how
 the slice is allowed to end.
 
-**Milestone placement.** Extraction was moved out of M1 phase 3 on 2026-09-06
-because the evaluation corpus these rules depend on does not yet exist and
-assembling a good one takes time. M1 phase 3 now delivers receipt image capture
-and durable storage only, which satisfies PRD REC-001, REC-003, and REC-004.
-Extraction is carried by M1.3 and remains explicitly owed at V1 under REC-002.
-This is the pre-agreed fallback in the "Stop Conditions" section, invoked
-deliberately and early rather than after a sixth review loop.
+**Milestone placement.** All receipt work moved out of M1 on 2026-09-06.
+Extraction moved first, because the evaluation corpus these rules depend on does
+not yet exist and assembling a good one takes time. Image capture and storage
+then moved with it so that M1 could close on its delivered phases rather than
+wait. M1 therefore ships no receipt capability, and PRD REC-001 through REC-004
+are recorded as owed at V1. M1.3 carries all of it. This is the pre-agreed
+fallback in the "Stop Conditions" section, invoked deliberately and early rather
+than after a sixth review loop.
+
+**M1.3 has two parts, in order.** Capture and storage come first and must pass
+device gate A on an installed build before any parser work begins. Extraction
+follows, measured against the corpus. The two parts share this document's safety
+invariants; only the second is subject to the accuracy targets.
 
 ## Source Basis
 
@@ -251,7 +257,9 @@ suites and 325 tests and then failed to save on a physical device.
 - **Gate A — capture only, no extraction.** Capture or select an image, persist
   it durably, attach it to a manually typed expense, force-close, reopen, confirm
   both image and transaction survive. Build the APK, install on the U656AC, run
-  it. If persistence breaks here, it is found with almost no code in flight.
+  it. If persistence breaks here, it is found with almost no code in flight. This
+  is also the first half of M1.3's own delivery, not merely a rehearsal: it is
+  the receipt capability M1 deferred.
 - **Gate B — extraction added.** On-device recognizer, parser, review screen,
   failure path. Rebuild, reinstall, retest, including the offline assertion and
   both EN and FR locales.
@@ -386,9 +394,9 @@ pre-agreed threshold.
 
 ## What This Changes in the Existing Plan
 
-- Extraction moved out of M1 phase 3 to the new **M1.3 Receipt Extraction
-  Evaluation** milestone on 2026-09-06. M1 phase 3 is now receipt image capture
-  and durable storage attached to a manually entered expense.
+- All receipt work moved out of M1 to the new **M1.3 Receipt Capture and
+  Extraction Evaluation** milestone on 2026-09-06. M1 phase 3 is now empty and
+  M1 closes without receipt behavior.
 - The scope map's OCR blocking question resolves to: on-device best-effort at
   M1.3 under these rules, cloud-based extraction at M8.
 - The discontinued change `prototype-receipt-capture-ocr-review` is superseded.
@@ -407,8 +415,8 @@ pre-agreed threshold.
    the fallback confirmed: extraction disabled behind a flag, capture and storage
    shipped, REC-002 recorded as owed at V1.
 3. N3 and D1 confirmed, with D1 paired with the long-form date display in D5.
-4. Extraction moved from M1 phase 3 to M1.3 so that corpus assembly does not
-   block M1 completion.
+4. All receipt work, extraction and image capture alike, moved from M1 to M1.3
+   so that corpus assembly does not block M1 completion.
 
 ## Corpus Ownership
 

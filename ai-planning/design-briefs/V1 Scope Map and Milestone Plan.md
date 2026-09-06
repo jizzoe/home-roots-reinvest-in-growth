@@ -1,6 +1,6 @@
 # Enterprise Growth App V1 Scope Map and Milestone Plan
 
-Status: Working planning artifact — M0 complete; M1 in progress with receipt extraction moved to M1.3; M1.1 speech and M1.2 live-sync follow-ons defined
+Status: Working planning artifact — M0 complete; M1 complete pending closure approval, with all receipt work moved to M1.3; M1.1 speech and M1.2 live-sync follow-ons defined
 Purpose: Control Version 1 scope before creating slice-level SDD/OpenSpec changes.  
 Primary source: `Enterprise Growth App PRD v1.0/Enterprise Growth Platform, Enterprise Growth App, Entrepreneur Application.docx`  
 Engineer quick reference: `Enterprise Growth App PRD v1.0/Features Reference Sheet, Appendix D.docx`
@@ -297,7 +297,7 @@ Blocking questions:
 
 ### M1: Rapid Thin-Slice Prototype
 
-Status: In progress — `prototype-manual-offline-transaction` remains the archived planning contract, and `m1-manual-offline-delivery` is the approved central implementation envelope for Phase 1. The initial mobile repository is being created under the owner's personal GitHub account as a temporary public home and must transfer to HRF before any participant, production, or pilot use. Phase 3 is receipt image capture and storage only; on-device OCR and parser suggestions moved to M1.3 on 2026-09-06.
+Status: Complete pending closure approval, evidenced in [M1 Prototype Closure Audit](../evidence/m1-prototype-closure-audit.md). Phase 1 (manual offline entry) and Phase 2 (mocked speech proposal and device text-to-speech) are archived, synced, and accepted on the representative physical device. M1.1 is the next milestone to propose. All receipt work, including image capture, moved to M1.3 on 2026-09-06; M1 ships no receipt capability and PRD REC-001 through REC-004 are recorded as owed at V1. The mobile repository remains under the owner's personal GitHub account as a temporary public home and must transfer to HRF before any participant, production, or pilot use.
 
 Current delivery decisions for Phase 1:
 
@@ -305,7 +305,7 @@ Current delivery decisions for Phase 1:
 - Use the public mobile repository `jizzoe/hrf-reinvest-to-grow-mobile-app` and its checkout at `/Users/joerice/git/joericearchitect/hrf-reinvest-in-growth/hrf-reinvest-to-grow-mobile-app`.
 - Require physical Android acceptance only on the representative U656AC running Android 15. iOS/TestFlight is a separate later gate, not an M1 exit condition.
 - Use an EAS-managed Android signing key, an internal-distribution signed APK, and an artifact link shared only with authorized prototype testers.
-- Use synthetic HTG examples with English and French resources, mocked speech transcripts, device text-to-speech, and real local photo/image-picker capture with durable app-controlled storage. On-device text recognition and receipt parsing are M1.3 work. AWS and all other cloud provider integrations remain outside M1.
+- Use synthetic HTG examples with English and French resources, mocked speech transcripts, and device text-to-speech. Receipt capture, storage, on-device text recognition, and parsing are all M1.3 work. AWS and all other cloud provider integrations remain outside M1.
 
 Goal:
 
@@ -313,7 +313,7 @@ Prove the riskiest V1 assumptions quickly with a small, working, non-throwaway p
 
 Outcome:
 
-A real, versioned Android prototype can be installed and used by a non-developer on a physical device. It demonstrates offline-first transaction capture, a confirmed proposal from a deterministic mocked speech transcript, installed-device text-to-speech confirmation, and receipt image capture with durable local storage attached to a manually entered expense. The prototype should be small enough to build quickly, but shaped so its domain model, local storage, and confirmation flow can evolve into V1 rather than being discarded.
+A real, versioned Android prototype can be installed and used by a non-developer on a physical device. It demonstrates offline-first transaction capture, a confirmed proposal from a deterministic mocked speech transcript, installed-device text-to-speech confirmation, with receipt capability deferred in full to M1.3. The prototype should be small enough to build quickly, but shaped so its domain model, local storage, and confirmation flow can evolve into V1 rather than being discarded.
 
 Comparison to prior prototype recommendation:
 
@@ -346,34 +346,31 @@ Prototype phase 2: speech proof
 - Store transcript/proposal metadata separately from confirmed transaction fields.
 - Do not add microphone capture or a real STT engine in M1; M1.1 owns that work.
 
-Prototype phase 3: receipt image capture and storage
+Prototype phase 3: deferred in full to M1.3
 
-- Add receipt photo capture and local image selection, with an image-picker fallback when camera permission is denied and manual entry when neither is available.
-- Copy the image into app-controlled storage and retain receipt metadata separately from the unconfirmed and the confirmed expense; both survive force-close and reopen.
-- Attach the receipt to an expense the user enters manually through the existing confirmation path; attaching an image never creates a record on its own.
-- Shape the receipt record so a later extraction result can attach without a migration: `extraction_status` defaulting to `not_attempted`, plus nullable `provider`, `extracted_at`, and `raw_text`.
-- Do not add on-device text recognition or parser suggestions in M1; M1.3 owns that work.
+Receipt image capture, durable storage, on-device text recognition, and parser
+suggestions all moved to M1.3 on 2026-09-06. M1 delivers no receipt behavior.
+The rationale, evidence, and the PRD requirements this leaves owed are recorded
+in the M1.3 section and in the closure audit.
 
 Candidate slices:
 
 - `prototype-manual-offline-transaction`
 - `prototype-speech-proposal-confirmation`
-- `prototype-receipt-image-capture`
 
 Dependencies:
 
 - M0 guardrails and repository/runtime decisions.
 
-Acceptance:
+Acceptance: all nine criteria met; see the [closure audit](../evidence/m1-prototype-closure-audit.md) for the evidence mapping and the named receipt gap.
 
 - A synthetic entrepreneur can record a sale or expense while offline and see it after app restart.
 - The mocked speech transcript produces a proposal, not a final transaction.
 - Text-to-speech can read a confirmation summary.
-- A captured receipt image and its metadata survive force-close and reopen, and remain visible on the expense they were attached to.
-- Manual entry remains available if speech, the camera, or local image selection fails.
+- Manual entry remains available if speech or text-to-speech fails or is unavailable.
 - A versioned, signed Android APK is produced through a documented, repeatable build process and can be installed on a representative physical Android device without a developer workstation connection.
 - A tester can open the installed APK, enter a synthetic sale or expense while offline, force-close the app, reopen it, and find the confirmed record intact.
-- Camera, speech, and text-to-speech permission-denied or unavailable-device states preserve manual entry and fail safely.
+- Speech and text-to-speech permission-denied or unavailable-device states preserve manual entry and fail safely.
 - The installed prototype contains only synthetic data and is distributed only to authorized prototype testers through a documented APK-installation or Google Play closed-test process.
 - The prototype demonstrates viability without adding admin portal, loans, full inventory, full AI Growth Coach, or production data.
 
@@ -382,12 +379,12 @@ Blocking questions:
 - Is SQLite required in phase 1 even if it slows the first screen slightly? Recommended answer: yes.
 - Should phase 1 include real backend sync or only a sync-shaped local stub? Recommended answer: local stub first, backend in a later SDD slice unless infrastructure is already ready.
 - **Resolved for M1:** use deterministic fixtures for the interaction proof; M1.1 evaluates real offline English, French, and Haitian Creole speech.
-- **Resolved 2026-09-06:** a simple camera photo or local image selection is sufficient for phase 3; document edge detection is not required.
-- **Resolved 2026-09-06:** on-device best-effort recognition behind a replaceable interface, evaluated in M1.3 against a frozen photographed corpus and fixed exit criteria. Cloud extraction remains M8 work, and no paid or cloud provider is used in M1.
+- **Resolved 2026-09-06:** a simple camera photo or local image selection is sufficient; document edge detection is not required. This now applies to M1.3.
+- **Resolved 2026-09-06:** on-device best-effort recognition behind a replaceable interface, evaluated in M1.3 against a frozen photographed corpus and fixed exit criteria. Cloud extraction remains M8 work, and no paid or cloud provider is used in the prototype milestones.
 
 ### M1.1: Offline Multilingual Speech
 
-Status: Owner direction captured; design brief ready for OpenSpec Propose after M1 completion.
+Status: **Next milestone to propose.** Owner direction captured; design brief ready for OpenSpec Propose now that M1 is complete pending closure approval.
 
 Goal:
 
@@ -516,17 +513,17 @@ Blocking questions:
 - Which development region, budget alarm threshold, automatic shutdown rule, Terraform state owners, and GitHub deployment approvers are approved?
 - Is the Android distribution path direct signed APK installation for a tightly controlled group, or Google Play closed testing for a broader tester group?
 
-### M1.3: Receipt Extraction Evaluation
+### M1.3: Receipt Capture and Extraction Evaluation
 
-Status: Deferred from M1 phase 3 on 2026-09-06. Acceptance rules approved and recorded; blocked only on evaluation-corpus assembly.
+Status: All receipt work deferred here from M1 phase 3 on 2026-09-06. Acceptance rules approved and recorded; blocked only on evaluation-corpus assembly.
 
 Goal:
 
-Determine whether offline on-device receipt extraction is good enough to reduce manual entry in the Haitian operating context, without ever letting a suggested value become a financial record on its own.
+Deliver receipt capture and retention, then determine whether offline on-device extraction is good enough to reduce manual entry in the Haitian operating context, without ever letting a suggested value become a financial record on its own.
 
 Outcome:
 
-An installed Android build performs bundled on-device text recognition on a captured receipt image and offers editable suggestions for total amount and occurrence date, with merchant and short description reported but untargeted. Performance is measured against a frozen photographed corpus with a sealed holdout, so the slice ends at a number rather than at a reviewer's judgment.
+An installed Android build captures or selects a receipt image, stores it durably, and keeps it attached to a manually entered expense across restarts. It then performs bundled on-device text recognition on that image and offers editable suggestions for total amount and occurrence date, with merchant and short description reported but untargeted. Extraction performance is measured against a frozen photographed corpus with a sealed holdout, so the slice ends at a number rather than at a reviewer's judgment.
 
 Why this is separate from M1:
 
@@ -538,6 +535,10 @@ Controlling brief:
 
 Scope:
 
+- Receipt photo capture and local image selection, with an image-picker fallback when camera permission is denied and manual entry when neither is available.
+- Durable app-controlled image storage and receipt metadata retained separately from the unconfirmed and the confirmed expense, surviving force-close and reopen.
+- Attachment to an expense the user enters manually through the existing confirmation path; attaching an image never creates a record on its own.
+- A receipt record shaped so an extraction result attaches without a migration: `extraction_status` defaulting to `not_attempted`, plus nullable `provider`, `extracted_at`, and `raw_text`.
 - Bundled on-device Android text recognition with no first-use model download, no network request, and no cloud OCR.
 - A deterministic local parser producing editable, non-authoritative suggestions for total amount and occurrence date; merchant and short description are offered without an accuracy target.
 - Review and correction through the existing expense confirmation path, with raw recognizer text displayed separately from suggested values.
@@ -552,14 +553,16 @@ Explicitly out of scope:
 
 Dependencies:
 
-- M1 completion, including receipt image capture and durable local storage.
+- M1 completion.
 - A frozen evaluation corpus of at least 30 photographed receipts with hand-labelled ground truth, split 20 development and 10 sealed holdout. This is the critical path; no parser work begins before it exists.
 
 Acceptance:
 
+- A captured receipt image and its metadata survive force-close and reopen, and remain visible on the expense they were attached to.
+- Camera-permission denial falls back to local image selection, and both failing still allows manual completion.
 - Amount precision at least 0.95 with coverage at least 0.40 on the sealed holdout, and date precision at least 0.95 with coverage at least 0.30. At a holdout of ten, this means no wrong suggestion is tolerated.
 - All ten safety invariants pass, including displayed-equals-stored, one confirmation producing at most one record, no fabricated values, integer-centime money, no network during extraction, and no microphone permission.
-- Device gate A, capture and storage on an installed build, passes before parser implementation begins; device gate B repeats acceptance with extraction enabled.
+- Device gate A, capture and storage on an installed build with no extraction present, passes before any parser implementation begins; device gate B repeats acceptance with extraction enabled.
 - If the exit criteria are unmet within the agreed box of three working sessions and two remediation rounds, extraction ships disabled behind a flag and moves to M8 as a recorded residual gap.
 
 Blocking questions:
@@ -1013,26 +1016,26 @@ Start with these in order:
 2. `define-v1-product-guardrails`
 3. `prototype-manual-offline-transaction`
 4. `prototype-speech-proposal-confirmation`
-5. `prototype-receipt-image-capture`
-6. `prototype-offline-multilingual-speech`
+5. `prototype-offline-multilingual-speech`
+6. `prototype-receipt-image-capture`
 7. `prototype-receipt-extraction-evaluation`
-7. `terraform-repository-and-state-baseline`
-8. `terraform-nonproduction-account-network`
-9. `terraform-ecr-eks-development-baseline`
-10. `github-actions-pr-ci-baseline`
-11. `container-build-ecr-publish-development-deploy`
-12. `define-core-domain-model`
-13. `entrepreneur-registration-login`
-14. `business-profile`
-15. `record-sale`
-16. `record-expense`
-17. `local-transaction-storage`
-18. `idempotent-transaction-sync`
-19. `transaction-history`
+8. `terraform-repository-and-state-baseline`
+9. `terraform-nonproduction-account-network`
+10. `terraform-ecr-eks-development-baseline`
+11. `github-actions-pr-ci-baseline`
+12. `container-build-ecr-publish-development-deploy`
+13. `define-core-domain-model`
+14. `entrepreneur-registration-login`
+15. `business-profile`
+16. `record-sale`
+17. `record-expense`
+18. `local-transaction-storage`
+19. `idempotent-transaction-sync`
+20. `transaction-history`
 
 Reasoning:
 
-This order proves the highest-risk user and technical assumptions before expanding into formal V1 buildout, then establishes cloud infrastructure and deployment foundations before backend-dependent hardening. M1 validates offline-first transaction capture, confirmation, mocked speech interaction, and receipt image capture and retention; M1.1 then validates real offline multilingual speech on physical devices, and M1.3 evaluates on-device receipt extraction once a photographed corpus exists. Terraform and deployment slices create a controlled path for shared development and later pilot delivery. The later formal slices then harden identity, business profile, transaction APIs, sync, and history without treating the prototype as disposable.
+This order proves the highest-risk user and technical assumptions before expanding into formal V1 buildout, then establishes cloud infrastructure and deployment foundations before backend-dependent hardening. M1 validates offline-first transaction capture, confirmation, and mocked speech interaction; M1.1 then validates real offline multilingual speech on physical devices, and M1.3 delivers receipt capture and evaluates on-device extraction once a photographed corpus exists. Terraform and deployment slices create a controlled path for shared development and later pilot delivery. The later formal slices then harden identity, business profile, transaction APIs, sync, and history without treating the prototype as disposable.
 
 ## Slice Template
 
@@ -1077,4 +1080,4 @@ Enterprise Growth App Version 1: Business Journal Module
 
 The first release gives entrepreneurs a simple mobile business journal for recording and understanding sales, expenses, cash movement, receipts, and basic business performance. It gives HRF a basic administrative portal for entrepreneur monitoring, business summaries, engagement metrics, reporting, and exports. The core strategic value is not bookkeeping; it is the creation of trustworthy business activity data that can support coaching, financing readiness, impact measurement, and future Enterprise Growth Platform capabilities.
 
-The product should be built through small SDD/OpenSpec slices, beginning with product guardrails and a rapid thin-slice prototype. M1 should prove manual offline entry, mocked speech proposal/confirmation, installed-device TTS, and receipt image capture and retention using synthetic data. M1.1 should then prove real offline English, French, and Haitian Creole STT/TTS behind replaceable adapters on representative Android and iPhone hardware. M1.2 retains the live-sync proof, and M1.3 evaluates on-device receipt extraction against a frozen photographed corpus and fixed exit criteria. Formal V1 buildout should then harden the domain model, identity, business profile, core transactions, sync, dashboard/reporting, admin visibility, and pilot readiness.
+The product should be built through small SDD/OpenSpec slices, beginning with product guardrails and a rapid thin-slice prototype. M1 should prove manual offline entry, mocked speech proposal/confirmation, and installed-device TTS using synthetic data. M1.1 should then prove real offline English, French, and Haitian Creole STT/TTS behind replaceable adapters on representative Android and iPhone hardware. M1.2 retains the live-sync proof, and M1.3 delivers receipt capture and evaluates on-device extraction against a frozen photographed corpus and fixed exit criteria. Formal V1 buildout should then harden the domain model, identity, business profile, core transactions, sync, dashboard/reporting, admin visibility, and pilot readiness.

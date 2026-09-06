@@ -18,7 +18,7 @@ The daily job is simple: understand how the business is doing, then quickly reco
 
 - Use plain business language: `Money earned`, `Money spent`, and `Estimated profit`; never expose ledger or accounting terms.
 - Make sale and expense entry visible and reachable in one tap from Home.
-- Manual, button-led entry is always complete. Speech may assist but only creates editable proposals. Receipt extraction is deferred to M1.3 and will be held to the same rule; in M1 a receipt is an attached image only.
+- Manual, button-led entry is always complete. Speech may assist but only creates editable proposals. All receipt behavior is deferred to M1.3 and will be held to the same rule.
 - Treat confirmation as the moment a record is created. Clearly label what was entered, what was suggested, and what is saved.
 - Make offline normal. Quietly say `Saved on this phone`, `Waiting to sync`, or `Needs attention` only when it helps the user act. M1 never claims that a remote system received the record.
 - Design for dignity: large labels and touch targets, short sentences, readable contrast, and icons paired with text for financial actions.
@@ -87,7 +87,7 @@ The selected Home template is now applied across the M1 asset package. Reuse its
 | Core manual flow | Home populated and empty, action choice, sale and expense entry, review, local-save confirmation, recent activity | [Manual screen map](../design-assets/M1/screen-state-map.md#home-and-activity) |
 | Entry resilience | Numeric-keyboard-visible sale entry, missing-amount validation, leave-unsaved-entry confirmation, large-text review | [Manual sale states](../design-assets/M1/screen-state-map.md#manual-sale-entry) |
 | Speech assist | Listening/transcript, editable suggested review, selected re-record action, unavailable-speech fallback | [Speech states](../design-assets/M1/screen-state-map.md#speech-assisted-recording) |
-| Receipt assist | Camera-access preparation, capture/photo choice, attached-image review. Reading/progress, editable proposal, and extraction failure are M1.3 states. | [Receipt states](../design-assets/M1/screen-state-map.md#receipt-assisted-expense-recording) |
+| Receipt assist — **M1.3, not built in M1** | Camera-access preparation, capture/photo choice, attached-image review, reading/progress, editable proposal, extraction failure | [Receipt states](../design-assets/M1/screen-state-map.md#receipt-assisted-expense-recording) |
 | Connectivity attention | Non-blocking needs-attention and retry state | [Connectivity state](../design-assets/M1/screen-state-map.md#connectivity-attention) |
 
 ## Information Architecture
@@ -127,7 +127,7 @@ Define these components before drawing screen variants:
 | `SourceLabel` | entered by you, suggested from speech, suggested from receipt |
 | `SyncStatus` | saved on this phone, waiting to sync, simulated needs attention; no live network send in M1 |
 | `TransactionListItem` | sale, expense, pending sync, receipt attached |
-| `ConfirmationSheet` | manual, speech proposal, receipt attachment; edit, confirm, cancel. The receipt-proposal variant is M1.3. |
+| `ConfirmationSheet` | manual, speech proposal; edit, confirm, cancel. The receipt variants are M1.3. |
 | `PlainLanguageMessage` | no activity, validation error, capture/OCR failure, saved confirmation |
 
 ## Primary Flow
@@ -142,7 +142,7 @@ Define these components before drawing screen variants:
 
 ### Review a Suggested Record
 
-1. Speech produces a proposal and shows its source label and raw transcript. Receipt capture shows a thumbnail and source label with no suggested values in M1; raw recognizer text and suggestions arrive at M1.3.
+1. Speech produces a proposal and shows its source label and raw transcript. Receipt thumbnails, recognizer text, and suggestions all arrive at M1.3.
 2. The proposal remains editable and is never treated as a record before confirmation.
 3. If capture or extraction fails, show the problem in plain language and offer manual entry without losing the available image or text.
 
@@ -153,7 +153,7 @@ Review the major paths with their visual diagrams before implementation work beg
 1. [Manual sale workflow](m1-mobile-prototype-workflows.md#1-record-a-sale-manually) - includes amount validation, the keyboard-visible entry state, and abandoning an unsaved entry.
 2. [Manual expense workflow](m1-mobile-prototype-workflows.md#2-record-an-expense-manually) - records money spent with the same review-before-save guardrail.
 3. [Speech-assisted sale workflow](m1-mobile-prototype-workflows.md#3-record-a-sale-with-speech) - includes editable suggestions, re-recording, and manual fallback.
-4. [Receipt-assisted expense workflow](m1-mobile-prototype-workflows.md#4-record-an-expense-with-a-receipt) - M1 covers permission choice, capture, attachment, and cancel. Image processing, proposal review, and extraction failure are M1.3.
+4. [Receipt-assisted expense workflow](m1-mobile-prototype-workflows.md#4-record-an-expense-with-a-receipt) - **M1.3, not built in M1.** Covers permission choice, capture, attachment, processing, proposal review, and extraction failure.
 5. [Delayed-sync attention workflow](m1-mobile-prototype-workflows.md#5-attend-to-delayed-sync) - preserves the local record and makes retry optional.
 
 ## M1 Screen Inventory
@@ -161,13 +161,13 @@ Review the major paths with their visual diagrams before implementation work beg
 | ID | Screen or state | Priority | Purpose and required content |
 | --- | --- | --- | --- |
 | M01 | Home / daily check-in | Must | Business name; `This week` period; money earned, money spent, estimated profit; quiet sync state; four quick actions; recent activity. |
-| M02 | Choose business moment | Must | Sale, expense, speech, and receipt choices. This can be an action sheet rather than a standalone route. |
+| M02 | Choose business moment | Must | Sale, expense, and speech choices in M1; the receipt choice appears with M1.3. This can be an action sheet rather than a standalone route. |
 | M03 | Manual entry | Must | Type, amount, date, purpose/category, optional note, validation, and `Review` action. Create sale and expense variants from one template; include keyboard-visible and leave-unsaved states. |
 | M04 | Review and confirm | Must | Source label; editable values; plain-language summary; raw input/receipt reference when available; `Edit`, `Confirm`, and `Cancel`; include a text-scaled variant with the confirm action reachable. |
 | M05 | Saved confirmation | Must | Brief success state: `Saved on this phone`; link or automatic return to updated Home; no technical sync detail. |
 | M06 | Recent activity | Must | A compact Home list with date, purpose, signed amount, and status. Design at least five synthetic records plus an empty state. |
 | M07 | Speech proposal | Must | Listening/transcript state, editable proposal, selected green re-record action, and fallback to manual entry. This is an M1 phase-2 variant of M04, not a new record model. |
-| M08 | Receipt capture and attachment | Must | Camera-permission preparation, camera/image-picker entry, receipt thumbnail, and manual fallback. This is an M1 phase-3 variant of M04. Extraction progress, result, failure, and editable proposals move to M1.3. |
+| M08 | Receipt capture and proposal | M1.3 | Camera-permission preparation, camera/image-picker entry, receipt thumbnail, extraction progress/result/failure, editable proposal, and manual fallback. A variant of M04. Not built in M1. |
 | M09 | Needs-attention sync state | Must | Non-blocking local/stubbed-sync explanation and retry simulation only when user action is meaningful; never say data is lost without evidence. |
 
 Deferred transaction detail, reports, settings, onboarding, loans, and general AI work are intentionally outside this table and live in [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md).

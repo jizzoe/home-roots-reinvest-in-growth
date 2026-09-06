@@ -92,18 +92,18 @@ M1 uses SQLite and a local/stubbed sync client only. Screens may demonstrate que
 
 ![Receipt-assisted expense workflow](../design-assets/M1/workflow-receipt-assisted-expense.svg)
 
-Scope note: M1 delivers image capture, storage, and attachment only. The
-processing, extraction-failure, and suggested-field states in this workflow and
-in the linked assets are retained as the accepted design for
-[M1.3 Receipt Extraction Evaluation](m1-receipt-extraction-acceptance-and-eval-rules.md)
-and are not built in M1.
+**Scope note: this entire workflow is M1.3 and is not built in M1.** All receipt
+behavior, including image capture and storage, moved out of M1 on 2026-09-06. The
+workflow below is retained as the accepted design, governed by
+[M1 Receipt Capture and Extraction Evaluation acceptance rules](m1-receipt-extraction-acceptance-and-eval-rules.md)
+and gated on a photographed evaluation corpus.
 
-**M1 screens used**
+**Screens used (M1.3)**
 
 - `M01` Home / daily check-in, including its compact recent activity (`M06`).
 - `M02` Choose business moment.
-- `M08` Receipt capture and attachment: permission preparation, capture, and attached-image review.
-- `M03` Manual expense entry, which is the only path to values in M1.
+- `M08` Receipt capture and proposal: permission preparation, capture, processing, review, and extraction failure.
+- `M03` Manual expense entry as the fallback.
 - `M05` Saved confirmation.
 
 - **Happy path**
@@ -111,7 +111,7 @@ and are not built in M1.
   - Trigger: tap `Scan receipt`.
   - Permission preparation: [Allow camera access](../design-assets/M1/home-roots-mobile-receipt-camera-access-concept-v1.png). Trigger `Allow camera` opens the device-level prompt; this image intentionally depicts only the app preparation state.
   - Capture: [Scan a receipt](../design-assets/M1/home-roots-mobile-scan-receipt-concept-v1.png). Trigger `Take photo` or `Choose from phone` copies the image into app-controlled storage.
-  - Review: [Review receipt](../design-assets/M1/home-roots-mobile-review-receipt-concept-v1.png), with its suggested-field areas unpopulated in M1. The thumbnail and source label appear; the user types the expense values. Status: `Your receipt photo is attached.` No expense has been created yet.
+  - Review: [Review receipt](../design-assets/M1/home-roots-mobile-review-receipt-concept-v1.png). The thumbnail, source label, and any suggested values appear as editable proposals. Status: `Your receipt photo is attached.` No expense has been created yet.
   - Trigger: tap the confirmation action.
   - End: [Expense saved locally](../design-assets/M1/home-roots-mobile-expense-saved-locally-concept-v1.png), then [Home](../design-assets/M1/home-roots-mobile-home-screen-concept-v1.png). The image and its metadata survive force-close and reopen.
 - **Permission alternate**
@@ -120,9 +120,9 @@ and are not built in M1.
 - **Cancel alternate**
   - Trigger: participant leaves before confirming.
   - End: no expense, total change, or outbox entry is created from the attached image.
-- **Deferred to M1.3**
-  - Processing: [Reading your receipt](../design-assets/M1/home-roots-mobile-receipt-processing-concept-v1.png), bundled on-device text recognition, and deterministic parser suggestions.
-  - Extraction failure: [We could not read this receipt](../design-assets/M1/home-roots-mobile-receipt-extraction-failure-concept-v1.png), covering recognizer unavailable/failed and no usable proposal.
+- **Extraction states**
+  - Processing: [Reading your receipt](../design-assets/M1/home-roots-mobile-receipt-processing-concept-v1.png), bundled on-device text recognition followed by deterministic parser suggestions. Sequenced after capture and storage pass device gate A.
+  - Extraction failure: [We could not read this receipt](../design-assets/M1/home-roots-mobile-receipt-extraction-failure-concept-v1.png), covering recognizer unavailable or failed and no usable proposal. Status message: `Your photo is saved. You can enter the expense yourself.`
 
 ## 5. Attend to delayed sync
 

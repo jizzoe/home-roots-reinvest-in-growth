@@ -10,7 +10,7 @@ This M1 asset package contains copy-safe PNGs of every required M1 screen and st
 
 <a id="choose-what-to-record"></a>
 - **Choose what to record** - The direct choice between a sale, an expense, and optional capture methods.
-  - `home-roots-mobile-choose-business-moment-concept-v1.png` - Sale and expense are primary; speech and receipt capture are optional alternatives. - [home-roots-mobile-choose-business-moment-concept-v1.png](home-roots-mobile-choose-business-moment-concept-v1.png)
+  - `home-roots-mobile-choose-business-moment-concept-v1.png` - Sale and expense are primary; speech is the optional alternative in M1, and receipt capture appears with M1.3. - [home-roots-mobile-choose-business-moment-concept-v1.png](home-roots-mobile-choose-business-moment-concept-v1.png)
 
 <a id="manual-sale-entry"></a>
 - **Manual sale entry** - Amount-first sale entry, including input and exit conditions.
@@ -39,12 +39,15 @@ This M1 asset package contains copy-safe PNGs of every required M1 screen and st
   - `home-roots-mobile-speech-unavailable-concept-v1.png` - Speech capture did not produce a message; retry and manual entry are both available. - [home-roots-mobile-speech-unavailable-concept-v1.png](home-roots-mobile-speech-unavailable-concept-v1.png)
 
 <a id="receipt-assisted-expense-recording"></a>
+
+> **All receipt states below are M1.3 and are not built in M1.**
+
 - **Receipt-assisted expense recording** - Receipt images may suggest values, but a participant must review and confirm.
   - `home-roots-mobile-receipt-camera-access-concept-v1.png` - App preparation state before requesting camera access, with photo-library and manual alternatives. - [home-roots-mobile-receipt-camera-access-concept-v1.png](home-roots-mobile-receipt-camera-access-concept-v1.png)
   - `home-roots-mobile-scan-receipt-concept-v1.png` - Capture or choose-a-photo entry point for a receipt. - [home-roots-mobile-scan-receipt-concept-v1.png](home-roots-mobile-scan-receipt-concept-v1.png)
-  - `home-roots-mobile-receipt-processing-concept-v1.png` - **M1.3 state, not built in M1.** Receipt image attached while the app reads possible amount and purpose; no record exists yet. - [home-roots-mobile-receipt-processing-concept-v1.png](home-roots-mobile-receipt-processing-concept-v1.png)
-  - `home-roots-mobile-review-receipt-concept-v1.png` - In M1 the image and source label appear with values typed by the user; the suggested-value treatment is **M1.3**. - [home-roots-mobile-review-receipt-concept-v1.png](home-roots-mobile-review-receipt-concept-v1.png)
-  - `home-roots-mobile-receipt-extraction-failure-concept-v1.png` - **M1.3 state, not built in M1.** Receipt image retained when reading fails; retry or manual expense entry is available. - [home-roots-mobile-receipt-extraction-failure-concept-v1.png](home-roots-mobile-receipt-extraction-failure-concept-v1.png)
+  - `home-roots-mobile-receipt-processing-concept-v1.png` - Receipt image attached while the app reads possible amount and purpose; no record exists yet. - [home-roots-mobile-receipt-processing-concept-v1.png](home-roots-mobile-receipt-processing-concept-v1.png)
+  - `home-roots-mobile-review-receipt-concept-v1.png` - Receipt-derived proposal with the image/source visible and editable values. - [home-roots-mobile-review-receipt-concept-v1.png](home-roots-mobile-review-receipt-concept-v1.png)
+  - `home-roots-mobile-receipt-extraction-failure-concept-v1.png` - Receipt image retained when reading fails; retry or manual expense entry is available. - [home-roots-mobile-receipt-extraction-failure-concept-v1.png](home-roots-mobile-receipt-extraction-failure-concept-v1.png)
 
 <a id="connectivity-attention"></a>
 - **Connectivity attention** - Local records remain usable while a meaningful retry is offered.
