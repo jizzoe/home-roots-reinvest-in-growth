@@ -513,9 +513,9 @@ Blocking questions:
 - Which development region, budget alarm threshold, automatic shutdown rule, Terraform state owners, and GitHub deployment approvers are approved?
 - Is the Android distribution path direct signed APK installation for a tightly controlled group, or Google Play closed testing for a broader tester group?
 
-### M1.3: Receipt Capture and Extraction Evaluation
+### M1.3: Receipt Capture, Extraction Evaluation, and Reviewed Haitian Creole
 
-Status: All receipt work deferred here from M1 phase 3 on 2026-09-06. Acceptance rules approved and recorded; blocked only on evaluation-corpus assembly.
+Status: All receipt work deferred here from M1 phase 3 on 2026-09-06, and the Haitian Creole human-translation pass folded in on 2026-09-06. Acceptance rules approved and recorded; the receipt track is blocked only on evaluation-corpus assembly, and the translation track is not blocked at all.
 
 Goal:
 
@@ -543,6 +543,7 @@ Scope:
 - A deterministic local parser producing editable, non-authoritative suggestions for total amount and occurrence date; merchant and short description are offered without an accuracy target.
 - Review and correction through the existing expense confirmation path, with raw recognizer text displayed separately from suggested values.
 - An evaluation runner reporting per-field precision and coverage plus invariant pass/fail.
+- **Haitian Creole translation pass two.** Replace the machine-generated `ht.json` values with human-reviewed corrections from a Haitian Creole speaker, clear the `unreviewed` markers in `_meta`, and cover the receipt strings this milestone adds so the review happens once rather than twice. English stays canonical and the shared key-set contract is preserved.
 
 Explicitly out of scope:
 
@@ -554,7 +555,17 @@ Explicitly out of scope:
 Dependencies:
 
 - M1 completion.
-- A frozen evaluation corpus of at least 30 photographed receipts with hand-labelled ground truth, split 20 development and 10 sealed holdout. This is the critical path; no parser work begins before it exists.
+- A frozen evaluation corpus of at least 30 photographed receipts with hand-labelled ground truth, split 20 development and 10 sealed holdout. This is the critical path for the receipt track; no parser work begins before it exists.
+- A Haitian Creole speaker available to review the interface strings. This gates only the translation track.
+
+Track independence:
+
+The receipt track and the translation track share this milestone but not their
+dependencies. The translation pass must not be held behind corpus assembly, and
+the receipt track must not be held behind reviewer availability. Either may be
+delivered and archived first. They are grouped here because M1.3 is the milestone
+that introduces new Haitian Creole receipt strings, so a single review pass can
+cover both the existing resource set and the new one.
 
 Acceptance:
 
@@ -564,10 +575,12 @@ Acceptance:
 - All ten safety invariants pass, including displayed-equals-stored, one confirmation producing at most one record, no fabricated values, integer-centime money, no network during extraction, and no microphone permission.
 - Device gate A, capture and storage on an installed build with no extraction present, passes before any parser implementation begins; device gate B repeats acceptance with extraction enabled.
 - If the exit criteria are unmet within the agreed box of three working sessions and two remediation rounds, extraction ships disabled behind a flag and moves to M8 as a recorded residual gap.
+- Every `ht.json` value is human-reviewed by a Haitian Creole speaker, the `unreviewed` markers are cleared, and the locale key-set and English-canonical contracts still pass. Until that is done, Haitian Creole strings must not be represented as human-reviewed and must not reach participants.
 
 Blocking questions:
 
-- **Resolved 2026-09-06:** Joe Rice assembles the photographed corpus before M1.3 begins. No other question blocks this milestone.
+- **Resolved 2026-09-06:** Joe Rice assembles the photographed corpus before the receipt track begins.
+- Who reviews the Haitian Creole strings, and when are they available? This is the only open question on the translation track.
 - Are photographs of printed synthetic receipts acceptable for the first corpus, with genuine Haitian receipts added later? Recommended answer: yes. Print the existing synthetic set, introduce real creases, lighting, and handwriting, and photograph them through the application's own capture path.
 
 ### M2: Terraform Infrastructure Foundation
@@ -1019,19 +1032,20 @@ Start with these in order:
 5. `prototype-offline-multilingual-speech`
 6. `prototype-receipt-image-capture`
 7. `prototype-receipt-extraction-evaluation`
-8. `terraform-repository-and-state-baseline`
-9. `terraform-nonproduction-account-network`
-10. `terraform-ecr-eks-development-baseline`
-11. `github-actions-pr-ci-baseline`
-12. `container-build-ecr-publish-development-deploy`
-13. `define-core-domain-model`
-14. `entrepreneur-registration-login`
-15. `business-profile`
-16. `record-sale`
-17. `record-expense`
-18. `local-transaction-storage`
-19. `idempotent-transaction-sync`
-20. `transaction-history`
+8. `haitian-creole-reviewed-translations`
+9. `terraform-repository-and-state-baseline`
+10. `terraform-nonproduction-account-network`
+11. `terraform-ecr-eks-development-baseline`
+12. `github-actions-pr-ci-baseline`
+13. `container-build-ecr-publish-development-deploy`
+14. `define-core-domain-model`
+15. `entrepreneur-registration-login`
+16. `business-profile`
+17. `record-sale`
+18. `record-expense`
+19. `local-transaction-storage`
+20. `idempotent-transaction-sync`
+21. `transaction-history`
 
 Reasoning:
 

@@ -359,8 +359,10 @@ previous attempt.
 ### Display and locale
 
 - **L1** All review, failure, and confirmation strings exist in `en`, `fr`, and
-  `ht`, under the existing resource contract: identical key sets, and `ht`
-  values remain marked `unreviewed` pending human translation review.
+  `ht`, under the existing resource contract: identical key sets, English
+  canonical. New `ht` values start marked `unreviewed`; M1.3's translation track
+  clears those markers for the whole resource set in one reviewer pass, so the
+  receipt strings must be authored before that review is scheduled.
 - **L2** Numbers and dates render using the app's existing locale formatting,
   including the recorded `fr-HT` fallback for Haitian Creole.
 - **L3** Raw OCR text is displayed verbatim. It is never localized, translated,

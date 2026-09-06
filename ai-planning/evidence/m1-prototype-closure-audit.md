@@ -102,14 +102,17 @@ first central record.
 | Formatting decision | Haitian Creole uses `fr-HT` number and date conventions because the platform lacks complete Kreyòl locale data. An explicit fallback, not native formatting. |
 | Speech decision | `SPEECH_LANGUAGE` maps Haitian Creole to `fr-HT`; the no-speech review path is retained. No Haitian Creole device voice is assumed. |
 
-**Open obligation — second translation pass.** Every `ht.json` value is
-machine-generated and marked `unreviewed` in its `_meta` block. The agreed plan
-is two passes: pass one machine-generated, shipped; pass two a separate approved
-spec change that updates the resources with human-reviewed corrections. The
+**Open obligation — second translation pass, carried by M1.3.** Every `ht.json`
+value is machine-generated and marked `unreviewed` in its `_meta` block. The
+agreed plan is two passes: pass one machine-generated, shipped; pass two updates
+the resources with human-reviewed corrections from a Haitian Creole speaker. The
 strings for review are staged at component
-`docs/translation-review/ht-review-2026-09.md`. **Unreviewed Haitian Creole
-strings must not be represented as human-reviewed and must not reach
-participants until pass two completes.**
+`docs/translation-review/ht-review-2026-09.md`. Pass two was folded into M1.3 on
+2026-09-06 as an independent track that is not gated on the receipt evaluation
+corpus, so one reviewer session covers both the existing resource set and the
+receipt strings M1.3 adds. **Unreviewed Haitian Creole strings must not be
+represented as human-reviewed and must not reach participants until pass two
+completes.**
 
 The roadmap previously deferred Haitian Creole UI localization to a post-M1
 localization slice under M4 or a separately approved language change. It was
@@ -118,7 +121,7 @@ delivered as the latter, which is consistent with that deferral.
 ## Residual Gaps at M1 Closure
 
 1. No receipt capability of any kind ships in M1; REC-001 through REC-004 are owed at V1.
-2. Haitian Creole strings are machine-generated and unreviewed; pass two is not scheduled to a change yet.
+2. Haitian Creole strings are machine-generated and unreviewed; pass two is carried by M1.3 and needs a named reviewer.
 3. No live backend synchronization exists. The outbox is local and queued only; M1.2 owns the live proof.
 4. No iOS acceptance. iOS and TestFlight remain a separate later gate.
 5. The mobile repository remains under the owner's personal GitHub account as a temporary public home and must transfer to HRF before any participant, production, or pilot use.
