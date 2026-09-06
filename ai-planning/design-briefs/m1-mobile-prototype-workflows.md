@@ -92,29 +92,37 @@ M1 uses SQLite and a local/stubbed sync client only. Screens may demonstrate que
 
 ![Receipt-assisted expense workflow](../design-assets/M1/workflow-receipt-assisted-expense.svg)
 
+Scope note: M1 delivers image capture, storage, and attachment only. The
+processing, extraction-failure, and suggested-field states in this workflow and
+in the linked assets are retained as the accepted design for
+[M1.3 Receipt Extraction Evaluation](m1-receipt-extraction-acceptance-and-eval-rules.md)
+and are not built in M1.
+
 **M1 screens used**
 
 - `M01` Home / daily check-in, including its compact recent activity (`M06`).
 - `M02` Choose business moment.
-- `M08` Receipt capture and proposal: permission preparation, capture, processing, review, and extraction-failure states; its review is the receipt variant of `M04`.
-- `M03` Manual expense entry as the fallback.
+- `M08` Receipt capture and attachment: permission preparation, capture, and attached-image review.
+- `M03` Manual expense entry, which is the only path to values in M1.
 - `M05` Saved confirmation.
 
 - **Happy path**
   - Start: [Home](../design-assets/M1/home-roots-mobile-home-screen-concept-v1.png) or [Choose what to record](../design-assets/M1/home-roots-mobile-choose-business-moment-concept-v1.png).
   - Trigger: tap `Scan receipt`.
   - Permission preparation: [Allow camera access](../design-assets/M1/home-roots-mobile-receipt-camera-access-concept-v1.png). Trigger `Allow camera` opens the device-level prompt; this image intentionally depicts only the app preparation state.
-  - Capture: [Scan a receipt](../design-assets/M1/home-roots-mobile-scan-receipt-concept-v1.png). Trigger `Take photo` or `Choose from phone` attaches an image.
-  - Processing: [Reading your receipt](../design-assets/M1/home-roots-mobile-receipt-processing-concept-v1.png). A bundled Android Google ML Kit Text Recognition model reads the local image without a network request, then a local deterministic receipt parser proposes supported fields. Status: `Your receipt photo is attached.` No expense has been created yet.
-  - Review: [Review receipt](../design-assets/M1/home-roots-mobile-review-receipt-concept-v1.png). The thumbnail, raw OCR text, source label, and editable parser-proposed fields distinguish the proposal from a saved expense. The parser can suggest merchant, date, amount, fixed HTG currency, and a short description; it leaves uncertain fields blank and does not infer category or line items in M1.
+  - Capture: [Scan a receipt](../design-assets/M1/home-roots-mobile-scan-receipt-concept-v1.png). Trigger `Take photo` or `Choose from phone` copies the image into app-controlled storage.
+  - Review: [Review receipt](../design-assets/M1/home-roots-mobile-review-receipt-concept-v1.png), with its suggested-field areas unpopulated in M1. The thumbnail and source label appear; the user types the expense values. Status: `Your receipt photo is attached.` No expense has been created yet.
   - Trigger: tap the confirmation action.
-  - End: [Expense saved locally](../design-assets/M1/home-roots-mobile-expense-saved-locally-concept-v1.png), then [Home](../design-assets/M1/home-roots-mobile-home-screen-concept-v1.png).
+  - End: [Expense saved locally](../design-assets/M1/home-roots-mobile-expense-saved-locally-concept-v1.png), then [Home](../design-assets/M1/home-roots-mobile-home-screen-concept-v1.png). The image and its metadata survive force-close and reopen.
 - **Permission alternate**
   - Trigger: participant does not allow camera access.
   - End: `Choose from phone` continues with a stored image; `Enter expense yourself` routes to [Record an expense](../design-assets/M1/home-roots-mobile-record-expense-concept-v1.png).
-- **Extraction failure alternate**
-  - State: [We could not read this receipt](../design-assets/M1/home-roots-mobile-receipt-extraction-failure-concept-v1.png). This covers OCR unavailable/failed and no usable parser proposal. Status message: `Your photo is saved. You can enter the expense yourself.`
-  - End: `Try another photo` returns to [Scan a receipt](../design-assets/M1/home-roots-mobile-scan-receipt-concept-v1.png); `Enter expense` routes to [Record an expense](../design-assets/M1/home-roots-mobile-record-expense-concept-v1.png), retaining the image when implementation permits.
+- **Cancel alternate**
+  - Trigger: participant leaves before confirming.
+  - End: no expense, total change, or outbox entry is created from the attached image.
+- **Deferred to M1.3**
+  - Processing: [Reading your receipt](../design-assets/M1/home-roots-mobile-receipt-processing-concept-v1.png), bundled on-device text recognition, and deterministic parser suggestions.
+  - Extraction failure: [We could not read this receipt](../design-assets/M1/home-roots-mobile-receipt-extraction-failure-concept-v1.png), covering recognizer unavailable/failed and no usable proposal.
 
 ## 5. Attend to delayed sync
 

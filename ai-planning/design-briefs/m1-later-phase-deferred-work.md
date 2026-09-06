@@ -11,6 +11,8 @@ This document holds work that may be valuable to V1 but is not needed to prove t
 
 | Deferred work | Target milestone | Reason it is not M1 |
 | --- | --- | --- |
+| On-device receipt text recognition (bundled ML Kit) and deterministic parser suggestions | M1.3 Offline Receipt Extraction Evaluation | Moved out of M1 phase 3 on 2026-09-06. The exit criteria for extraction depend on a frozen corpus of photographed receipts that does not yet exist, and assembling a good one takes time. M1 phase 3 ships receipt image capture and durable storage, satisfying PRD REC-001, REC-003, and REC-004; REC-002 stays owed at V1. Governed by [M1 Receipt Extraction Acceptance, Evaluation, and Localization Rules](m1-receipt-extraction-acceptance-and-eval-rules.md). |
+| Cloud or paid receipt extraction of any kind | M8 Receipt Capture and Assisted Review | On-device extraction is the offline degraded path. Accurate extraction is a connected capability and belongs with production receipt storage. |
 | Real offline speech-to-text and text-to-speech for English, French, and Haitian Creole | M1.1 Offline Multilingual Speech | M1 proves the proposal/review interaction with deterministic STT fixtures and installed-device TTS; it does not capture microphone audio or validate a real STT engine. |
 | Cash movement | M5 Business Journal Core Transactions | M1 proves the sale and expense model only. |
 | Journal history, search/filter, transaction detail, correction, audit history, and duplicate review | M5 Business Journal Core Transactions | M1 has a compact recent-activity view; it does not need historical operations or corrections. |
@@ -73,4 +75,4 @@ committing to extraction accuracy it may not be able to reach.
 
 ## M1 Boundary
 
-M1 still establishes data shapes that keep later work possible: stable local IDs, client idempotency keys, source/proposal metadata, receipt-file metadata, keyed localization resources, ISO currency code, replaceable speech/OCR boundaries, and a configurable but disabled sync-client boundary. Establishing those shapes is not authorization to implement the deferred behavior.
+M1 still establishes data shapes that keep later work possible: stable local IDs, client idempotency keys, source/proposal metadata, receipt-file metadata, keyed localization resources, ISO currency code, replaceable speech/OCR boundaries, and a configurable but disabled sync-client boundary. The receipt record additionally carries `extraction_status` defaulting to `not_attempted`, plus nullable `provider`, `extracted_at`, and `raw_text`, so M1.3 and M8 can attach an extraction result without a migration. Establishing those shapes is not authorization to implement the deferred behavior.
