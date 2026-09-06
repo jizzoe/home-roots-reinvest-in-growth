@@ -484,15 +484,25 @@ Explicitly deferred from M1.2:
 
 Candidate slices:
 
-- `prototype-android-release-delivery`
-- `prototype-sync-contract-and-outbox`
-- `prototype-development-terraform-bootstrap`
-- `prototype-development-ecs-cluster-and-container-postgres`
-- `prototype-development-ingress-dns-and-tls`
-- `prototype-spring-boot-api-and-synthetic-transaction-store`
-- `prototype-image-publish-and-lifecycle-scripts`
-- `prototype-tester-authentication`
-- `prototype-device-live-sync-proof`
+Ten slices in two phases, in delivery order. Phase A exists to reach one checkpoint — a real device reaching `api-dev.joericearchitect.com` over HTTPS — before any sync code exists.
+
+Phase A, prove the plumbing (all backend):
+
+1. `prototype-development-terraform-bootstrap`
+2. `prototype-spring-boot-service-skeleton`
+3. `prototype-development-ecs-cluster-and-container-postgres`
+4. `prototype-image-publish-and-lifecycle-scripts`
+5. `prototype-development-ingress-dns-and-tls`
+
+Phase B, build the product path:
+
+6. `prototype-sync-contract-and-outbox` (central + mobile + backend)
+7. `prototype-tester-authentication` (mobile + backend)
+8. `prototype-spring-boot-api-and-synthetic-transaction-store` (backend)
+9. `prototype-android-release-delivery` (mobile)
+10. `prototype-device-live-sync-proof` (mobile + backend)
+
+`prototype-spring-boot-service-skeleton` was split out of `prototype-spring-boot-api-and-synthetic-transaction-store` on 2026-09-06: the original bundled the health endpoint with the transaction store, which made the thin-end-to-end checkpoint unreachable, since Phase A needs a deployable service but must not deploy the sync endpoint. Authentication precedes the sync endpoint so the write path is authenticated from birth rather than retrofitted. Seven of the ten slices are single-repository; only slices 6, 7, and 10 span repositories and carry linkage ledgers.
 
 The earlier `prototype-development-eks-ecr-rds-and-ingress` and `prototype-github-oidc-build-publish-and-helm-deploy` names are retired: EKS, RDS, and Helm are out of scope, and ingress carries enough session-lifecycle behavior to stand alone.
 
