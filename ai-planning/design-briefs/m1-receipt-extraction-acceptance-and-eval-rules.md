@@ -1,7 +1,7 @@
-# M1 Receipt Extraction — Acceptance, Evaluation, and Localization Rules
+`# M1 Receipt Extraction — Acceptance, Evaluation, and Localization Rules
 
-Status: Approved by the owner on 2026-09-06. Controls the M1.3 Receipt Capture and Extraction Evaluation milestone; feeds OpenSpec Propose once the evaluation corpus exists.
-Date: 2026-09-05, decisions recorded 2026-09-06
+Status: Draft for owner review; feeds OpenSpec Propose for the rebuilt M1 phase-3 receipt slice
+Date: 2026-09-05
 Companion control brief: [M1 Rapid Thin-Slice Prototype](m1-rapid-thin-slice-prototype.md)
 Deferred scope: [M1 Later-Phase Deferred Work](m1-later-phase-deferred-work.md)
 Prior attempt: [M1 Receipt Slice Reset and Fresh-Start Handoff](../handoff-docs/m1-receipt-slice-reset-and-restart-handoff.md)
@@ -19,22 +19,8 @@ invariants, explicit number/date/currency rules for the Haitian context, and a
 frozen evaluation corpus that decides accuracy questions instead of reviewer
 judgment.
 
-Nothing here changes what the prototype is trying to prove. It changes only how
-the slice is allowed to end.
-
-**Milestone placement.** All receipt work moved out of M1 on 2026-09-06.
-Extraction moved first, because the evaluation corpus these rules depend on does
-not yet exist and assembling a good one takes time. Image capture and storage
-then moved with it so that M1 could close on its delivered phases rather than
-wait. M1 therefore ships no receipt capability, and PRD REC-001 through REC-004
-are recorded as owed at V1. M1.3 carries all of it. This is the pre-agreed
-fallback in the "Stop Conditions" section, invoked deliberately and early rather
-than after a sixth review loop.
-
-**M1.3 has two parts, in order.** Capture and storage come first and must pass
-device gate A on an installed build before any parser work begins. Extraction
-follows, measured against the corpus. The two parts share this document's safety
-invariants; only the second is subject to the accuracy targets.
+Nothing here changes what M1 is trying to prove. It changes only how the slice
+is allowed to end.
 
 ## Source Basis
 
@@ -81,97 +67,24 @@ silently produce a gourde amount from a dollar figure.
 
 ## Exit Criteria
 
-### Two fixture sets, not one
-
-The corpus has been doing two different jobs, and conflating them is how a green
-score becomes a failed device. They are separated permanently:
-
-**1. Rule fixtures — text level.** Synthetic OCR text strings exercising every N,
-C, T, X, and D rule directly. No camera, no images, milliseconds to run, and they
-belong in the component repository as ordinary unit tests. These prove the parser
-rules are implemented as written.
-
-**2. The evaluation corpus — photographs.** Real photographs taken through the
-application's own capture path. The precision and coverage targets, the 20/10
-split, and the gate apply to this and only this. It proves the recognizer plus
-parser survives real capture.
-
 ### The evaluation corpus
 
 - **At least 30 photographed receipts**, captured through the app's own capture
-  path. Not rendered, not scanned, not typed.
-- **Synthetic content only**: invented merchants and values, or the owner's own
+  path, not scanned or synthesized as text.
+- **Synthetic only**: receipts the owner creates or receipts from the owner's own
   purchases. No participant, program, or third-party financial data.
-- **Representative of the operating context**, not of a US retail chain: HTG
-  amounts, French and Haitian Creole merchant text, thermal print, genuine
-  handwriting, poor lighting, folds, creases, partial cuts, at least one
-  dual-currency receipt, and at least two receipts a human genuinely cannot read.
-- **Date coverage must exercise the ambiguity**: at least six receipts whose day
-  is 12 or lower, so rule D1 is actually tested. At least two with a month name,
-  one with no year, and one older than twelve months.
+- **Representative of the operating context**, not of a US retail chain. The
+  corpus must include: HTG amounts; French and Haitian Creole merchant text;
+  thermal print; handwritten receipts; poor lighting; folded, creased, or
+  partially cut receipts; at least one dual-currency receipt; at least two
+  receipts a human cannot read (expected to yield blanks).
 - **Split 20 development / 10 sealed holdout.** The holdout is not viewed during
-  implementation. Without a holdout you are not evaluating, you are overfitting —
-  which is precisely what the earlier denylist rounds were.
-- **Ground truth is hand-labelled JSON** beside each image: amount in integer
-  centimes, ISO date, merchant string, and a `human_readable` flag used as the
-  coverage denominator.
-- **The evaluation runner prints only aggregate scores in holdout mode**, never
-  which case failed. If you cannot see which receipt broke, you cannot tune to
-  it. This makes the discipline structural rather than a matter of willpower.
+  implementation. Without a holdout you are not evaluating, you are overfitting
+  — which is precisely what the earlier denylist rounds were.
+- **Ground truth is hand-labelled JSON** stored beside each image: amount in
+  integer centimes, ISO date, merchant string, and a `human_readable: true|false`
+  flag used as the denominator for coverage.
 - **The corpus is frozen at Gate 1.** See "Stop Conditions".
-
-### Assessment of the existing synthetic corpus (2026-09-06)
-
-A 32-image synthetic corpus exists at
-`ai-planning/design-assets/sample-reciepts`, generated by `build-corpus.mjs`.
-It was reviewed on 2026-09-06: four images opened directly, all 32 labels read,
-and the generator read in full.
-
-**Keep and extend — as rule fixtures.** The schema is sound: integer-centime
-ground truth, ISO dates, `human_readable` and `amount_expected_blank` flags, a
-reproducible generator, no real-person data, good anchor variety across Haitian
-Creole and French (`TOTAL POU PEYE`, `MONTAN`, `MONTAN TOTAL`, `NET A PAYER`,
-`SOMME`), real separator variety (`1750,00`, `16,500`, bare `785`), dual-currency
-cases, and identifier lines such as `Resi #: S-4200` that exercise X1.
-
-**Do not use as the evaluation corpus.** The images are SVG rendered to PNG
-through `qlmanage`: vector-crisp text, uniform lighting, no camera involved. A
-bundled recognizer reads them at or near 100%, so any score is meaningless and
-the gate would pass immediately before failing on a device — the exact failure
-mode of the first attempt, where 325 green tests preceded a build that would not
-save. The difficulty variations are cosmetic: "handwritten" is an italic serif
-font, "low light" is a dark background behind crisp text, and "unreadable" is a
-fully legible receipt with the words `IMAGE TACHÉE / PA LIZIB` printed on it.
-
-**Label defects to correct before use as rule fixtures:**
-
-1. `ht-17` and `ht-18` carry `human_readable: false` while being plainly
-   readable. That contradiction corrupts the coverage denominator.
-2. Nine labels contradict rule C3: the `en-US` and `en-GB` receipts carry USD and
-   GBP amounts with `amount_expected_blank: false`, but C3 requires a blank for a
-   non-HTG receipt. Either the labels change or C3 does; the recommendation is to
-   fix the labels and add `£` to C3.
-3. In `ht-01`, `ht-02`, and `ht-14` a line item equals the total, so those cases
-   cannot catch a parser that takes the largest number or a line item — the wrong
-   answer coincides with the right one.
-4. Every date has a day greater than 12, so D1, the most consequential date
-   decision in this document, is never exercised. There are no month-name dates,
-   no missing years, no stale or future dates, and no times of day.
-5. Nine of 32 cases are spent on `en-US` and `en-GB` locales that do not occur in
-   the target market; two or three suffice to test currency refusal.
-
-**Recommended path to a real corpus**, in order, and only the first two are
-needed to unblock M1.3:
-
-1. **Print and photograph the existing 32.** The labels stay valid, so none of
-   that work is lost. Print them, introduce real creases and folds, photograph
-   them in poor light with the representative device through the app's capture
-   path.
-2. **Hand-write about ten of them with a pen** and photograph those, replacing
-   the italic-font "handwritten" cases. Real pen strokes are where a bundled
-   recognizer actually fails, and that finding is worth having early.
-3. **Genuine Haitian receipts** via HRF staff or contacts. Highest value, longest
-   lead time. Start it in parallel; do not let it gate M1.3.
 
 ### Metrics
 
@@ -185,8 +98,6 @@ Definitions are exact so the gate is arithmetic, not argument.
 | Date coverage | date suggestions offered ÷ receipts where a human can read a date | **≥ 0.30** |
 | Merchant | reported for information | no target |
 
-**Owner decision 2026-09-06: targets accepted as written.**
-
 "Correct" means exact: amount to the centime, date to the calendar day. Partial
 credit does not exist.
 
@@ -194,13 +105,9 @@ credit does not exist.
 coverage and lowers precision below target, the change is rejected regardless of
 the net score. Blanks are free; wrong numbers are not.
 
-**At a holdout of ten, a 0.95 precision target is arithmetically equivalent to
-"no wrong suggestions at all."** If the parser offers four amounts, three correct
-scores 0.75. This is accepted deliberately: the prototype is proving feasibility,
-not certifying accuracy, and a wrong amount is the one outcome the product may
-not produce. The consequence is that a single unlucky misread fails the gate and
-cannot be distinguished from a genuinely weak parser. If that proves too brittle
-in practice, the corrective is a larger corpus, not a lower bar.
+*Owner decision required:* the 0.95 / 0.40 / 0.30 figures are proposals. They
+should be confirmed or amended before Gate 1, because they are the exit
+condition.
 
 ### Safety invariants — 100%, every one a test
 
@@ -236,18 +143,14 @@ This section exists because the previous attempt had no way to end.
    nothing.
 3. **Two remediation rounds maximum** after the first full evaluation run. A
    third round triggers the fallback.
-4. **Time box — confirmed 2026-09-06: three working sessions** after the corpus
-   exists and device gate A passes, alongside the two-remediation-round cap.
-   Whichever limit is reached first ends the attempt. If the holdout targets are
-   unmet at that point, the slice ships with extraction disabled behind a flag
-   defaulting to off — capture, storage, and manual entry only — and extraction
-   moves to M8's connected path. Capture and storage still satisfy REC-001,
-   REC-003, and REC-004; REC-002 is then explicitly owed at V1 and recorded as a
-   residual gap.
+4. **Time box**, agreed before Gate 1 and stated in the change: if the holdout
+   targets are unmet when the box expires, the slice ships with extraction
+   disabled behind a flag — capture, storage, and manual entry only — and
+   extraction moves to M8's connected path. Capture and storage still satisfy
+   REC-001, REC-003, and REC-004; REC-002 is then explicitly owed at V1 and
+   recorded as a residual gap.
 
-Deciding the fallback in advance is what makes the box real. The flag-off path
-must be the tested path, not an untested branch, or the fallback ships a
-configuration nobody ran.
+Deciding the fallback in advance is what makes the box real.
 
 ### Device gates
 
@@ -257,9 +160,7 @@ suites and 325 tests and then failed to save on a physical device.
 - **Gate A — capture only, no extraction.** Capture or select an image, persist
   it durably, attach it to a manually typed expense, force-close, reopen, confirm
   both image and transaction survive. Build the APK, install on the U656AC, run
-  it. If persistence breaks here, it is found with almost no code in flight. This
-  is also the first half of M1.3's own delivery, not merely a rehearsal: it is
-  the receipt capability M1 deferred.
+  it. If persistence breaks here, it is found with almost no code in flight.
 - **Gate B — extraction added.** On-device recognizer, parser, review screen,
   failure path. Rebuild, reinstall, retest, including the offline assertion and
   both EN and FR locales.
@@ -288,11 +189,8 @@ makes the separator genuinely ambiguous rather than merely inconsistent.
 - **N2** When a token contains both `.` and `,`, the rightmost is the decimal
   separator only if N1 holds for it; otherwise both are grouping separators.
 - **N3** A single separator followed by exactly three digits (`1,234`) is
-  grouping. The value is 1234 gourdes, not 1.234. **Confirmed 2026-09-06.** This
-  is not a coin flip: centimes have exactly two digits, so three digits after a
-  separator cannot be a decimal fraction, and grouping is the only arithmetically
-  valid reading. The residual risk is three-decimal *unit prices*, common on fuel
-  receipts, and the parser never reads unit prices — only the anchored total.
+  grouping. The value is 1234 gourdes, not 1.234. *This is a recorded decision
+  and it can be wrong; it is chosen because whole-gourde amounts dominate.*
 - **N4** Values are parsed to integer centimes. Never float. Never round.
 - **N5** Tokens with more than two decimal digits, more than nine integer digits,
   or a leading `-` yield **blank**. Negative values are never sign-flipped into
@@ -340,12 +238,7 @@ previous attempt.
 ### Dates
 
 - **D1** Numeric dates are read as **dd/mm/yyyy**, the French convention used in
-  Haiti. **Confirmed 2026-09-06**, paired with D5. Roughly 39% of dates are
-  ambiguous because both numbers are 12 or lower, and nothing in the digits can
-  settle them. Blanking all of those would cost more than it protects, so the
-  convention is assumed and the long-form display in D5 makes a misreading
-  visible to the person confirming it. The case this gets wrong is an imported
-  US-configured register printing mm/dd, which the corpus must include.
+  Haiti. Recorded as a decision.
 - **D2** Month names are accepted in English, French, and Haitian Creole
   (`August` / `août` / `out`, and so on).
 - **D3** A missing year yields **blank**. The current year is never assumed —
@@ -359,10 +252,8 @@ previous attempt.
 ### Display and locale
 
 - **L1** All review, failure, and confirmation strings exist in `en`, `fr`, and
-  `ht`, under the existing resource contract: identical key sets, English
-  canonical. New `ht` values start marked `unreviewed`; M1.3's translation track
-  clears those markers for the whole resource set in one reviewer pass, so the
-  receipt strings must be authored before that review is scheduled.
+  `ht`, under the existing resource contract: identical key sets, and `ht`
+  values remain marked `unreviewed` pending human translation review.
 - **L2** Numbers and dates render using the app's existing locale formatting,
   including the recorded `fr-HT` fallback for Haitian Creole.
 - **L3** Raw OCR text is displayed verbatim. It is never localized, translated,
@@ -396,11 +287,10 @@ pre-agreed threshold.
 
 ## What This Changes in the Existing Plan
 
-- All receipt work moved out of M1 to the new **M1.3 Receipt Capture and
-  Extraction Evaluation** milestone on 2026-09-06. M1 phase 3 is now empty and
-  M1 closes without receipt behavior.
-- The scope map's OCR blocking question resolves to: on-device best-effort at
-  M1.3 under these rules, cloud-based extraction at M8.
+- The M1 phase-3 definition and acceptance criteria gain measurable exit
+  conditions; the existing behavioral requirements are unchanged.
+- The scope map's OCR blocking question resolves to: on-device best-effort in M1
+  under these rules, cloud-based extraction at M8.
 - The discontinued change `prototype-receipt-capture-ocr-review` is superseded.
   Its delta requirements remain broadly valid and can be carried forward; what it
   lacked — and what caused the failure — is everything in this document. The new
@@ -409,20 +299,13 @@ pre-agreed threshold.
 - The mobile component change restarts from `main` at `94bbf5b` on a fresh
   branch, with progress pushed at every stopping point.
 
-## Decisions Recorded 2026-09-06
+## Open Decisions for the Owner
 
-1. Precision and coverage targets accepted as written: 0.95 / 0.40 for amount,
-   0.95 / 0.30 for date. At a holdout of ten this means no wrong suggestion.
-2. Time box set at three working sessions plus a two-remediation-round cap, with
-   the fallback confirmed: extraction disabled behind a flag, capture and storage
-   shipped, REC-002 recorded as owed at V1.
-3. N3 and D1 confirmed, with D1 paired with the long-form date display in D5.
-4. All receipt work, extraction and image capture alike, moved from M1 to M1.3
-   so that corpus assembly does not block M1 completion.
-
-## Corpus Ownership
-
-**Owner: Joe Rice. Due: before M1.3 begins.** Recorded 2026-09-06. No parser
-work starts until the corpus and its labels exist, because a corpus built after
-the parser is a corpus shaped by the parser. M1.3 does not open until this is
-delivered, and nothing else in the milestone is blocked on anything else.
+1. Confirm or amend the precision and coverage targets (0.95 / 0.40 / 0.30).
+2. Set the time box and confirm the fallback: extraction disabled behind a flag,
+   capture and storage shipped, REC-002 owed at V1.
+3. Confirm N3 (a single separator plus three digits is grouping) and D1
+   (dd/mm/yyyy).
+4. Confirm who assembles the 30-receipt corpus and by when — this is the
+   critical-path item, and no parser work should start before the corpus and its
+   labels exist.
