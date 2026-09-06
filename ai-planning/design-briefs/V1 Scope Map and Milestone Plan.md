@@ -1,6 +1,6 @@
 # Enterprise Growth App V1 Scope Map and Milestone Plan
 
-Status: Working planning artifact — M0 complete; M1 complete and archived, with all receipt work moved to M1.3; M1.1 speech and M1.2 live-sync follow-ons defined
+Status: Working planning artifact — M0 complete; M1 complete and archived; M1.2 is the active next milestone while M1.1 and M1.3 wait on corpus collection; M1.1 speech and M1.2 live-sync follow-ons defined
 Purpose: Control Version 1 scope before creating slice-level SDD/OpenSpec changes.  
 Primary source: `Enterprise Growth App PRD v1.0/Enterprise Growth Platform, Enterprise Growth App, Entrepreneur Application.docx`  
 Engineer quick reference: `Enterprise Growth App PRD v1.0/Features Reference Sheet, Appendix D.docx`
@@ -384,7 +384,7 @@ Blocking questions:
 
 ### M1.1: Offline Multilingual Speech
 
-Status: **Next milestone to propose.** Owner direction captured; design brief ready for OpenSpec Propose now that M1 is complete pending closure approval.
+Status: **Deferred pending audio-corpus collection**, decided 2026-09-06. Owner direction captured and recommended answers to all six open questions are recorded in the design brief, but the milestone cannot open until the recorded speech corpus exists. Collection is under way: JLP records French and Haitian Creole, Joe Rice records English, following the [M1.1 Speech Corpus Recording Guide](../plans/m1.1-speech-corpus-recording-guide.md). M1.2 proceeds in parallel.
 
 Goal:
 
@@ -429,6 +429,8 @@ Design brief:
 - [M1.1 Offline Multilingual Speech](m1.1-offline-multilingual-speech.md)
 
 ### M1.2: Live Sync and Prototype API Proof
+
+Status: **Active next milestone**, selected 2026-09-06. M1.1 and M1.3 are both blocked on human data collection that cannot be parallelized by the delivery team; M1.2 is blocked only on decisions the owner can make, so it proceeds while the two corpora are assembled. Its four blocking questions below must be answered before Propose.
 
 Goal:
 
@@ -507,7 +509,7 @@ Acceptance:
 
 Blocking questions:
 
-- Is EKS confirmed as the required development runtime for this proof, accepting its baseline cost and operational overhead? Recommended answer: confirm before provisioning; M1.2 assumes EKS only when that decision is accepted.
+- Is EKS confirmed as the required development runtime for this proof, accepting its baseline cost and operational overhead? Recommended answer: confirm before provisioning; M1.2 assumes EKS only when that decision is accepted. **Note recorded 2026-09-06:** this is the expensive question. EKS carries a meaningful monthly floor even when idle, and lighter runtimes would prove the same single-Dockerized-service path. Weigh the cost against what the proof actually requires before committing.
 - What owned root domain, Route 53 hosted-zone approach, development API subdomain, and TLS certificate ownership are approved?
 - What approved named-tester authentication approach will be used for synthetic prototype access?
 - Which development region, budget alarm threshold, automatic shutdown rule, Terraform state owners, and GitHub deployment approvers are approved?
