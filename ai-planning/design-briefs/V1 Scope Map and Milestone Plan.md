@@ -1,6 +1,6 @@
 # Enterprise Growth App V1 Scope Map and Milestone Plan
 
-Status: Working planning artifact — M0 complete; M1 complete pending closure approval, with all receipt work moved to M1.3; M1.1 speech and M1.2 live-sync follow-ons defined
+Status: Working planning artifact — M0 complete; M1 complete and archived, with all receipt work moved to M1.3; M1.1 speech and M1.2 live-sync follow-ons defined
 Purpose: Control Version 1 scope before creating slice-level SDD/OpenSpec changes.  
 Primary source: `Enterprise Growth App PRD v1.0/Enterprise Growth Platform, Enterprise Growth App, Entrepreneur Application.docx`  
 Engineer quick reference: `Enterprise Growth App PRD v1.0/Features Reference Sheet, Appendix D.docx`
@@ -297,7 +297,7 @@ Blocking questions:
 
 ### M1: Rapid Thin-Slice Prototype
 
-Status: Complete pending closure approval, evidenced in [M1 Prototype Closure Audit](../evidence/m1-prototype-closure-audit.md). Phase 1 (manual offline entry) and Phase 2 (mocked speech proposal and device text-to-speech) are archived, synced, and accepted on the representative physical device. M1.1 is the next milestone to propose. All receipt work, including image capture, moved to M1.3 on 2026-09-06; M1 ships no receipt capability and PRD REC-001 through REC-004 are recorded as owed at V1. The mobile repository remains under the owner's personal GitHub account as a temporary public home and must transfer to HRF before any participant, production, or pilot use.
+Status: **Complete.** Closed by `close-m1-prototype`, archived 2026-09-06 and evidenced in the [M1 Prototype Closure Audit](../evidence/m1-prototype-closure-audit.md). Phase 1 (manual offline entry) and Phase 2 (mocked speech proposal and device text-to-speech) are archived, synced, and accepted on the representative physical device. M1.1 is the next milestone to propose. All receipt work, including image capture, moved to M1.3 on 2026-09-06; M1 ships no receipt capability and PRD REC-001 through REC-004 are recorded as owed at V1. The mobile repository remains under the owner's personal GitHub account as a temporary public home and must transfer to HRF before any participant, production, or pilot use.
 
 Current delivery decisions for Phase 1:
 

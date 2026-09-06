@@ -2,7 +2,7 @@
 
 Date: 2026-09-06
 Change: `close-m1-prototype`
-Status: Prepared for owner verification and explicit archive approval
+Status: Approved by the owner and archived 2026-09-06 as `openspec/changes/archive/2026-09-06-close-m1-prototype/`
 
 ## Summary
 

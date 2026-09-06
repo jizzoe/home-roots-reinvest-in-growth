@@ -1,6 +1,6 @@
 # M1 Rapid Thin-Slice Prototype Brief
 
-Status: Delivered M1 control brief. Phases 1 and 2 are archived, synced, and accepted on the representative physical Android device; phase 3 moved in full to M1.3 on 2026-09-06. M1 is complete pending closure approval, evidenced in the [M1 Prototype Closure Audit](../evidence/m1-prototype-closure-audit.md).
+Status: Delivered M1 control brief. Phases 1 and 2 are archived, synced, and accepted on the representative physical Android device; phase 3 moved in full to M1.3 on 2026-09-06. M1 is complete and closed, archived 2026-09-06 and evidenced in the [M1 Prototype Closure Audit](../evidence/m1-prototype-closure-audit.md).
 
 Milestone: M1 Rapid Thin-Slice Prototype
 
@@ -403,7 +403,7 @@ And the proposal is not saved as a transaction until the user confirms it
 
 ## Next Action
 
-M1 is complete pending closure approval. The next milestone to propose is M1.1
+M1 is complete and closed. The next milestone to propose is M1.1
 Offline Multilingual Speech, described in `m1.1-offline-multilingual-speech.md`.
 
 Receipt work is carried by M1.3 and does not open until Joe Rice delivers the
