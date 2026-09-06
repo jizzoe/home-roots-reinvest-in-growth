@@ -2,8 +2,19 @@
 
 Date: 2026-09-05
 Written for: a new session resuming the M1 receipt-capture and OCR slice
-Status: implementation complete but **not verified**; component Gate 2 is
-withdrawn and a third independent review has returned one blocking defect
+Status: **historical handoff with a newer current-state addendum below**;
+component Gate 2 remains unapproved after the fifth review
+
+> **Current-state addendum — 2026-09-05:** the mobile branch now points to exact
+> commit `7bbe85310e84ffb7e5ca465bd62dc706108d3e42`. The fifth read-only review
+> confirmed the round-four duplicate path is closed but found a new blocker:
+> large amounts can be stored exactly while the mandatory review screen displays
+> a different cent value. It also found another tendered-amount synonym and OCR
+> ordinal punctuation variant, showing that example-level remediation is still
+> recurring. The root-cause analysis and prevention protocol are in
+> `ai-planning/research/tech-research/preventing-repeat-ai-coding-remediation-loops/preventing-repeat-ai-coding-remediation-loops-findings.md`.
+> Sections below preserve the earlier round-three handoff and must not be treated
+> as the latest branch state.
 
 ---
 
