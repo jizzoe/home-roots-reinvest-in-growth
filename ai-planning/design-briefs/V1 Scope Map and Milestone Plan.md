@@ -1,6 +1,6 @@
 # Enterprise Growth App V1 Scope Map and Milestone Plan
 
-Status: Working planning artifact — M0 complete; M1 not started
+Status: Working planning artifact — M0 complete; M1 in progress; M1.1 speech follow-on defined
 Purpose: Control Version 1 scope before creating slice-level SDD/OpenSpec changes.  
 Primary source: `Enterprise Growth App PRD v1.0/Enterprise Growth Platform, Enterprise Growth App, Entrepreneur Application.docx`  
 Engineer quick reference: `Enterprise Growth App PRD v1.0/Features Reference Sheet, Appendix D.docx`
@@ -257,7 +257,7 @@ These should be answered before starting the rapid prototype or creating the fir
 3. Prototype language/currency defaults: should the prototype default to Haiti / HTG / English first, with Haitian Creole and French treated as follow-on language checks?
 4. Repository strategy: should this repo remain the product-planning repo while implementation happens in separate mobile/backend repos, as earlier OpenSpec planning suggested?
 5. Backend expectation for the rapid prototype: should phase 1 use local SQLite only, then add backend sync later, or should the first phase include a minimal local backend from day one?
-6. Speech/OCR provider posture: can phase 2 and phase 3 use mocked or device/local best-effort providers first, with AWS/paid services behind interfaces later?
+6. **Resolved:** M1 uses deterministic mocked STT, installed-device TTS, real local receipt capture, and bundled on-device Android Google ML Kit Text Recognition plus a deterministic receipt parser. Real offline multilingual speech moves to M1.1 behind replaceable engine boundaries; AWS and other paid/cloud providers remain separate later decisions.
 
 These are upfront blockers because they affect environment setup, repository creation, implementation sequence, and whether the prototype can move fast without becoming disposable.
 
@@ -305,7 +305,7 @@ Current delivery decisions for Phase 1:
 - Use the public mobile repository `jizzoe/hrf-reinvest-to-grow-mobile-app` and its checkout at `/Users/joerice/git/joericearchitect/hrf-reinvest-in-growth/hrf-reinvest-to-grow-mobile-app`.
 - Require physical Android acceptance only on the representative U656AC running Android 15. iOS/TestFlight is a separate later gate, not an M1 exit condition.
 - Use an EAS-managed Android signing key, an internal-distribution signed APK, and an artifact link shared only with authorized prototype testers.
-- Use synthetic HTG examples with English and French resources, mocked speech-transcript and OCR fixtures, device text-to-speech, and real local photo/image-picker capture. AWS and all other cloud provider integrations remain outside M1.
+- Use synthetic HTG examples with English and French resources, mocked speech transcripts, device text-to-speech, real local photo/image-picker capture, and bundled on-device Android Google ML Kit Text Recognition followed by a deterministic local receipt parser. AWS and all other cloud provider integrations remain outside M1.
 
 Goal:
 
@@ -313,7 +313,7 @@ Prove the riskiest V1 assumptions quickly with a small, working, non-throwaway p
 
 Outcome:
 
-A real, versioned Android prototype can be installed and used by a non-developer on a physical device. It demonstrates offline-first transaction capture, a confirmed speech proposal path, text-to-speech confirmation, and receipt capture with best-effort OCR. The prototype should be small enough to build quickly, but shaped so its domain model, local storage, and confirmation flow can evolve into V1 rather than being discarded.
+A real, versioned Android prototype can be installed and used by a non-developer on a physical device. It demonstrates offline-first transaction capture, a confirmed proposal from a deterministic mocked speech transcript, installed-device text-to-speech confirmation, and receipt capture with real bundled on-device OCR plus deterministic parser suggestions. The prototype should be small enough to build quickly, but shaped so its domain model, local storage, and confirmation flow can evolve into V1 rather than being discarded.
 
 Comparison to prior prototype recommendation:
 
@@ -340,18 +340,18 @@ Prototype phase 1: manual offline-first transaction slice
 
 Prototype phase 2: speech proof
 
-- Add one speech-to-text example that produces a transaction proposal.
-- Add one text-to-speech example that reads back a confirmation summary.
+- Add one deterministic mocked speech transcript that produces a transaction proposal behind a replaceable adapter boundary.
+- Add one installed-device text-to-speech example that reads back a confirmation summary.
 - Require review/edit/confirm before saving.
 - Store transcript/proposal metadata separately from confirmed transaction fields.
-- Provider can be mocked, device-supported, or adapter-based for speed; do not let provider choice leak into the product model.
+- Do not add microphone capture or a real STT engine in M1; M1.1 owns that work.
 
 Prototype phase 3: receipt proof
 
 - Add receipt photo capture.
 - Store receipt image/file metadata locally.
-- Run best-effort OCR text extraction.
-- Display extracted text and suggested transaction fields for review.
+- Run real on-device Android OCR with a bundled Google ML Kit Text Recognition model; do not rely on a first-use download, cloud OCR, or a mocked fixture.
+- Use a deterministic local parser to turn the OCR text and available layout evidence into editable merchant, date, amount, fixed-HTG-currency, and description suggestions. Display raw OCR text and suggestions separately for review; leave category and line-item interpretation manual.
 - Require correction/confirmation before saving.
 - Allow manual fallback if OCR fails.
 
@@ -368,7 +368,7 @@ Dependencies:
 Acceptance:
 
 - A synthetic entrepreneur can record a sale or expense while offline and see it after app restart.
-- Speech produces a proposal, not a final transaction.
+- The mocked speech transcript produces a proposal, not a final transaction.
 - Text-to-speech can read a confirmation summary.
 - Receipt OCR produces reviewable text or fails gracefully.
 - Manual entry remains available if speech or OCR fails.
@@ -382,9 +382,55 @@ Blocking questions:
 
 - Is SQLite required in phase 1 even if it slows the first screen slightly? Recommended answer: yes.
 - Should phase 1 include real backend sync or only a sync-shaped local stub? Recommended answer: local stub first, backend in a later SDD slice unless infrastructure is already ready.
-- Which language should speech use for the first proof? Recommended answer: English first for speed, then French/Haitian Creole evaluation.
+- **Resolved for M1:** use deterministic fixtures for the interaction proof; M1.1 evaluates real offline English, French, and Haitian Creole speech.
 - Is simple camera photo enough for phase 3, or is document edge detection required? Recommended answer: simple camera photo first.
 - Which OCR path is acceptable for the prototype: mocked, device/local best effort, or AWS Textract? Recommended answer: best-effort behind an interface; do not block on paid/cloud integration.
+
+### M1.1: Offline Multilingual Speech
+
+Status: Owner direction captured; design brief ready for OpenSpec Propose after M1 completion.
+
+Goal:
+
+Prove whether real offline speech-to-text and text-to-speech can support short Business Journal interactions in English, French, and Haitian Creole on inexpensive Android hardware and iPhone without locking the product to one speech engine.
+
+Outcome:
+
+The mobile prototype captures a short utterance offline, passes it through a Whisper-first implementation of one replaceable `SpeechToTextAdapter`, presents an editable transaction proposal, and requires explicit confirmation before saving. It also evaluates offline confirmation read-back in all three languages through a replaceable TTS boundary. Physical-device evidence determines whether Whisper is viable and which limitations or fallbacks must carry forward.
+
+Candidate slice:
+
+- `prototype-offline-multilingual-speech`
+
+Dependencies:
+
+- M1 completion and verification.
+- Existing proposal/review/confirm domain behavior and manual-entry fallback.
+- Representative physical low-cost Android and iPhone test devices.
+- Synthetic multilingual audio covering HTG amounts, local product terms, accents, and background noise.
+
+Acceptance direction:
+
+- The tested STT path works without network access in English, French, and Haitian Creole.
+- Whisper is the first spike engine; Vosk remains a replaceable fallback candidate rather than the initial implementation.
+- All STT engine behavior is contained behind one `SpeechToTextAdapter` contract.
+- Speech creates an editable proposal and never directly creates or changes a financial record.
+- Manual entry remains usable when microphone permission, the model, STT, or TTS is unavailable or fails.
+- Physical-device evidence records recognition quality for amounts and local terms, latency, memory, app-size growth, CPU/battery behavior, and failure states.
+- Installed-device TTS is evaluated for all three languages; missing Haitian Creole offline voice support is reported honestly and handled with visible text/manual fallback.
+- Only synthetic or separately approved test audio is used.
+
+Blocking decisions for Propose:
+
+- Whisper runtime, model size, quantization, and asset-packaging strategy.
+- Pass/fail thresholds and the representative iPhone floor device.
+- Offline Haitian Creole TTS voice availability and fallback behavior.
+- Synthetic speaker/accent/noise benchmark matrix.
+- Whether the recommended replaceable TTS boundary is formally named `TextToSpeechAdapter`.
+
+Design brief:
+
+- [M1.1 Offline Multilingual Speech](m1.1-offline-multilingual-speech.md)
 
 ### M1.2: Live Sync and Prototype API Proof
 
@@ -429,7 +475,7 @@ Minimum API and mobile-integration scope:
 
 Explicitly deferred from M1.2:
 
-- Speech, text-to-speech, receipt capture, and OCR integration.
+- New speech, text-to-speech, receipt capture, and OCR work. Existing accepted M1.1 speech behavior may remain in the app, but M1.2 does not extend or validate it.
 - Admin portal, reports, loans, inventory, and AI assistance.
 - Production data, pilot participant accounts, and production/pilot deployment.
 - Staging/production environments, environment promotion, GitOps/Argo CD, and multi-service decomposition.
@@ -449,6 +495,7 @@ Candidate slices:
 Dependencies:
 
 - M0 guardrails, repository strategy, and API-contract conventions.
+- M1 completion and M1.1 offline multilingual speech completion.
 - M1 phase 1 manual offline-first transaction slice and Android release delivery.
 - Explicit approval of the AWS account, owned domain/hosted-zone approach, development region, spending limits, Terraform state ownership, component repositories, GitHub organization/repositories, and authorized tester group before external resources, credentials, or tester authentication are created.
 
@@ -917,23 +964,24 @@ Start with these in order:
 3. `prototype-manual-offline-transaction`
 4. `prototype-speech-proposal-confirmation`
 5. `prototype-receipt-capture-ocr-review`
-6. `terraform-repository-and-state-baseline`
-7. `terraform-nonproduction-account-network`
-8. `terraform-ecr-eks-development-baseline`
-9. `github-actions-pr-ci-baseline`
-10. `container-build-ecr-publish-development-deploy`
-11. `define-core-domain-model`
-12. `entrepreneur-registration-login`
-13. `business-profile`
-14. `record-sale`
-15. `record-expense`
-16. `local-transaction-storage`
-17. `idempotent-transaction-sync`
-18. `transaction-history`
+6. `prototype-offline-multilingual-speech`
+7. `terraform-repository-and-state-baseline`
+8. `terraform-nonproduction-account-network`
+9. `terraform-ecr-eks-development-baseline`
+10. `github-actions-pr-ci-baseline`
+11. `container-build-ecr-publish-development-deploy`
+12. `define-core-domain-model`
+13. `entrepreneur-registration-login`
+14. `business-profile`
+15. `record-sale`
+16. `record-expense`
+17. `local-transaction-storage`
+18. `idempotent-transaction-sync`
+19. `transaction-history`
 
 Reasoning:
 
-This order proves the highest-risk user and technical assumptions before expanding into formal V1 buildout, then establishes cloud infrastructure and deployment foundations before backend-dependent hardening. The prototype validates offline-first transaction capture, confirmation, speech, and receipt/OCR viability. Terraform and deployment slices create a controlled path for shared development and later pilot delivery. The later formal slices then harden identity, business profile, transaction APIs, sync, and history without treating the prototype as disposable.
+This order proves the highest-risk user and technical assumptions before expanding into formal V1 buildout, then establishes cloud infrastructure and deployment foundations before backend-dependent hardening. M1 validates offline-first transaction capture, confirmation, mocked speech interaction, and receipt/OCR viability; M1.1 then validates real offline multilingual speech on physical devices. Terraform and deployment slices create a controlled path for shared development and later pilot delivery. The later formal slices then harden identity, business profile, transaction APIs, sync, and history without treating the prototype as disposable.
 
 ## Slice Template
 
@@ -978,4 +1026,4 @@ Enterprise Growth App Version 1: Business Journal Module
 
 The first release gives entrepreneurs a simple mobile business journal for recording and understanding sales, expenses, cash movement, receipts, and basic business performance. It gives HRF a basic administrative portal for entrepreneur monitoring, business summaries, engagement metrics, reporting, and exports. The core strategic value is not bookkeeping; it is the creation of trustworthy business activity data that can support coaching, financing readiness, impact measurement, and future Enterprise Growth Platform capabilities.
 
-The product should be built through small SDD/OpenSpec slices, beginning with product guardrails and a rapid thin-slice prototype. The prototype should prove manual offline entry, speech proposal/confirmation, and receipt OCR review using synthetic data. Terraform infrastructure and deployment/environment foundations should then establish the controlled shared delivery path. Formal V1 buildout should then harden the domain model, identity, business profile, core transactions, sync, dashboard/reporting, admin visibility, and pilot readiness.
+The product should be built through small SDD/OpenSpec slices, beginning with product guardrails and a rapid thin-slice prototype. M1 should prove manual offline entry, mocked speech proposal/confirmation, installed-device TTS, and receipt OCR review using synthetic data. M1.1 should then prove real offline English, French, and Haitian Creole STT/TTS behind replaceable adapters on representative Android and iPhone hardware. M1.2 retains the live-sync proof. Formal V1 buildout should then harden the domain model, identity, business profile, core transactions, sync, dashboard/reporting, admin visibility, and pilot readiness.
