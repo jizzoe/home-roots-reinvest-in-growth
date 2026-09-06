@@ -1,6 +1,6 @@
 # Enterprise Growth App V1 Scope Map and Milestone Plan
 
-Status: Working planning artifact — M0 complete; M1 complete and archived; M1.2 is the active next milestone while M1.1 and M1.3 wait on corpus collection; M1.1 speech and M1.2 live-sync follow-ons defined
+Status: Working planning artifact — M0 complete; M1 complete and archived; M1.2 is the active next milestone while M1.1 and M1.3 wait on corpus collection; M1.4 continuous integration split out of M3 and sequenced after M1.2
 Purpose: Control Version 1 scope before creating slice-level SDD/OpenSpec changes.  
 Primary source: `Enterprise Growth App PRD v1.0/Enterprise Growth Platform, Enterprise Growth App, Entrepreneur Application.docx`  
 Engineer quick reference: `Enterprise Growth App PRD v1.0/Features Reference Sheet, Appendix D.docx`
@@ -614,6 +614,57 @@ Blocking questions:
 - Who reviews the Haitian Creole strings, and when are they available? This is the only open question on the translation track.
 - Are photographs of printed synthetic receipts acceptable for the first corpus, with genuine Haitian receipts added later? Recommended answer: yes. Print the existing synthetic set, introduce real creases, lighting, and handwriting, and photograph them through the application's own capture path.
 
+### M1.4: Prototype Continuous Integration
+
+Status: **Defined 2026-09-06**, split out of M3 rather than newly invented. Depends only on M1.2; it does not wait on M1.1 or M1.3, whose corpus collection has no bearing on continuous integration.
+
+Goal:
+
+Move the prototype's build, test, and image-publishing evidence from a developer's laptop into a durable, reproducible record, without giving continuous integration ownership of the runtime environment.
+
+Outcome:
+
+Pull requests run the backend test suite and Terraform format/validate checks with no AWS credentials at all. Merges to the main branch build one container image, publish it to ECR addressed by digest, and record the commit SHA, digest, and test results as durable build evidence. Deployment remains a scripted, human-initiated session action. The local `start` script consumes a continuous-integration-published digest, so the two halves meet at the image rather than at the environment.
+
+Source decision:
+
+Recorded 2026-09-06. M1.2 deliberately keeps continuous integration to tests only and drives image building and deployment from scripts, because the development environment is cold-off by default and a deployment robot would have to boot an entire environment on a schedule nobody asked for. M1.4 adds the half of continuous integration that has no dependency on the environment being up.
+
+The split from M3 follows the same line the M1.2 brief draws for EKS migration enablement: the deployment unit is an immutable image digest, which is identical under ECS and under EKS. Everything runtime-agnostic moves here; everything runtime-specific stays in M3.
+
+Candidate slices:
+
+- `ci-pull-request-checks`
+- `ci-github-aws-trust`
+- `ci-image-build-and-publish`
+- `ci-build-evidence-artifacts`
+
+Explicitly excluded:
+
+- Deploying from continuous integration. Environment convergence stays in scripts for as long as the environment is cold-off.
+- Helm, Kubernetes, GitHub Environments, staging or production promotion, and Argo CD. All remain M3.
+- Image scanning and SBOM generation. Remains M3.
+
+Dependencies:
+
+- M1.2, for a backend repository containing tests, a build file, a Dockerfile, an ECR repository, and the lifecycle scripts that consume a digest.
+- Not M1.1 or M1.3. Neither corpus affects this work.
+
+Acceptance:
+
+- A pull request runs the backend test suite and `terraform fmt`/`terraform validate` using no AWS credentials.
+- A merge to the main branch builds one image, publishes it to ECR addressed by digest, and emits the commit SHA, digest, and test results as durable build evidence.
+- No long-lived AWS access key exists in GitHub, the repository, or a developer machine. Trust is federated and its claim is scoped to one repository and one branch or environment.
+- Workflow permissions start at `contents: read`, with token-issuing permission granted only to the job that assumes the role, and no path by which a fork pull request can reach it.
+- The local `start` script deploys a continuous-integration-published digest successfully, and the resulting session evidence links back to the build record that produced it.
+- Runtime secrets remain in Secrets Manager and are not copied into GitHub.
+
+Blocking questions:
+
+- Is the account-level identity provider for GitHub created by this project's Terraform or by the reference project's, given that both share the AWS account? It is a shared resource and must be created once and referenced by the other, in the same way the Route 53 hosted zone is.
+- What is the stopping condition for this milestone? "Make continuous integration good" is open-ended in exactly the way the discontinued receipt slice was, so the acceptance list above is the boundary and additions belong to M3.
+- Should the trust claim be scoped to a branch or to a GitHub environment?
+
 ### M2: Terraform Infrastructure Foundation
 
 Goal:
@@ -638,7 +689,7 @@ Candidate slices:
 - `terraform-eks-development-cluster`
 - `terraform-rds-postgres-development`
 - `terraform-s3-receipt-storage-development`
-- `terraform-github-oidc-iam-roles`
+- `terraform-github-oidc-iam-roles` — extends the roles M1.4 created, for EKS targets; it no longer creates the identity provider or the first trust relationship
 - `terraform-observability-and-cost-alarms`
 - `terraform-secrets-manager-baseline`
 
@@ -668,13 +719,15 @@ Blocking questions:
 
 ### M3: Deployment and Environment Foundation
 
+Status: **Rescoped 2026-09-06.** The runtime-agnostic half of this milestone — pull-request checks, container build and ECR publish, and the GitHub-to-AWS trust relationship — was split out to [M1.4](#m14-prototype-continuous-integration) so it could run against the M1.2 ECS environment without waiting for EKS. M3 retains the runtime-specific half and inherits M1.4's continuous-integration baseline rather than rebuilding it.
+
 Goal:
 
-Create the initial CI/CD and environment promotion path for backend/container workloads so V1 services can move from pull request to development, staging, and production/pilot through controlled, auditable steps.
+Create the environment promotion path for backend/container workloads so V1 services can move from development to staging and production/pilot through controlled, auditable steps, on top of the continuous-integration baseline M1.4 established.
 
 Outcome:
 
-GitHub Actions runs CI, builds immutable container images, publishes to ECR, and deploys to development using Helm. GitHub Environments and AWS IAM OIDC provide environment-specific controls. The plan preserves a clean path to AWS-managed Argo CD once staging/production promotion becomes routine.
+The image digests M1.4 already builds and publishes are deployed to development using Helm, then promoted unchanged through staging to production/pilot. GitHub Environments and AWS IAM OIDC provide environment-specific controls and human approval gates. The plan preserves a clean path to AWS-managed Argo CD once staging/production promotion becomes routine.
 
 Source decision:
 
@@ -690,36 +743,37 @@ Use the recommended strategy from `ai-planning/research/eks-cicd-and-environment
 
 Candidate slices:
 
-- `github-actions-pr-ci-baseline`
-- `container-build-and-ecr-publish`
 - `helm-chart-baseline`
 - `development-environment-deploy`
-- `github-environments-and-oidc-deploy-roles`
+- `github-environments-and-promotion-deploy-roles`
 - `staging-production-promotion-model`
 - `argocd-gitops-layout-prep`
 - `deployment-health-smoke-rollback`
 - `dependency-image-scan-and-sbom-baseline`
 
+`github-actions-pr-ci-baseline` and `container-build-and-ecr-publish` moved to M1.4. `github-environments-and-oidc-deploy-roles` is renamed and narrowed to environments and promotion roles, because M1.4 already establishes the identity provider and the first scoped trust relationship.
+
 Dependencies:
 
 - M0 repository and SDD strategy.
+- M1.4 continuous-integration baseline: pull-request checks, digest-addressed image publishing, and the GitHub-to-AWS trust relationship.
 - M2 Terraform foundation for AWS roles, ECR, and EKS targets.
 
 Acceptance:
 
-- Pull requests run lint/test/contract checks appropriate to the service.
-- Main builds a digest-addressable image and pushes it to ECR.
-- The development environment can deploy the built image through Helm.
+- Pull-request checks and digest-addressed image publishing, inherited from M1.4, still pass against the EKS-targeted build.
+- The development environment can deploy an M1.4-published image digest through Helm, without rebuilding it.
 - GitHub Environments exist for development, staging, and production/pilot.
 - Production/pilot deployment is protected by human approval.
-- Deployment metadata records commit SHA, image digest, Helm chart/config version, and test result.
+- Deployment metadata records commit SHA, image digest, Helm chart/config version, and test result, extending rather than duplicating the M1.4 build evidence.
 - The same image digest can be promoted without rebuilding.
 - The Argo CD target model is documented even if not yet active.
 
 Blocking questions:
 
 - Should GitOps configuration live in a dedicated repo or a separated `deploy/` area at first?
-- Which checks are required before development deploy: unit tests, integration tests, API contract checks, Helm lint/template, image scan?
+- Which checks are required before development deploy, beyond the M1.4 baseline: integration tests, API contract checks, Helm lint/template, image scan?
+- Does the ECS environment M1.2 and M1.4 built get retired at this point, kept as a cheap prototype lane, or migrated? The EKS migration trigger is recorded in M2.
 - What is the first authoritative rollback signal: Kubernetes readiness, application health endpoint, smoke test, or CloudWatch alarms?
 - How will database migrations be sequenced and approved during deployment?
 - When should AWS-managed Argo CD be introduced: before staging exists, or before production/pilot promotion?
@@ -1036,7 +1090,7 @@ Candidate slices:
 
 Dependencies:
 
-- M2-M3 infrastructure and deployment foundations.
+- M1.4 continuous-integration baseline, and the M2-M3 infrastructure and deployment foundations.
 - M4-M10 minimum product scope.
 - M11 if loan visibility is included.
 
@@ -1127,4 +1181,4 @@ Enterprise Growth App Version 1: Business Journal Module
 
 The first release gives entrepreneurs a simple mobile business journal for recording and understanding sales, expenses, cash movement, receipts, and basic business performance. It gives HRF a basic administrative portal for entrepreneur monitoring, business summaries, engagement metrics, reporting, and exports. The core strategic value is not bookkeeping; it is the creation of trustworthy business activity data that can support coaching, financing readiness, impact measurement, and future Enterprise Growth Platform capabilities.
 
-The product should be built through small SDD/OpenSpec slices, beginning with product guardrails and a rapid thin-slice prototype. M1 should prove manual offline entry, mocked speech proposal/confirmation, and installed-device TTS using synthetic data. M1.1 should then prove real offline English, French, and Haitian Creole STT/TTS behind replaceable adapters on representative Android and iPhone hardware. M1.2 retains the live-sync proof, and M1.3 delivers receipt capture and evaluates on-device extraction against a frozen photographed corpus and fixed exit criteria. Formal V1 buildout should then harden the domain model, identity, business profile, core transactions, sync, dashboard/reporting, admin visibility, and pilot readiness.
+The product should be built through small SDD/OpenSpec slices, beginning with product guardrails and a rapid thin-slice prototype. M1 should prove manual offline entry, mocked speech proposal/confirmation, and installed-device TTS using synthetic data. M1.1 should then prove real offline English, French, and Haitian Creole STT/TTS behind replaceable adapters on representative Android and iPhone hardware. M1.2 retains the live-sync proof, M1.3 delivers receipt capture and evaluates on-device extraction against a frozen photographed corpus and fixed exit criteria, and M1.4 moves build, test, and image-publishing evidence off a developer laptop while leaving deployment in scripts. Formal V1 buildout should then harden the domain model, identity, business profile, core transactions, sync, dashboard/reporting, admin visibility, and pilot readiness.
