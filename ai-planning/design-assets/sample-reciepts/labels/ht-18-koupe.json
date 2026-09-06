@@ -1,0 +1,25 @@
+{
+  "file": "images/ht-18-koupe.png",
+  "label_file": "labels/ht-18-koupe.json",
+  "id": "ht-18-koupe",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "partial_cut_handwritten",
+  "readability": "unreadable",
+  "merchant": "BOUTIK KACHE",
+  "date": "30/08/2026",
+  "items": [
+    "Atik pa lizib"
+  ],
+  "total": "???",
+  "anchor": null,
+  "ground_truth": {
+    "merchant": "BOUTIK KACHE",
+    "date_iso": null,
+    "amount_centimes": null,
+    "currency_displayed": "HTG",
+    "human_readable": false,
+    "amount_expected_blank": true,
+    "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+  }
+}

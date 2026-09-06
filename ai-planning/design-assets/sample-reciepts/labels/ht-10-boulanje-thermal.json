@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-10-boulanje-thermal.png",
+  "label_file": "labels/ht-10-boulanje-thermal.json",
+  "id": "ht-10-boulanje-thermal",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "thermal_bakery",
+  "readability": "readable",
+  "merchant": "BOULANJRI BON GOU",
+  "date": "26/08/2026",
+  "items": [
+    "Pen bè",
+    "Pate",
+    "Kafe"
+  ],
+  "total": "420.00",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "BOULANJRI BON GOU",
+    "date_iso": "2026-08-26",
+    "amount_centimes": 42000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

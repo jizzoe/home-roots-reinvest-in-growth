@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-13-mache-kase.png",
+  "label_file": "labels/ht-13-mache-kase.json",
+  "id": "ht-13-mache-kase",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "creased_thermal_market",
+  "readability": "readable",
+  "merchant": "MACHE LARIVYÈ",
+  "date": "27/08/2026",
+  "items": [
+    "Manje bèt",
+    "Mayi",
+    "Dlo"
+  ],
+  "total": "2890",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "MACHE LARIVYÈ",
+    "date_iso": "2026-08-27",
+    "amount_centimes": 289000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

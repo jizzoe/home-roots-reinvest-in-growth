@@ -1,0 +1,24 @@
+{
+  "file": "images/gb-02-petrol-thermal.png",
+  "label_file": "labels/gb-02-petrol-thermal.json",
+  "id": "gb-02-petrol-thermal",
+  "locale": "en-GB",
+  "currency": "GBP",
+  "kind": "thermal_fuel",
+  "readability": "readable",
+  "merchant": "NORTHWAY PETROL",
+  "date": "19/08/2026",
+  "items": [
+    "Unleaded 19.3L"
+  ],
+  "total": "£31.24",
+  "anchor": "AMOUNT DUE",
+  "ground_truth": {
+    "merchant": "NORTHWAY PETROL",
+    "date_iso": "2026-08-19",
+    "amount_centimes": 3124,
+    "currency_displayed": "GBP",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

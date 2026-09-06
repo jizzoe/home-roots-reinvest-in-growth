@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-06-legim-handwritten.png",
+  "label_file": "labels/ht-06-legim-handwritten.json",
+  "id": "ht-06-legim-handwritten",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "handwritten_market",
+  "readability": "readable",
+  "merchant": "MADAN SONA - MACHE",
+  "date": "23/08/2026",
+  "items": [
+    "Tomat",
+    "Zonyon",
+    "Bannann"
+  ],
+  "total": "675",
+  "anchor": "TOTAL POU PEYE",
+  "ground_truth": {
+    "merchant": "MADAN SONA - MACHE",
+    "date_iso": "2026-08-23",
+    "amount_centimes": 67500,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-11-lekol-handwritten.png",
+  "label_file": "labels/ht-11-lekol-handwritten.json",
+  "id": "ht-11-lekol-handwritten",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "handwritten_school",
+  "readability": "readable",
+  "merchant": "LEKÒL ESPWA",
+  "date": "26/08/2026",
+  "items": [
+    "Kaye",
+    "Kreyon",
+    "Fotokopi"
+  ],
+  "total": "1310",
+  "anchor": "MONTAN TOTAL",
+  "ground_truth": {
+    "merchant": "LEKÒL ESPWA",
+    "date_iso": "2026-08-26",
+    "amount_centimes": 131000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

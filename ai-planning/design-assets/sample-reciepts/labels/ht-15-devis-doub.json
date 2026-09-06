@@ -1,0 +1,25 @@
+{
+  "file": "images/ht-15-devis-doub.png",
+  "label_file": "labels/ht-15-devis-doub.json",
+  "id": "ht-15-devis-doub",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "dual_currency_thermal",
+  "readability": "readable",
+  "merchant": "KAY ECHANJ",
+  "date": "28/08/2026",
+  "items": [
+    "Batri solè"
+  ],
+  "total": "125.00 USD / 16,500 HTG",
+  "anchor": null,
+  "ground_truth": {
+    "merchant": "KAY ECHANJ",
+    "date_iso": "2026-08-28",
+    "amount_centimes": null,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": true,
+    "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+  }
+}

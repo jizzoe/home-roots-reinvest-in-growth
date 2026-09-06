@@ -1,0 +1,24 @@
+{
+  "file": "images/ht-12-koutiryè-handwritten.png",
+  "label_file": "labels/ht-12-koutiryè-handwritten.json",
+  "id": "ht-12-koutiryè-handwritten",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "handwritten_service",
+  "readability": "readable",
+  "merchant": "ATELYE MIREY",
+  "date": "27/08/2026",
+  "items": [
+    "Koud inifòm"
+  ],
+  "total": "4500.00",
+  "anchor": "TOTAL POU PEYE",
+  "ground_truth": {
+    "merchant": "ATELYE MIREY",
+    "date_iso": "2026-08-27",
+    "amount_centimes": 450000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "file": "images/fr-05-laverie-lowlight.png",
+  "label_file": "labels/fr-05-laverie-lowlight.json",
+  "id": "fr-05-laverie-lowlight",
+  "locale": "fr",
+  "currency": "HTG",
+  "kind": "low_light_thermal",
+  "readability": "readable",
+  "merchant": "LAVERIE PROPRETE",
+  "date": "25/08/2026",
+  "items": [
+    "Lavage et sechage"
+  ],
+  "total": "1800",
+  "anchor": "SOMME",
+  "ground_truth": {
+    "merchant": "LAVERIE PROPRETE",
+    "date_iso": "2026-08-25",
+    "amount_centimes": 180000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

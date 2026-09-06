@@ -1,0 +1,25 @@
+{
+  "file": "images/ht-16-otèl-devis.png",
+  "label_file": "labels/ht-16-otèl-devis.json",
+  "id": "ht-16-otèl-devis",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "dual_currency_handwritten",
+  "readability": "readable",
+  "merchant": "OTÈL LALIN",
+  "date": "29/08/2026",
+  "items": [
+    "Yon nuit"
+  ],
+  "total": "45 USD / 5,950 Gdes",
+  "anchor": null,
+  "ground_truth": {
+    "merchant": "OTÈL LALIN",
+    "date_iso": "2026-08-29",
+    "amount_centimes": null,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": true,
+    "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "file": "images/fr-02-quincaillerie-printed.png",
+  "label_file": "labels/fr-02-quincaillerie-printed.json",
+  "id": "fr-02-quincaillerie-printed",
+  "locale": "fr",
+  "currency": "HTG",
+  "kind": "printed_hardware",
+  "readability": "readable",
+  "merchant": "QUINCAILLERIE SOLEIL",
+  "date": "19/08/2026",
+  "items": [
+    "Ciment",
+    "Clous",
+    "Gants"
+  ],
+  "total": "4825.50",
+  "anchor": "NET A PAYER",
+  "ground_truth": {
+    "merchant": "QUINCAILLERIE SOLEIL",
+    "date_iso": "2026-08-19",
+    "amount_centimes": 482550,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

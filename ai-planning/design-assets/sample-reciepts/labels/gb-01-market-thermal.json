@@ -1,0 +1,26 @@
+{
+  "file": "images/gb-01-market-thermal.png",
+  "label_file": "labels/gb-01-market-thermal.json",
+  "id": "gb-01-market-thermal",
+  "locale": "en-GB",
+  "currency": "GBP",
+  "kind": "thermal_grocery",
+  "readability": "readable",
+  "merchant": "MARKET STREET FOODS",
+  "date": "18/08/2026",
+  "items": [
+    "Tea",
+    "Biscuits",
+    "Apples"
+  ],
+  "total": "£12.64",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "MARKET STREET FOODS",
+    "date_iso": "2026-08-18",
+    "amount_centimes": 1264,
+    "currency_displayed": "GBP",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

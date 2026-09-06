@@ -1,0 +1,24 @@
+{
+  "file": "images/ht-09-telefòn-thermal.png",
+  "label_file": "labels/ht-09-telefòn-thermal.json",
+  "id": "ht-09-telefòn-thermal",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "thermal_mobile_topup",
+  "readability": "readable",
+  "merchant": "KONEKTE LAKAY",
+  "date": "25/08/2026",
+  "items": [
+    "Rechaj telefòn"
+  ],
+  "total": "500",
+  "anchor": "TOTAL POU PEYE",
+  "ground_truth": {
+    "merchant": "KONEKTE LAKAY",
+    "date_iso": "2026-08-25",
+    "amount_centimes": 50000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

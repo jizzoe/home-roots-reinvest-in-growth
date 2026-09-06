@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-03-restoran-thermal.png",
+  "label_file": "labels/ht-03-restoran-thermal.json",
+  "id": "ht-03-restoran-thermal",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "thermal_restaurant",
+  "readability": "readable",
+  "merchant": "KAY MANJE MARI",
+  "date": "21/08/2026",
+  "items": [
+    "Diri kole",
+    "Poul fri",
+    "Ji sitwon"
+  ],
+  "total": "1125.50",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "KAY MANJE MARI",
+    "date_iso": "2026-08-21",
+    "amount_centimes": 112550,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

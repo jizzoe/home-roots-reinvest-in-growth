@@ -1,0 +1,26 @@
+{
+  "file": "images/us-03-cafe-handwritten.png",
+  "label_file": "labels/us-03-cafe-handwritten.json",
+  "id": "us-03-cafe-handwritten",
+  "locale": "en-US",
+  "currency": "USD",
+  "kind": "handwritten_cafe",
+  "readability": "readable",
+  "merchant": "LILA CAFE",
+  "date": "08/20/2026",
+  "items": [
+    "Coffee",
+    "Bagel",
+    "Tip"
+  ],
+  "total": "11.50",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "LILA CAFE",
+    "date_iso": "2026-08-20",
+    "amount_centimes": 1150,
+    "currency_displayed": "USD",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

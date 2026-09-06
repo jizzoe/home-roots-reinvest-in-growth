@@ -1,0 +1,26 @@
+{
+  "file": "images/fr-04-librairie-thermal.png",
+  "label_file": "labels/fr-04-librairie-thermal.json",
+  "id": "fr-04-librairie-thermal",
+  "locale": "fr",
+  "currency": "HTG",
+  "kind": "thermal_stationery",
+  "readability": "readable",
+  "merchant": "LIBRAIRIE LA PLUME",
+  "date": "22/08/2026",
+  "items": [
+    "Cahier",
+    "Stylo",
+    "Enveloppes"
+  ],
+  "total": "895.00",
+  "anchor": "TOTAL A PAYER",
+  "ground_truth": {
+    "merchant": "LIBRAIRIE LA PLUME",
+    "date_iso": "2026-08-22",
+    "amount_centimes": 89500,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

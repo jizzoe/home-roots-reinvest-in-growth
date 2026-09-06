@@ -1,0 +1,25 @@
+{
+  "file": "images/ht-17-tach-bouyi.png",
+  "label_file": "labels/ht-17-tach-bouyi.json",
+  "id": "ht-17-tach-bouyi",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "unreadable_thermal",
+  "readability": "unreadable",
+  "merchant": "KIOSK RIVAJ",
+  "date": "29/08/2026",
+  "items": [
+    "Atik pa lizib"
+  ],
+  "total": "???",
+  "anchor": null,
+  "ground_truth": {
+    "merchant": "KIOSK RIVAJ",
+    "date_iso": null,
+    "amount_centimes": null,
+    "currency_displayed": "HTG",
+    "human_readable": false,
+    "amount_expected_blank": true,
+    "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+  }
+}

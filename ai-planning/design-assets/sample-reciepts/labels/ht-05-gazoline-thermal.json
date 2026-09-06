@@ -1,0 +1,24 @@
+{
+  "file": "images/ht-05-gazoline-thermal.png",
+  "label_file": "labels/ht-05-gazoline-thermal.json",
+  "id": "ht-05-gazoline-thermal",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "thermal_fuel",
+  "readability": "readable",
+  "merchant": "PONP GAZ KANAPE VE",
+  "date": "23/08/2026",
+  "items": [
+    "Gazolin 4.20 gal"
+  ],
+  "total": "2380",
+  "anchor": "MONTAN TOTAL",
+  "ground_truth": {
+    "merchant": "PONP GAZ KANAPE VE",
+    "date_iso": "2026-08-23",
+    "amount_centimes": 238000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "file": "images/ht-07-transpo-handwritten.png",
+  "label_file": "labels/ht-07-transpo-handwritten.json",
+  "id": "ht-07-transpo-handwritten",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "handwritten_transport",
+  "readability": "readable",
+  "merchant": "TAP-TAP DELMAS",
+  "date": "24/08/2026",
+  "items": [
+    "Vwayaj Delmas - Kafou"
+  ],
+  "total": "150.00",
+  "anchor": "MONTAN",
+  "ground_truth": {
+    "merchant": "TAP-TAP DELMAS",
+    "date_iso": "2026-08-24",
+    "amount_centimes": 15000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

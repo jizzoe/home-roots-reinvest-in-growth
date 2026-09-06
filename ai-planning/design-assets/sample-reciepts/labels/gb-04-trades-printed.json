@@ -1,0 +1,25 @@
+{
+  "file": "images/gb-04-trades-printed.png",
+  "label_file": "labels/gb-04-trades-printed.json",
+  "id": "gb-04-trades-printed",
+  "locale": "en-GB",
+  "currency": "GBP",
+  "kind": "partial_cut_printed",
+  "readability": "readable",
+  "merchant": "BRIDGE BUILDERS LTD",
+  "date": "23/08/2026",
+  "items": [
+    "Timber",
+    "Fixings"
+  ],
+  "total": "£148.20",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "BRIDGE BUILDERS LTD",
+    "date_iso": "2026-08-23",
+    "amount_centimes": 14820,
+    "currency_displayed": "GBP",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

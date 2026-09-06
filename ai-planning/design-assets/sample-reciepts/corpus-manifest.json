@@ -1,0 +1,816 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-05",
+  "source_policy": "Synthetic only. No real-person, participant, or third-party financial data. Do not treat the images as commercial records.",
+  "corpus": [
+    {
+      "file": "images/ht-01-mache-thermal.png",
+      "label_file": "labels/ht-01-mache-thermal.json",
+      "id": "ht-01-mache-thermal",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "thermal_market",
+      "readability": "readable",
+      "merchant": "MACHE BOIS-VERNA",
+      "date": "18/08/2026",
+      "items": [
+        "Diri 2kg",
+        "Lwil 1L",
+        "Pwa nwa"
+      ],
+      "total": "1450.00",
+      "anchor": "TOTAL POU PEYE",
+      "ground_truth": {
+        "merchant": "MACHE BOIS-VERNA",
+        "date_iso": "2026-08-18",
+        "amount_centimes": 145000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-02-boutik-handwritten.png",
+      "label_file": "labels/ht-02-boutik-handwritten.json",
+      "id": "ht-02-boutik-handwritten",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "handwritten_shop",
+      "readability": "readable",
+      "merchant": "BOUTIK TI LOU",
+      "date": "20/08/2026",
+      "items": [
+        "Pen",
+        "Ze 12",
+        "Lèt"
+      ],
+      "total": "785",
+      "anchor": "MONTAN",
+      "ground_truth": {
+        "merchant": "BOUTIK TI LOU",
+        "date_iso": "2026-08-20",
+        "amount_centimes": 78500,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-03-restoran-thermal.png",
+      "label_file": "labels/ht-03-restoran-thermal.json",
+      "id": "ht-03-restoran-thermal",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "thermal_restaurant",
+      "readability": "readable",
+      "merchant": "KAY MANJE MARI",
+      "date": "21/08/2026",
+      "items": [
+        "Diri kole",
+        "Poul fri",
+        "Ji sitwon"
+      ],
+      "total": "1125.50",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "KAY MANJE MARI",
+        "date_iso": "2026-08-21",
+        "amount_centimes": 112550,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-04-famasi-thermal.png",
+      "label_file": "labels/ht-04-famasi-thermal.json",
+      "id": "ht-04-famasi-thermal",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "thermal_pharmacy",
+      "readability": "readable",
+      "merchant": "FAMASI LAVI",
+      "date": "22/08/2026",
+      "items": [
+        "Savon",
+        "Pansman",
+        "Vitamin"
+      ],
+      "total": "960.00",
+      "anchor": "TOTAL POU PEYE",
+      "ground_truth": {
+        "merchant": "FAMASI LAVI",
+        "date_iso": "2026-08-22",
+        "amount_centimes": 96000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-05-gazoline-thermal.png",
+      "label_file": "labels/ht-05-gazoline-thermal.json",
+      "id": "ht-05-gazoline-thermal",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "thermal_fuel",
+      "readability": "readable",
+      "merchant": "PONP GAZ KANAPE VE",
+      "date": "23/08/2026",
+      "items": [
+        "Gazolin 4.20 gal"
+      ],
+      "total": "2380",
+      "anchor": "MONTAN TOTAL",
+      "ground_truth": {
+        "merchant": "PONP GAZ KANAPE VE",
+        "date_iso": "2026-08-23",
+        "amount_centimes": 238000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-06-legim-handwritten.png",
+      "label_file": "labels/ht-06-legim-handwritten.json",
+      "id": "ht-06-legim-handwritten",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "handwritten_market",
+      "readability": "readable",
+      "merchant": "MADAN SONA - MACHE",
+      "date": "23/08/2026",
+      "items": [
+        "Tomat",
+        "Zonyon",
+        "Bannann"
+      ],
+      "total": "675",
+      "anchor": "TOTAL POU PEYE",
+      "ground_truth": {
+        "merchant": "MADAN SONA - MACHE",
+        "date_iso": "2026-08-23",
+        "amount_centimes": 67500,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-07-transpo-handwritten.png",
+      "label_file": "labels/ht-07-transpo-handwritten.json",
+      "id": "ht-07-transpo-handwritten",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "handwritten_transport",
+      "readability": "readable",
+      "merchant": "TAP-TAP DELMAS",
+      "date": "24/08/2026",
+      "items": [
+        "Vwayaj Delmas - Kafou"
+      ],
+      "total": "150.00",
+      "anchor": "MONTAN",
+      "ground_truth": {
+        "merchant": "TAP-TAP DELMAS",
+        "date_iso": "2026-08-24",
+        "amount_centimes": 15000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-08-materyo-printed.png",
+      "label_file": "labels/ht-08-materyo-printed.json",
+      "id": "ht-08-materyo-printed",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "printed_hardware",
+      "readability": "readable",
+      "merchant": "KOMES WÒCH",
+      "date": "24/08/2026",
+      "items": [
+        "Klou 2 lb",
+        "Penti blan"
+      ],
+      "total": "3265.75",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "KOMES WÒCH",
+        "date_iso": "2026-08-24",
+        "amount_centimes": 326575,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-09-telefòn-thermal.png",
+      "label_file": "labels/ht-09-telefòn-thermal.json",
+      "id": "ht-09-telefòn-thermal",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "thermal_mobile_topup",
+      "readability": "readable",
+      "merchant": "KONEKTE LAKAY",
+      "date": "25/08/2026",
+      "items": [
+        "Rechaj telefòn"
+      ],
+      "total": "500",
+      "anchor": "TOTAL POU PEYE",
+      "ground_truth": {
+        "merchant": "KONEKTE LAKAY",
+        "date_iso": "2026-08-25",
+        "amount_centimes": 50000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-10-boulanje-thermal.png",
+      "label_file": "labels/ht-10-boulanje-thermal.json",
+      "id": "ht-10-boulanje-thermal",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "thermal_bakery",
+      "readability": "readable",
+      "merchant": "BOULANJRI BON GOU",
+      "date": "26/08/2026",
+      "items": [
+        "Pen bè",
+        "Pate",
+        "Kafe"
+      ],
+      "total": "420.00",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "BOULANJRI BON GOU",
+        "date_iso": "2026-08-26",
+        "amount_centimes": 42000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-11-lekol-handwritten.png",
+      "label_file": "labels/ht-11-lekol-handwritten.json",
+      "id": "ht-11-lekol-handwritten",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "handwritten_school",
+      "readability": "readable",
+      "merchant": "LEKÒL ESPWA",
+      "date": "26/08/2026",
+      "items": [
+        "Kaye",
+        "Kreyon",
+        "Fotokopi"
+      ],
+      "total": "1310",
+      "anchor": "MONTAN TOTAL",
+      "ground_truth": {
+        "merchant": "LEKÒL ESPWA",
+        "date_iso": "2026-08-26",
+        "amount_centimes": 131000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-12-koutiryè-handwritten.png",
+      "label_file": "labels/ht-12-koutiryè-handwritten.json",
+      "id": "ht-12-koutiryè-handwritten",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "handwritten_service",
+      "readability": "readable",
+      "merchant": "ATELYE MIREY",
+      "date": "27/08/2026",
+      "items": [
+        "Koud inifòm"
+      ],
+      "total": "4500.00",
+      "anchor": "TOTAL POU PEYE",
+      "ground_truth": {
+        "merchant": "ATELYE MIREY",
+        "date_iso": "2026-08-27",
+        "amount_centimes": 450000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-13-mache-kase.png",
+      "label_file": "labels/ht-13-mache-kase.json",
+      "id": "ht-13-mache-kase",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "creased_thermal_market",
+      "readability": "readable",
+      "merchant": "MACHE LARIVYÈ",
+      "date": "27/08/2026",
+      "items": [
+        "Manje bèt",
+        "Mayi",
+        "Dlo"
+      ],
+      "total": "2890",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "MACHE LARIVYÈ",
+        "date_iso": "2026-08-27",
+        "amount_centimes": 289000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-14-pwason-lowlight.png",
+      "label_file": "labels/ht-14-pwason-lowlight.json",
+      "id": "ht-14-pwason-lowlight",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "low_light_handwritten",
+      "readability": "readable",
+      "merchant": "PWASON FRE SÈL",
+      "date": "28/08/2026",
+      "items": [
+        "Pwason",
+        "Sitwon",
+        "Sèl"
+      ],
+      "total": "1875.00",
+      "anchor": "MONTAN",
+      "ground_truth": {
+        "merchant": "PWASON FRE SÈL",
+        "date_iso": "2026-08-28",
+        "amount_centimes": 187500,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/ht-15-devis-doub.png",
+      "label_file": "labels/ht-15-devis-doub.json",
+      "id": "ht-15-devis-doub",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "dual_currency_thermal",
+      "readability": "readable",
+      "merchant": "KAY ECHANJ",
+      "date": "28/08/2026",
+      "items": [
+        "Batri solè"
+      ],
+      "total": "125.00 USD / 16,500 HTG",
+      "anchor": null,
+      "ground_truth": {
+        "merchant": "KAY ECHANJ",
+        "date_iso": "2026-08-28",
+        "amount_centimes": null,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": true,
+        "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+      }
+    },
+    {
+      "file": "images/ht-16-otèl-devis.png",
+      "label_file": "labels/ht-16-otèl-devis.json",
+      "id": "ht-16-otèl-devis",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "dual_currency_handwritten",
+      "readability": "readable",
+      "merchant": "OTÈL LALIN",
+      "date": "29/08/2026",
+      "items": [
+        "Yon nuit"
+      ],
+      "total": "45 USD / 5,950 Gdes",
+      "anchor": null,
+      "ground_truth": {
+        "merchant": "OTÈL LALIN",
+        "date_iso": "2026-08-29",
+        "amount_centimes": null,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": true,
+        "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+      }
+    },
+    {
+      "file": "images/ht-17-tach-bouyi.png",
+      "label_file": "labels/ht-17-tach-bouyi.json",
+      "id": "ht-17-tach-bouyi",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "unreadable_thermal",
+      "readability": "unreadable",
+      "merchant": "KIOSK RIVAJ",
+      "date": "29/08/2026",
+      "items": [
+        "Atik pa lizib"
+      ],
+      "total": "???",
+      "anchor": null,
+      "ground_truth": {
+        "merchant": "KIOSK RIVAJ",
+        "date_iso": null,
+        "amount_centimes": null,
+        "currency_displayed": "HTG",
+        "human_readable": false,
+        "amount_expected_blank": true,
+        "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+      }
+    },
+    {
+      "file": "images/ht-18-koupe.png",
+      "label_file": "labels/ht-18-koupe.json",
+      "id": "ht-18-koupe",
+      "locale": "ht",
+      "currency": "HTG",
+      "kind": "partial_cut_handwritten",
+      "readability": "unreadable",
+      "merchant": "BOUTIK KACHE",
+      "date": "30/08/2026",
+      "items": [
+        "Atik pa lizib"
+      ],
+      "total": "???",
+      "anchor": null,
+      "ground_truth": {
+        "merchant": "BOUTIK KACHE",
+        "date_iso": null,
+        "amount_centimes": null,
+        "currency_displayed": "HTG",
+        "human_readable": false,
+        "amount_expected_blank": true,
+        "notes": "Dual-currency or unreadable case: amount should be blank for M1."
+      }
+    },
+    {
+      "file": "images/fr-01-epicerie-thermal.png",
+      "label_file": "labels/fr-01-epicerie-thermal.json",
+      "id": "fr-01-epicerie-thermal",
+      "locale": "fr",
+      "currency": "HTG",
+      "kind": "thermal_grocery",
+      "readability": "readable",
+      "merchant": "EPICERIE BELLE VUE",
+      "date": "18/08/2026",
+      "items": [
+        "Riz",
+        "Huile",
+        "Haricots"
+      ],
+      "total": "1750,00",
+      "anchor": "MONTANT TOTAL",
+      "ground_truth": {
+        "merchant": "EPICERIE BELLE VUE",
+        "date_iso": "2026-08-18",
+        "amount_centimes": 175000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/fr-02-quincaillerie-printed.png",
+      "label_file": "labels/fr-02-quincaillerie-printed.json",
+      "id": "fr-02-quincaillerie-printed",
+      "locale": "fr",
+      "currency": "HTG",
+      "kind": "printed_hardware",
+      "readability": "readable",
+      "merchant": "QUINCAILLERIE SOLEIL",
+      "date": "19/08/2026",
+      "items": [
+        "Ciment",
+        "Clous",
+        "Gants"
+      ],
+      "total": "4825.50",
+      "anchor": "NET A PAYER",
+      "ground_truth": {
+        "merchant": "QUINCAILLERIE SOLEIL",
+        "date_iso": "2026-08-19",
+        "amount_centimes": 482550,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/fr-03-clinique-handwritten.png",
+      "label_file": "labels/fr-03-clinique-handwritten.json",
+      "id": "fr-03-clinique-handwritten",
+      "locale": "fr",
+      "currency": "HTG",
+      "kind": "handwritten_clinic",
+      "readability": "readable",
+      "merchant": "CLINIQUE ESPERANCE",
+      "date": "21/08/2026",
+      "items": [
+        "Consultation"
+      ],
+      "total": "2500",
+      "anchor": "MONTANT",
+      "ground_truth": {
+        "merchant": "CLINIQUE ESPERANCE",
+        "date_iso": "2026-08-21",
+        "amount_centimes": 250000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/fr-04-librairie-thermal.png",
+      "label_file": "labels/fr-04-librairie-thermal.json",
+      "id": "fr-04-librairie-thermal",
+      "locale": "fr",
+      "currency": "HTG",
+      "kind": "thermal_stationery",
+      "readability": "readable",
+      "merchant": "LIBRAIRIE LA PLUME",
+      "date": "22/08/2026",
+      "items": [
+        "Cahier",
+        "Stylo",
+        "Enveloppes"
+      ],
+      "total": "895.00",
+      "anchor": "TOTAL A PAYER",
+      "ground_truth": {
+        "merchant": "LIBRAIRIE LA PLUME",
+        "date_iso": "2026-08-22",
+        "amount_centimes": 89500,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/fr-05-laverie-lowlight.png",
+      "label_file": "labels/fr-05-laverie-lowlight.json",
+      "id": "fr-05-laverie-lowlight",
+      "locale": "fr",
+      "currency": "HTG",
+      "kind": "low_light_thermal",
+      "readability": "readable",
+      "merchant": "LAVERIE PROPRETE",
+      "date": "25/08/2026",
+      "items": [
+        "Lavage et sechage"
+      ],
+      "total": "1800",
+      "anchor": "SOMME",
+      "ground_truth": {
+        "merchant": "LAVERIE PROPRETE",
+        "date_iso": "2026-08-25",
+        "amount_centimes": 180000,
+        "currency_displayed": "HTG",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/us-01-grocery-thermal.png",
+      "label_file": "labels/us-01-grocery-thermal.json",
+      "id": "us-01-grocery-thermal",
+      "locale": "en-US",
+      "currency": "USD",
+      "kind": "thermal_grocery",
+      "readability": "readable",
+      "merchant": "SUNRISE GROCER",
+      "date": "08/18/2026",
+      "items": [
+        "Milk",
+        "Eggs",
+        "Rice"
+      ],
+      "total": "24.67",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "SUNRISE GROCER",
+        "date_iso": "2026-08-18",
+        "amount_centimes": 2467,
+        "currency_displayed": "USD",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/us-02-fuel-thermal.png",
+      "label_file": "labels/us-02-fuel-thermal.json",
+      "id": "us-02-fuel-thermal",
+      "locale": "en-US",
+      "currency": "USD",
+      "kind": "thermal_fuel",
+      "readability": "readable",
+      "merchant": "MILESTONE FUEL",
+      "date": "08/19/2026",
+      "items": [
+        "Regular 8.120 gal"
+      ],
+      "total": "29.45",
+      "anchor": "AMOUNT DUE",
+      "ground_truth": {
+        "merchant": "MILESTONE FUEL",
+        "date_iso": "2026-08-19",
+        "amount_centimes": 2945,
+        "currency_displayed": "USD",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/us-03-cafe-handwritten.png",
+      "label_file": "labels/us-03-cafe-handwritten.json",
+      "id": "us-03-cafe-handwritten",
+      "locale": "en-US",
+      "currency": "USD",
+      "kind": "handwritten_cafe",
+      "readability": "readable",
+      "merchant": "LILA CAFE",
+      "date": "08/20/2026",
+      "items": [
+        "Coffee",
+        "Bagel",
+        "Tip"
+      ],
+      "total": "11.50",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "LILA CAFE",
+        "date_iso": "2026-08-20",
+        "amount_centimes": 1150,
+        "currency_displayed": "USD",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/us-04-hardware-printed.png",
+      "label_file": "labels/us-04-hardware-printed.json",
+      "id": "us-04-hardware-printed",
+      "locale": "en-US",
+      "currency": "USD",
+      "kind": "printed_hardware",
+      "readability": "readable",
+      "merchant": "RIVER TOOL SUPPLY",
+      "date": "08/22/2026",
+      "items": [
+        "Brush",
+        "Tape",
+        "Screws"
+      ],
+      "total": "37.18",
+      "anchor": "BALANCE DUE",
+      "ground_truth": {
+        "merchant": "RIVER TOOL SUPPLY",
+        "date_iso": "2026-08-22",
+        "amount_centimes": 3718,
+        "currency_displayed": "USD",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/us-05-crumpled-pharmacy.png",
+      "label_file": "labels/us-05-crumpled-pharmacy.json",
+      "id": "us-05-crumpled-pharmacy",
+      "locale": "en-US",
+      "currency": "USD",
+      "kind": "creased_thermal_pharmacy",
+      "readability": "readable",
+      "merchant": "OAK PHARMACY",
+      "date": "08/24/2026",
+      "items": [
+        "Soap",
+        "Bandages"
+      ],
+      "total": "16.24",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "OAK PHARMACY",
+        "date_iso": "2026-08-24",
+        "amount_centimes": 1624,
+        "currency_displayed": "USD",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/gb-01-market-thermal.png",
+      "label_file": "labels/gb-01-market-thermal.json",
+      "id": "gb-01-market-thermal",
+      "locale": "en-GB",
+      "currency": "GBP",
+      "kind": "thermal_grocery",
+      "readability": "readable",
+      "merchant": "MARKET STREET FOODS",
+      "date": "18/08/2026",
+      "items": [
+        "Tea",
+        "Biscuits",
+        "Apples"
+      ],
+      "total": "£12.64",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "MARKET STREET FOODS",
+        "date_iso": "2026-08-18",
+        "amount_centimes": 1264,
+        "currency_displayed": "GBP",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/gb-02-petrol-thermal.png",
+      "label_file": "labels/gb-02-petrol-thermal.json",
+      "id": "gb-02-petrol-thermal",
+      "locale": "en-GB",
+      "currency": "GBP",
+      "kind": "thermal_fuel",
+      "readability": "readable",
+      "merchant": "NORTHWAY PETROL",
+      "date": "19/08/2026",
+      "items": [
+        "Unleaded 19.3L"
+      ],
+      "total": "£31.24",
+      "anchor": "AMOUNT DUE",
+      "ground_truth": {
+        "merchant": "NORTHWAY PETROL",
+        "date_iso": "2026-08-19",
+        "amount_centimes": 3124,
+        "currency_displayed": "GBP",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/gb-03-cafe-handwritten.png",
+      "label_file": "labels/gb-03-cafe-handwritten.json",
+      "id": "gb-03-cafe-handwritten",
+      "locale": "en-GB",
+      "currency": "GBP",
+      "kind": "handwritten_cafe",
+      "readability": "readable",
+      "merchant": "THE KETTLE ROOM",
+      "date": "21/08/2026",
+      "items": [
+        "Tea",
+        "Scone",
+        "Service"
+      ],
+      "total": "£8.75",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "THE KETTLE ROOM",
+        "date_iso": "2026-08-21",
+        "amount_centimes": 875,
+        "currency_displayed": "GBP",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    },
+    {
+      "file": "images/gb-04-trades-printed.png",
+      "label_file": "labels/gb-04-trades-printed.json",
+      "id": "gb-04-trades-printed",
+      "locale": "en-GB",
+      "currency": "GBP",
+      "kind": "partial_cut_printed",
+      "readability": "readable",
+      "merchant": "BRIDGE BUILDERS LTD",
+      "date": "23/08/2026",
+      "items": [
+        "Timber",
+        "Fixings"
+      ],
+      "total": "£148.20",
+      "anchor": "TOTAL",
+      "ground_truth": {
+        "merchant": "BRIDGE BUILDERS LTD",
+        "date_iso": "2026-08-23",
+        "amount_centimes": 14820,
+        "currency_displayed": "GBP",
+        "human_readable": true,
+        "amount_expected_blank": false
+      }
+    }
+  ]
+}

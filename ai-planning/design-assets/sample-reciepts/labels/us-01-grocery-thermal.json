@@ -1,0 +1,26 @@
+{
+  "file": "images/us-01-grocery-thermal.png",
+  "label_file": "labels/us-01-grocery-thermal.json",
+  "id": "us-01-grocery-thermal",
+  "locale": "en-US",
+  "currency": "USD",
+  "kind": "thermal_grocery",
+  "readability": "readable",
+  "merchant": "SUNRISE GROCER",
+  "date": "08/18/2026",
+  "items": [
+    "Milk",
+    "Eggs",
+    "Rice"
+  ],
+  "total": "24.67",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "SUNRISE GROCER",
+    "date_iso": "2026-08-18",
+    "amount_centimes": 2467,
+    "currency_displayed": "USD",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

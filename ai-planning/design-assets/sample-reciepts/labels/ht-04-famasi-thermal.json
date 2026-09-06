@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-04-famasi-thermal.png",
+  "label_file": "labels/ht-04-famasi-thermal.json",
+  "id": "ht-04-famasi-thermal",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "thermal_pharmacy",
+  "readability": "readable",
+  "merchant": "FAMASI LAVI",
+  "date": "22/08/2026",
+  "items": [
+    "Savon",
+    "Pansman",
+    "Vitamin"
+  ],
+  "total": "960.00",
+  "anchor": "TOTAL POU PEYE",
+  "ground_truth": {
+    "merchant": "FAMASI LAVI",
+    "date_iso": "2026-08-22",
+    "amount_centimes": 96000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

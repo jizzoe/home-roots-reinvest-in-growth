@@ -1,0 +1,24 @@
+{
+  "file": "images/us-02-fuel-thermal.png",
+  "label_file": "labels/us-02-fuel-thermal.json",
+  "id": "us-02-fuel-thermal",
+  "locale": "en-US",
+  "currency": "USD",
+  "kind": "thermal_fuel",
+  "readability": "readable",
+  "merchant": "MILESTONE FUEL",
+  "date": "08/19/2026",
+  "items": [
+    "Regular 8.120 gal"
+  ],
+  "total": "29.45",
+  "anchor": "AMOUNT DUE",
+  "ground_truth": {
+    "merchant": "MILESTONE FUEL",
+    "date_iso": "2026-08-19",
+    "amount_centimes": 2945,
+    "currency_displayed": "USD",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

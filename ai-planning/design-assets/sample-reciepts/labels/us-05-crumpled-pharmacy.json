@@ -1,0 +1,25 @@
+{
+  "file": "images/us-05-crumpled-pharmacy.png",
+  "label_file": "labels/us-05-crumpled-pharmacy.json",
+  "id": "us-05-crumpled-pharmacy",
+  "locale": "en-US",
+  "currency": "USD",
+  "kind": "creased_thermal_pharmacy",
+  "readability": "readable",
+  "merchant": "OAK PHARMACY",
+  "date": "08/24/2026",
+  "items": [
+    "Soap",
+    "Bandages"
+  ],
+  "total": "16.24",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "OAK PHARMACY",
+    "date_iso": "2026-08-24",
+    "amount_centimes": 1624,
+    "currency_displayed": "USD",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

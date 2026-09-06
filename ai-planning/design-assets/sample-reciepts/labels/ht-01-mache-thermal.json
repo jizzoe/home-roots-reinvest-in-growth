@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-01-mache-thermal.png",
+  "label_file": "labels/ht-01-mache-thermal.json",
+  "id": "ht-01-mache-thermal",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "thermal_market",
+  "readability": "readable",
+  "merchant": "MACHE BOIS-VERNA",
+  "date": "18/08/2026",
+  "items": [
+    "Diri 2kg",
+    "Lwil 1L",
+    "Pwa nwa"
+  ],
+  "total": "1450.00",
+  "anchor": "TOTAL POU PEYE",
+  "ground_truth": {
+    "merchant": "MACHE BOIS-VERNA",
+    "date_iso": "2026-08-18",
+    "amount_centimes": 145000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

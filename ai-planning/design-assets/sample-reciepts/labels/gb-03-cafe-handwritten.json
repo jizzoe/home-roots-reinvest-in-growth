@@ -1,0 +1,26 @@
+{
+  "file": "images/gb-03-cafe-handwritten.png",
+  "label_file": "labels/gb-03-cafe-handwritten.json",
+  "id": "gb-03-cafe-handwritten",
+  "locale": "en-GB",
+  "currency": "GBP",
+  "kind": "handwritten_cafe",
+  "readability": "readable",
+  "merchant": "THE KETTLE ROOM",
+  "date": "21/08/2026",
+  "items": [
+    "Tea",
+    "Scone",
+    "Service"
+  ],
+  "total": "£8.75",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "THE KETTLE ROOM",
+    "date_iso": "2026-08-21",
+    "amount_centimes": 875,
+    "currency_displayed": "GBP",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

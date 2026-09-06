@@ -1,0 +1,25 @@
+{
+  "file": "images/ht-08-materyo-printed.png",
+  "label_file": "labels/ht-08-materyo-printed.json",
+  "id": "ht-08-materyo-printed",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "printed_hardware",
+  "readability": "readable",
+  "merchant": "KOMES WÒCH",
+  "date": "24/08/2026",
+  "items": [
+    "Klou 2 lb",
+    "Penti blan"
+  ],
+  "total": "3265.75",
+  "anchor": "TOTAL",
+  "ground_truth": {
+    "merchant": "KOMES WÒCH",
+    "date_iso": "2026-08-24",
+    "amount_centimes": 326575,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

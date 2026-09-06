@@ -1,0 +1,26 @@
+{
+  "file": "images/ht-14-pwason-lowlight.png",
+  "label_file": "labels/ht-14-pwason-lowlight.json",
+  "id": "ht-14-pwason-lowlight",
+  "locale": "ht",
+  "currency": "HTG",
+  "kind": "low_light_handwritten",
+  "readability": "readable",
+  "merchant": "PWASON FRE SÈL",
+  "date": "28/08/2026",
+  "items": [
+    "Pwason",
+    "Sitwon",
+    "Sèl"
+  ],
+  "total": "1875.00",
+  "anchor": "MONTAN",
+  "ground_truth": {
+    "merchant": "PWASON FRE SÈL",
+    "date_iso": "2026-08-28",
+    "amount_centimes": 187500,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

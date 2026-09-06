@@ -1,0 +1,26 @@
+{
+  "file": "images/fr-01-epicerie-thermal.png",
+  "label_file": "labels/fr-01-epicerie-thermal.json",
+  "id": "fr-01-epicerie-thermal",
+  "locale": "fr",
+  "currency": "HTG",
+  "kind": "thermal_grocery",
+  "readability": "readable",
+  "merchant": "EPICERIE BELLE VUE",
+  "date": "18/08/2026",
+  "items": [
+    "Riz",
+    "Huile",
+    "Haricots"
+  ],
+  "total": "1750,00",
+  "anchor": "MONTANT TOTAL",
+  "ground_truth": {
+    "merchant": "EPICERIE BELLE VUE",
+    "date_iso": "2026-08-18",
+    "amount_centimes": 175000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

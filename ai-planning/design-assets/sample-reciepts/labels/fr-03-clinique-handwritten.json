@@ -1,0 +1,24 @@
+{
+  "file": "images/fr-03-clinique-handwritten.png",
+  "label_file": "labels/fr-03-clinique-handwritten.json",
+  "id": "fr-03-clinique-handwritten",
+  "locale": "fr",
+  "currency": "HTG",
+  "kind": "handwritten_clinic",
+  "readability": "readable",
+  "merchant": "CLINIQUE ESPERANCE",
+  "date": "21/08/2026",
+  "items": [
+    "Consultation"
+  ],
+  "total": "2500",
+  "anchor": "MONTANT",
+  "ground_truth": {
+    "merchant": "CLINIQUE ESPERANCE",
+    "date_iso": "2026-08-21",
+    "amount_centimes": 250000,
+    "currency_displayed": "HTG",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}

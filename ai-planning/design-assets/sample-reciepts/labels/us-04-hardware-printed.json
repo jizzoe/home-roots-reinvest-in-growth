@@ -1,0 +1,26 @@
+{
+  "file": "images/us-04-hardware-printed.png",
+  "label_file": "labels/us-04-hardware-printed.json",
+  "id": "us-04-hardware-printed",
+  "locale": "en-US",
+  "currency": "USD",
+  "kind": "printed_hardware",
+  "readability": "readable",
+  "merchant": "RIVER TOOL SUPPLY",
+  "date": "08/22/2026",
+  "items": [
+    "Brush",
+    "Tape",
+    "Screws"
+  ],
+  "total": "37.18",
+  "anchor": "BALANCE DUE",
+  "ground_truth": {
+    "merchant": "RIVER TOOL SUPPLY",
+    "date_iso": "2026-08-22",
+    "amount_centimes": 3718,
+    "currency_displayed": "USD",
+    "human_readable": true,
+    "amount_expected_blank": false
+  }
+}
